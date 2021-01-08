@@ -208,8 +208,8 @@ namespace CTRLapp.Views
 
                 Debug.WriteLine("sending mqtt message");
                 string result0 = await MQTT.SendMQTT(obj.Arguments[2], coordinates.X.ToString());
-                string result1 = await MQTT.SendMQTT(obj.Arguments[3], coordinates.Y.ToString());
                 Check_Error(result0, master_menu, bottom_menu, obj_index);
+                string result1 = await MQTT.SendMQTT(obj.Arguments[3], coordinates.Y.ToString());
                 Check_Error(result1, master_menu, bottom_menu, obj_index);
             };
             grid.Children.Add(canvas);
