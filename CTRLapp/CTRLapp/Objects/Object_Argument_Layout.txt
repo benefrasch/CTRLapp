@@ -1,0 +1,37 @@
+Button{
+	text color
+	background color
+	Text
+	MQTT topic
+	MQTT message
+}
+
+Switch{
+	thumb color
+	on color
+	MQTT topic
+	low value
+	high value
+}
+
+Slider{
+	thumb color
+	minimum color
+	maximum color
+	MQTT topic
+	minumum value
+	maximum value
+}
+
+Joystick{
+	thumb color
+	circle color
+	MQTT topic x
+	MQTT topic y
+	minimum x
+	maximum x
+	scaling x		(sensitivity, lower is slower)
+	minimum y
+	maximum y
+	scaling y		(sensitivity, lower is slower)
+}

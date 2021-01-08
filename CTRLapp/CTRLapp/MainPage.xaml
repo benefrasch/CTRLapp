@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             mc:Ignorable="d" 
+             x:Class="CTRLapp.Views.MainPage"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid x:Name="grid">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="80" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <AbsoluteLayout x:Name="Main_Layout" Grid.Column="1" />
+
+            <Grid Grid.RowSpan="2" x:Name="second_grid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <ImageButton x:Name="Settings_button" Source="settings_icon"  Grid.Row="0" Pressed="Settings_button_Pressed" CornerRadius="10" BackgroundColor="Transparent"/>
+
+                <ListView Grid.Row="1" x:Name="Master_List" RowHeight="100" ItemSelected="Master_List_ItemSelected" SeparatorVisibility="None" BackgroundColor="LightGray">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="10" />
+                                        <RowDefinition Height="60" />
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="10" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding Icon_path}" Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                    <Label Text="{Binding Name}" Grid.Row="2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+
+            <RelativeLayout Grid.Row="1" Grid.Column="1" HeightRequest="80">
+                <ListView x:Name="Bottom_List" RowHeight="100" ItemSelected="Bottom_List_ItemSelected" Rotation="270" SeparatorVisibility="None" BackgroundColor="LightGray" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-40}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.5, Constant=40}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=Constant, Constant=80}" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="10" />
+                                        <RowDefinition Height="80" />
+                                        <RowDefinition Height="10" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Row="1" Rotation="90">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="60" />
+                                            <RowDefinition Height="20" />
+                                        </Grid.RowDefinitions>
+                                        <Image Source="{Binding Icon_path}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                        <Label Text="{Binding Name}" Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                    </Grid>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </RelativeLayout>
+            
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

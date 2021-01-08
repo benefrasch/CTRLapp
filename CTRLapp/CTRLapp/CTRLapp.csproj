@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <LangVersion>8.0</LangVersion>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ColorPicker.Xamarin.Forms" Version="1.3.4.11" />
+    <PackageReference Include="MagicGradients" Version="1.1.1" />
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.11" />
+    <PackageReference Include="MQTTnet" Version="3.0.13" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="TouchTracking" Version="1.2.0" />
+    <PackageReference Include="TouchTracking.Forms" Version="1.1.0" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Settings_pages\Devices\devices.xaml.cs">
+      <DependentUpon>Devices.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings_pages\GUI\gui_page.xaml.cs">
+      <DependentUpon>gui_page.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Settings_pages\Devices\Devices.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Settings_pages\General\general.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Settings_pages\GUI\gui_page.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Settings_pages\GUI\gui.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Settings_pages\GUI\Object_page.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Settings_pages\settings_page.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

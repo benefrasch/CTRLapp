@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="CTRLapp.Views.Settings_pages.GUI.Object_page" >
+    <ContentPage.Content>
+        <Grid x:Name="entry_grid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- left column-->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0" Orientation="Horizontal" BackgroundColor="LightGray">
+                    <Label Text="X: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
+                    <Entry x:Name="Entry_X" Placeholder="Enter X position here" Keyboard="Numeric" Text="{Binding X}" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+                <StackLayout Grid.Row="1" Orientation="Horizontal" BackgroundColor="LightGray">
+                    <Label Text="Y: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
+                    <Entry x:Name="Entry_Y" Placeholder="Enter Y position here" Keyboard="Numeric" Text="{Binding Y}" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+
+                <StackLayout Grid.Row="3" Orientation="Horizontal" BackgroundColor="LightGray">
+                    <Label Text="Width: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
+                    <Entry x:Name="Entry_Width" Placeholder="Enter Width here" Keyboard="Numeric" Text="{Binding Width}" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+                <StackLayout Grid.Row="4" Orientation="Horizontal" BackgroundColor="LightGray">
+                    <Label Text="Height: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
+                    <Entry x:Name="Entry_Height" Placeholder="Enter Height here" Keyboard="Numeric" Text="{Binding Height}" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+
+                <StackLayout Grid.Row="6" Orientation="Horizontal" BackgroundColor="LightGray">
+                    <Label Text="Rotation: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
+                    <Entry x:Name="Entry_Rotation" Placeholder="Enter Height here" Keyboard="Numeric" Text="{Binding Path=Rotation, Mode=TwoWay}" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+
+                <Button Grid.Row="8" Text="Delete" BackgroundColor="DarkRed" Pressed="Delete_Button_Pressed"/>
+            </Grid>
+            <!-- middle column-->
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="160" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="160" />
+                </Grid.RowDefinitions>
+                <!--<StackLayout Grid.Row="0" Orientation="Horizontal" BackgroundColor="LightGray">
+                    <Label Text="Topic: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
+                    <Entry x:Name="Entry_Topic" Placeholder="e.g. /Main/Lamps/12" Text="{Binding Mqtt_topic}" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+
+                <StackLayout Grid.Row="2" Orientation="Horizontal" BackgroundColor="LightGray">
+                    <Label Text="Text: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
+                    <Entry x:Name="Entry_Text" Placeholder="Enter Text here" Text="{Binding Text}" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+
+                <Label Text="Primary Color" TextTransform="None" Grid.Row="4" />
+                <colorpicker:HSLSliders x:Name="Primary_color_picker" Grid.Row="5" HorizontalOptions="FillAndExpand"  />
+
+                <Label Text="Secondary Color" TextTransform="None" Grid.Row="7" />
+                <colorpicker:HSLSliders x:Name="Secondary_color_picker" Grid.Row="8" HorizontalOptions="FillAndExpand" />-->
+
+            </Grid>
+            <!-- right column-->
+            <Grid Grid.Column="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+
+                
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
