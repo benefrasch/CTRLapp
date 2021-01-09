@@ -15,6 +15,7 @@ namespace CTRLapp.Views.Settings_pages.GUI
     {
         private int master_menu, bottom_menu, obj_index;
         private Objects.Object obj;
+
         private bool deleted = false;
 
         public Object_page(int master_menu, int bottom_menu, int obj_index)
@@ -26,8 +27,12 @@ namespace CTRLapp.Views.Settings_pages.GUI
         protected override void OnAppearing()
         {
             obj = Json_string.Array[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index];
+            grid.BindingContext = obj;
 
-            entry_grid.BindingContext = obj;
+            View view = Object_view.View(master_menu, bottom_menu, obj_index);
+            view.TranslateTo(0, 0);
+            object_grid.Children.Add(view, 1, 1);
+
             //if (obj.Arguments[] != null) Primary_color_picker.SelectedColor = Color.FromHex(obj.Color_primary);
             //if (obj.Color_secondary != null) Secondary_color_picker.SelectedColor = Color.FromHex(obj.Color_secondary);
 

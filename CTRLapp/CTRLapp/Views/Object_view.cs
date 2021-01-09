@@ -3,6 +3,7 @@ using CTRLapp.Views.Settings_pages;
 using CTRLapp.Views.Settings_pages.GUI;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
@@ -120,7 +121,6 @@ namespace CTRLapp.Views
         }
         private static void Build_Joystick(Frame frame, Objects.Object obj, int master_menu, int bottom_menu, int obj_index)
         {
-            Grid grid = new Grid();
             var touchEffect = new TouchTracking.Forms.TouchEffect() { Capture = true };
             SKCanvasView canvas = new SKCanvasView
             {
@@ -155,11 +155,10 @@ namespace CTRLapp.Views
                     Style = SKPaintStyle.Fill,
                     Color = Color.FromHex(obj.Arguments[0]).ToSKColor(),
                 };
-                surface.DrawCircle((float)touch.X, (float)touch.Y, 50, thumb_paint);
+                surface.DrawCircle((float)touch.X, (float)touch.Y, radius / 3, thumb_paint);
             };
             touchEffect.TouchAction += (s, e) =>
             {
-                Debug.WriteLine("touchaction" + e.Type);
                 switch (e.Type)
                 {
                     case TouchTracking.TouchActionType.Pressed:
@@ -174,6 +173,11 @@ namespace CTRLapp.Views
                         if (!pressed) break;
                         touch = new SKPoint((float)(canvas.CanvasSize.Width * e.Location.X / canvas.Width),
                                             (float)(canvas.CanvasSize.Height * e.Location.Y / canvas.Height));
+                        if (touch.X < canvas.CanvasSize.Width / 6) touch.X = canvas.CanvasSize.Width / 6;   // so that the circle doesnt go further than the edge of the canvas
+                        if (touch.X > canvas.CanvasSize.Width / 6 * 5) touch.X = canvas.CanvasSize.Width / 6 * 5;
+                        if (touch.Y < canvas.CanvasSize.Width / 6) touch.Y = canvas.CanvasSize.Width / 6;
+                        if (touch.Y > canvas.CanvasSize.Width / 6 * 5) touch.Y = canvas.CanvasSize.Width / 6 * 5;
+
                         canvas.InvalidateSurface();
                         break;
                     case TouchTracking.TouchActionType.Released:
@@ -185,41 +189,34 @@ namespace CTRLapp.Views
                         break;
                 }
             };
-            canvas.SizeChanged += (s, e) =>
-            {
-                touch.X = canvas.CanvasSize.Width / 2;
-                touch.Y = canvas.CanvasSize.Height / 2;
-                canvas.InvalidateSurface();
-                Debug.WriteLine("binding context changed");
-            };
             timer.Elapsed += async (s, e) =>
             {
                 coordinates.X += (touch.X - canvassize.Width / 2) * float.Parse(obj.Arguments[6]) * 0.1;
                 coordinates.Y += (touch.Y - canvassize.Height / 2) * float.Parse(obj.Arguments[9]) * 0.1;
 
-                int maximumx = int.Parse(obj.Arguments[5]),
-                    minimumx = int.Parse(obj.Arguments[4]),
-                    maximumy = int.Parse(obj.Arguments[8]),
-                    minimumy = int.Parse(obj.Arguments[7]);
-                if (coordinates.X > maximumx) coordinates.X = maximumx;
+                int minimumx = int.Parse(obj.Arguments[4]),
+                    maximumx = int.Parse(obj.Arguments[5]),
+                    minimumy = int.Parse(obj.Arguments[7]),
+                    maximumy = int.Parse(obj.Arguments[8]);
                 if (coordinates.X < minimumx) coordinates.X = minimumx;
-                if (coordinates.Y > maximumy) coordinates.Y = maximumy;
+                if (coordinates.X > maximumx) coordinates.X = maximumx;
                 if (coordinates.Y < minimumy) coordinates.Y = minimumy;
+                if (coordinates.Y > maximumy) coordinates.Y = maximumy;
 
                 Debug.WriteLine("sending mqtt message");
                 string result0 = await MQTT.SendMQTT(obj.Arguments[2], coordinates.X.ToString());
-                Check_Error(result0, master_menu, bottom_menu, obj_index);
                 string result1 = await MQTT.SendMQTT(obj.Arguments[3], coordinates.Y.ToString());
-                Check_Error(result1, master_menu, bottom_menu, obj_index);
+                Check_Error(result0, master_menu, bottom_menu, obj_index);
+                //Check_Error(result1, master_menu, bottom_menu, obj_index);
             };
-            grid.Children.Add(canvas);
-            grid.Effects.Add(touchEffect);
-            frame.Content = grid;
+            canvas.Effects.Add(touchEffect);
+            frame.Content = canvas;
         }
 
 
         private static async void Check_Error(string result, int master_menu, int bottom_menu, int obj_index)
         {
+            return; // not errorcheck not working properly right now
             if (result == "connection_failed")
             {
                 if (!Variables.Variables.Alert_active)
@@ -239,6 +236,7 @@ namespace CTRLapp.Views
                     await App.Current.MainPage.Navigation.PushModalAsync(new Object_page(master_menu, bottom_menu, obj_index));
                     Variables.Variables.Alert_active = false;
                 }
+
             }
         }
     };

@@ -27,6 +27,7 @@ namespace CTRLapp.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            MQTT.DisconnectMQTT();
 
             master_menu = 0; bottom_menu = 0; //reset both menus to 0
             if (Json_string.Array != null) Master_List.ItemsSource = Json_string.Array;

@@ -16,6 +16,7 @@ namespace CTRLapp
         public static void DisconnectMQTT()
         {
             if (mqttClient != null) mqttClient.DisconnectAsync();
+            mqttClient = null;
         }
         public static async Task<int> ConnectMQTT()
         {

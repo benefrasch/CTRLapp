@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="CTRLapp.Views.Settings_pages.GUI.Object_page" >
     <ContentPage.Content>
-        <Grid x:Name="entry_grid">
+        <Grid x:Name="grid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="10" />
@@ -79,13 +79,16 @@
 
             </Grid>
             <!-- right column-->
-            <Grid Grid.Column="4">
+            <Grid Grid.Column="4" x:Name="object_grid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="{Binding Width}"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40" />
-                    <RowDefinition Height="10" />
-                    <RowDefinition Height="40" />
-                    <RowDefinition Height="40" />
-                    <RowDefinition Height="40" />
+                    <RowDefinition />
+                    <RowDefinition Height="{Binding Height}"/>
+                    <RowDefinition />
                 </Grid.RowDefinitions>
 
                 
