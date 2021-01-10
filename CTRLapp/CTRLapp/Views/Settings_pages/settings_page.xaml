@@ -8,7 +8,9 @@
             x:Class="CTRLapp.Views.Settings_pages.Settings_page"
             BarBackgroundColor="LightGray"
             BarTextColor="Black"
-            NavigationPage.HasNavigationBar="False">
+            NavigationPage.HasNavigationBar="False"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.IsSwipePagingEnabled="False">
 
     <local:Back_Button Title="Back  "/>
     <local:General Title="   GENERAL   "/>

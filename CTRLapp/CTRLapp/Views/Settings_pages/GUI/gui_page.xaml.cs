@@ -4,8 +4,7 @@ using CTRLapp.Views.Settings_pages.GUI;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-
-
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -165,6 +164,7 @@ namespace CTRLapp.Views.Settings_pages
         }
         private void Load_Object(int index)
         {
+
             //visible controls but deactivated
             var obj = object_list[index];
             var grid = Object_view.View(master_menu, bottom_menu, index);
@@ -191,6 +191,7 @@ namespace CTRLapp.Views.Settings_pages
             invisible_grid.GestureRecognizers.Add(tapGestureRecognizer);
             // add pan gesture
             var panGestureRecognizer = new PanGestureRecognizer();
+            Point first_translation = new Point();
             panGestureRecognizer.PanUpdated += (s, e) =>
             {
                 current_index = index;
@@ -198,18 +199,28 @@ namespace CTRLapp.Views.Settings_pages
                 {
                     case GestureStatus.Started:
                         invisible_grid.Rotation = 0;
+                        if (Device.RuntimePlatform == Device.UWP)
+                        {
+                            //Windows is a bitch and doesnt recognize a pan outside the View, 
+                            //so I have to make the inv-grid the entire screen
+                            Debug.WriteLine("it ist a windows !!!!!"); 
+                            first_translation.X = invisible_grid.TranslationX;
+                            first_translation.Y = invisible_grid.TranslationY;
+                            invisible_grid.HeightRequest = Main_Layout.Height;
+                            invisible_grid.WidthRequest = Main_Layout.Width;
+                            invisible_grid.TranslateTo(0, 0, 1);
+                        }
                         break;
                     case GestureStatus.Running:
-                        // if (!(e.TotalX + invisible_grid.TranslationX + grid.Width > Content.WidthRequest) && !(e.TotalY + invisible_grid.TranslationY + grid.Height > Content.WidthRequest))
-                        {
-                            grid.TranslateTo(e.TotalX + invisible_grid.TranslationX, e.TotalY + invisible_grid.TranslationY, 20);
-                        }
+                        grid.TranslateTo(e.TotalX + invisible_grid.TranslationX + first_translation.X, e.TotalY + invisible_grid.TranslationY + first_translation.Y, 20);
                         break;
                     case GestureStatus.Completed:
                         invisible_grid.Rotation = obj.Rotation;
                         invisible_grid.TranslateTo(grid.TranslationX, grid.TranslationY, 1);
                         object_list[index].X = (int)grid.TranslationX;
                         object_list[index].Y = (int)grid.TranslationY;
+                        invisible_grid.HeightRequest = obj.Height;
+                        invisible_grid.WidthRequest = obj.Width;
                         break;
                 }
             };
