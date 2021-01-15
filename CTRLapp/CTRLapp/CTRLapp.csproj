@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>7.3</LangVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="ColorPicker.Xamarin.Forms" Version="1.3.4.11" />
-    <PackageReference Include="MagicGradients" Version="1.1.1" />
+    <PackageReference Include="MagicGradients" Version="1.2.0" />
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.11" />
     <PackageReference Include="MQTTnet" Version="3.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
