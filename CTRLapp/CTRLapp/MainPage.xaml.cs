@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,10 +17,6 @@ namespace CTRLapp.Views
     public partial class MainPage : ContentPage
     {
         int master_menu, bottom_menu;
-        //private static List<Master_Menu_Item> Config
-        //{
-        //    get { return JsonConvert.DeserializeObject<List<Master_Menu_Item>>(Json_string.Config); }
-        //}
 
         public MainPage()
         {
@@ -34,7 +32,14 @@ namespace CTRLapp.Views
             if (Json_string.Array != null && Json_string.Array[master_menu].Bottom_Menu_Items != null) Bottom_List.ItemsSource = Json_string.Array[master_menu].Bottom_Menu_Items;
             Load_Objects();
             Debug.WriteLine(Json_string.Config);
+            //Fuckingbullshit();
         }
+        //private async void Fuckingbullshit()
+        //{
+        //    await Task.Delay(5000);
+        //    LoadedEvent.Invoke();
+        //}
+
 
         private void Master_List_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -66,6 +71,7 @@ namespace CTRLapp.Views
             }
         }
 
+        public static event Action LoadedEvent;
 
         private async void Settings_button_Pressed(object sender, EventArgs e)
         {

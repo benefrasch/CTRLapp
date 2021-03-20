@@ -28,6 +28,7 @@ namespace CTRLapp.Views
                 Rotation = obj.Rotation,
                 BorderColor = Color.Transparent,
                 BackgroundColor = Color.Transparent,
+                HasShadow = false
             };
 
             switch (obj.Type)
@@ -121,6 +122,7 @@ namespace CTRLapp.Views
         }
         private static void Build_Joystick(Frame frame, Objects.Object obj, int master_menu, int bottom_menu, int obj_index)
         {
+            frame.BorderColor = Color.LightGray;
             var touchEffect = new TouchTracking.Forms.TouchEffect() { Capture = true };
             SKCanvasView canvas = new SKCanvasView
             {
@@ -156,6 +158,7 @@ namespace CTRLapp.Views
                     Color = Color.FromHex(obj.Arguments[0]).ToSKColor(),
                 };
                 surface.DrawCircle((float)touch.X, (float)touch.Y, radius / 3, thumb_paint);
+                Debug.WriteLine("drawing on canvas surface");
             };
             touchEffect.TouchAction += (s, e) =>
             {
@@ -181,8 +184,8 @@ namespace CTRLapp.Views
                         canvas.InvalidateSurface();
                         break;
                     case TouchTracking.TouchActionType.Released:
-                        touch.X = canvas.CanvasSize.Width / 2;
-                        touch.Y = canvas.CanvasSize.Height / 2;
+                        touch = new SKPoint((float)(canvas.CanvasSize.Width / 2),
+                                            (float)(canvas.CanvasSize.Height / 2));
                         canvas.InvalidateSurface();
                         pressed = false;
                         timer.Stop();
@@ -209,6 +212,13 @@ namespace CTRLapp.Views
                 Check_Error(result0, master_menu, bottom_menu, obj_index);
                 //Check_Error(result1, master_menu, bottom_menu, obj_index);
             };
+            //MainPage.LoadedEvent += () =>
+            //{
+            //    Debug.WriteLine("received LoadedEvent by Joystick with Index " + obj_index + " and Size " + canvas.CanvasSize);
+            //    touch = new SKPoint((float)(canvas.CanvasSize.Width / 2),
+            //                        (float)(canvas.CanvasSize.Height / 2));
+            //    canvas.InvalidateSurface();
+            //};
             canvas.Effects.Add(touchEffect);
             frame.Content = canvas;
         }
