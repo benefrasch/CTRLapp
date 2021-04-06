@@ -100,7 +100,7 @@ namespace CTRLapp.Views.Settings_pages
                 Width = 200,
                 Height = 40,
                 Type = "Slider",
-                Rotation = 270,
+                Rotation = 0,
             };
             temp.Arguments = new string[6];
             temp.Arguments[0] = Color.Gray.ToHex();

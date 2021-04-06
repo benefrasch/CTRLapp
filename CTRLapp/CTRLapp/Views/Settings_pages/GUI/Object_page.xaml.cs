@@ -33,11 +33,20 @@ namespace CTRLapp.Views.Settings_pages.GUI
             view.TranslateTo(0, 0);
             object_grid.Children.Add(view, 1, 1);
 
+            edit_stack.BindingContextChanged += (s, e) => 
+            {
+                Debug.WriteLine("test");
+            };
+
             //if (obj.Arguments[] != null) Primary_color_picker.SelectedColor = Color.FromHex(obj.Color_primary);
             //if (obj.Color_secondary != null) Secondary_color_picker.SelectedColor = Color.FromHex(obj.Color_secondary);
 
             base.OnAppearing();
         }
+
+
+
+
         protected override void OnDisappearing()
         {
             var temp = Json_string.Array;
@@ -55,7 +64,6 @@ namespace CTRLapp.Views.Settings_pages.GUI
             Json_string.Array = temp;
             base.OnDisappearing();
         }
-
 
         private void Delete_Button_Pressed(object sender, EventArgs e)
         {
