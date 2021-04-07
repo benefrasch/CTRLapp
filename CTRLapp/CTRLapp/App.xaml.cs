@@ -1,5 +1,10 @@
-﻿using CTRLapp.Views;
+﻿using CTRLapp.Objects;
+using CTRLapp.Views;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using Xamarin.Forms;
 
 namespace CTRLapp
@@ -16,17 +21,18 @@ namespace CTRLapp
 
         protected override void OnStart()
         {
-            Debug.WriteLine("start");
+            String Config = "";
+            if (File.Exists(Variables.Variables.configLocation))
+                Config = File.ReadAllText(Variables.Variables.configLocation);
+            Variables.Variables.Layout = JsonConvert.DeserializeObject<List<Master_Menu_Item>>(Config);
         }
 
         protected override void OnSleep()
         {
-            Debug.WriteLine("sleep");
         }
 
         protected override void OnResume()
         {
-            Debug.WriteLine("resume");
         }
 
 

@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using Newtonsoft.Json;
+using System.Diagnostics;
+using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,6 +13,11 @@ namespace CTRLapp.Views.Settings_pages
         {
             InitializeComponent();
             CurrentPage = Children[1];
+        }
+
+        protected override void OnDisappearing()
+        {
+            File.WriteAllText(Variables.Variables.configLocation, JsonConvert.SerializeObject(Variables.Variables.Layout));
         }
 
     }
