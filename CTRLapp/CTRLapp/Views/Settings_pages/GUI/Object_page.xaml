@@ -45,18 +45,8 @@
             </StackLayout>
 
             <!-- object preview -->
-            <Grid Grid.Column="2" x:Name="object_grid">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition/>
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition  />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-            </Grid>
+            <!--<StackLayout Grid.Column="2" x:Name="object_grid" VerticalOptions="Fill" HorizontalOptions="Fill" >
+            </StackLayout>-->
 
         </Grid>
 

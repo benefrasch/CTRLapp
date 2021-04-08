@@ -27,10 +27,7 @@ namespace CTRLapp.Views.Settings_pages.GUI
         {
             grid.BindingContext = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index];
 
-            //preview in middle of right side
-            View view = Object_view.View(master_menu, bottom_menu, obj_index);
-            view.TranslateTo(0, 0, 60);
-            object_grid.Children.Add(view, 1, 1);
+            UpdatePreview();
 
 
             base.OnAppearing();
@@ -47,12 +44,15 @@ namespace CTRLapp.Views.Settings_pages.GUI
         }
 
 
-        private void UpdatePreview(object sender, TextChangedEventArgs e)
+        private View view;
+        private void UpdatePreview(object sender = null, TextChangedEventArgs e = null) //preview in middle of right side
         {
-            object_grid.Children.Clear();
-            View view = Object_view.View(master_menu, bottom_menu, obj_index);
-            view.TranslateTo(0, 0);
-            object_grid.Children.Add(view, 1, 1);
+            if (view != null) grid.Children.Remove(view);
+            view = Object_view.View(master_menu, bottom_menu, obj_index);
+            view.TranslateTo(0, 0, 1);
+            grid.Children.Add(view, 2, 0);
+            view.HorizontalOptions = LayoutOptions.Center;
+            view.VerticalOptions = LayoutOptions.Center;
         }
 
         private void Delete_Button_Pressed(object sender, EventArgs e)
