@@ -18,6 +18,8 @@ namespace CTRLapp.Views.Settings_pages
         protected override void OnDisappearing()
         {
             File.WriteAllText(Variables.Variables.configLocation, JsonConvert.SerializeObject(Variables.Variables.Layout));
+
+            MQTT.DisconnectMQTT();
         }
 
     }

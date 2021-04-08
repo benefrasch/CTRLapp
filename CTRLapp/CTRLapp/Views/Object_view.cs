@@ -15,9 +15,8 @@ namespace CTRLapp.Views
     {
         public static View View(int master_menu, int bottom_menu, int obj_index)
         {
-            //Objects.Object obj = JsonConvert.DeserializeObject<List<Master_Menu_Item>>(Json_string.Config)[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index];
-            Objects.Object obj = Json_string.Array[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index];
-
+            Objects.Object obj = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index];
+            Debug.WriteLine(obj);
             var frame = new Frame
             {
                 HeightRequest = obj.Height,

@@ -14,7 +14,6 @@ namespace CTRLapp.Views.Settings_pages
     public partial class Gui_page : ContentPage
     {
         private int master_menu, bottom_menu, current_index;
-        private List<Objects.Object> object_list;
 
         public Gui_page(int master_menu, int bottom_menu)
         {
@@ -22,20 +21,14 @@ namespace CTRLapp.Views.Settings_pages
 
             this.master_menu = master_menu;
             this.bottom_menu = bottom_menu;
-
         }
         protected override void OnAppearing()
         {
-            object_list = Json_string.Array[master_menu].Bottom_Menu_Items[bottom_menu].Objects;
-            if (object_list == null) object_list = new List<Objects.Object>();
             Load_Objects();
             base.OnAppearing();
         }
         protected override void OnDisappearing()
         {
-            var temp = Json_string.Array;
-            temp[master_menu].Bottom_Menu_Items[bottom_menu].Objects = object_list;
-            Json_string.Array = temp;
             base.OnDisappearing();
         }
 
@@ -143,21 +136,19 @@ namespace CTRLapp.Views.Settings_pages
         private void Add_Object(Objects.Object temp)
         {
             int index = 0;
-            if (object_list != null) index = object_list.Count;
-            object_list.Add(temp);
-            List<Master_Menu_Item> list = JsonConvert.DeserializeObject<List<Master_Menu_Item>>(Json_string.Config); //saving config to json so Object_view can get it
-            list[master_menu].Bottom_Menu_Items[bottom_menu].Objects = object_list;
-            Json_string.Config = JsonConvert.SerializeObject(list);
+            if (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects != null) index = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects.Count;
+            Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects.Add(temp);
+            Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects;
             Load_Object(index);
         }      //adds the object to the list and to the screen
         //------------------------------------
 
         private void Load_Objects()
         {
-            if (object_list == null) return;
+            if (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects == null) return;
             Main_Layout.Children.Clear();
-            //foreach (Objects.Object o in object_list)
-            for (int index = 0; index < object_list.Count; index++)
+            //foreach (Objects.Object o in Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects)
+            for (int index = 0; index < Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects.Count; index++)
             {
                 Load_Object(index);
             }
@@ -166,7 +157,7 @@ namespace CTRLapp.Views.Settings_pages
         {
 
             //visible controls but deactivated
-            var obj = object_list[index];
+            var obj = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[index];
             var grid = Object_view.View(master_menu, bottom_menu, index);
             grid.IsEnabled = false;
             Main_Layout.Children.Add(grid);
@@ -217,8 +208,8 @@ namespace CTRLapp.Views.Settings_pages
                     case GestureStatus.Completed:
                         invisible_grid.Rotation = obj.Rotation;
                         invisible_grid.TranslateTo(grid.TranslationX, grid.TranslationY, 1);
-                        object_list[index].X = (int)grid.TranslationX;
-                        object_list[index].Y = (int)grid.TranslationY;
+                        Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[index].X = (int)grid.TranslationX;
+                        Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[index].Y = (int)grid.TranslationY;
                         invisible_grid.HeightRequest = obj.Height;
                         invisible_grid.WidthRequest = obj.Width;
                         break;
@@ -233,7 +224,7 @@ namespace CTRLapp.Views.Settings_pages
         async private void Delete_Object(object sender, EventArgs e)
         {
             if (!await App.Current.MainPage.DisplayAlert("Attention", "do you really want to delete this object", "yes", "no")) return;
-            object_list.RemoveAt(current_index);
+            Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects.RemoveAt(current_index);
             Load_Objects();
         }
 

@@ -28,23 +28,16 @@ namespace CTRLapp.Views
             MQTT.DisconnectMQTT();
 
             master_menu = 0; bottom_menu = 0; //reset both menus to 0
-            if (Json_string.Array != null) Master_List.ItemsSource = Json_string.Array;
-            if (Json_string.Array != null && Json_string.Array[master_menu].Bottom_Menu_Items != null) Bottom_List.ItemsSource = Json_string.Array[master_menu].Bottom_Menu_Items;
+
+            if (Variables.Variables.Layout != null) Master_List.ItemsSource = Variables.Variables.Layout;
+            if (Variables.Variables.Layout != null && Variables.Variables.Layout[master_menu].Bottom_Menu_Items != null) Bottom_List.ItemsSource = Variables.Variables.Layout[master_menu].Bottom_Menu_Items;
             Load_Objects();
-            Debug.WriteLine(Json_string.Config);
-            //Fuckingbullshit();
         }
-        //private async void Fuckingbullshit()
-        //{
-        //    await Task.Delay(5000);
-        //    LoadedEvent.Invoke();
-        //}
 
 
         private void Master_List_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             master_menu = e.SelectedItemIndex;
-            Bottom_List.ItemsSource = Json_string.Array[master_menu].Bottom_Menu_Items;
             bottom_menu = 0;
             Load_Objects();
         }
@@ -57,11 +50,8 @@ namespace CTRLapp.Views
         private void Load_Objects()
         {
             Main_Layout.Children.Clear();
-            //List<Master_Menu_Item> config = JsonConvert.DeserializeObject<List<Master_Menu_Item>>(Json_string.Config);
-            List<Master_Menu_Item> config = Json_string.Array;
-
-            if (config == null || config[master_menu].Bottom_Menu_Items == null || config[master_menu].Bottom_Menu_Items[bottom_menu].Objects == null) return;
-            List<Objects.Object> object_list = config[master_menu].Bottom_Menu_Items[bottom_menu].Objects;
+            if (Variables.Variables.Layout == null || Variables.Variables.Layout[master_menu].Bottom_Menu_Items == null || Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects == null) return;
+            List<Objects.Object> object_list = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects;
 
             foreach ((Objects.Object obj, int index) in object_list.Select((v, i) => (v, i)))
             {
@@ -71,7 +61,6 @@ namespace CTRLapp.Views
             }
         }
 
-        public static event Action LoadedEvent;
 
         private async void Settings_button_Pressed(object sender, EventArgs e)
         {

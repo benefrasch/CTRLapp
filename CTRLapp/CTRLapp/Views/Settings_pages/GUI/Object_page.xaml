@@ -8,53 +8,57 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
-            <!-- left column-->
+            <!-- sliders, entrys, ...-->
             <StackLayout Grid.Column="0" x:Name="edit_stack">
+
                 <StackLayout Orientation="Horizontal" BackgroundColor="LightGray" HeightRequest="40">
                     <Label Text="X: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
                     <Entry x:Name="Entry_X" Placeholder="Enter X position here" Keyboard="Numeric" 
-                           Text="{Binding X}" HorizontalOptions="FillAndExpand" />
+                           Text="{Binding X}" HorizontalOptions="FillAndExpand" 
+                           TextChanged="UpdatePreview"/>
                     <Label Text="Y: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
                     <Entry x:Name="Entry_Y" Placeholder="Enter Y position here" Keyboard="Numeric" 
-                           Text="{Binding Y}" HorizontalOptions="FillAndExpand" />
+                           Text="{Binding Y}" HorizontalOptions="FillAndExpand" 
+                           TextChanged="UpdatePreview"/>
                 </StackLayout>
 
                 <StackLayout  Orientation="Horizontal" BackgroundColor="LightGray" HeightRequest="40">
                     <Label Text="Width: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
                     <Entry x:Name="Entry_Width" Placeholder="Enter Width here" Keyboard="Numeric" 
-                           Text="{Binding Width}" HorizontalOptions="FillAndExpand" />
+                           Text="{Binding Width}" HorizontalOptions="FillAndExpand" 
+                           TextChanged="UpdatePreview"/>
                     <Label Text="Height: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
                     <Entry x:Name="Entry_Height" Placeholder="Enter Height here" Keyboard="Numeric" 
-                           Text="{Binding Height}" HorizontalOptions="FillAndExpand" />
+                           Text="{Binding Height}" HorizontalOptions="FillAndExpand" 
+                           TextChanged="UpdatePreview"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal" BackgroundColor="LightGray" HeightRequest="40">
                     <Label Text="Rotation: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
                     <Entry x:Name="Entry_Rotation" Placeholder="Enter Rotation here" Keyboard="Numeric" 
-                           Text="{Binding Path=Rotation}" WidthRequest="80" />
-                    
+                           Text="{Binding Path=Rotation}" WidthRequest="80" 
+                           TextChanged="UpdatePreview"/>
                     <!--<Slider BindingContext="{x:Reference Entry_Rotation}"  x:Name="rotation_slider"
                             Value="{Binding Text}" HorizontalOptions="FillAndExpand" Maximum="360"/>-->
                 </StackLayout>
 
             </StackLayout>
-            <!-- middle column-->
 
-            <!-- right column-->
+            <!-- object preview -->
             <Grid Grid.Column="2" x:Name="object_grid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition Width="{Binding Width}"/>
+                    <ColumnDefinition/>
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition  />
                     <RowDefinition />
-                    <RowDefinition Height="{Binding Height}"/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
-
-
             </Grid>
+
         </Grid>
+
     </ContentPage.Content>
 </ContentPage>

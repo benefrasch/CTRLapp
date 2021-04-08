@@ -40,35 +40,27 @@ namespace CTRLapp
                 mqttClient = null;
                 return 2;
             };
-            /*
-            mqttClient.UseDisconnectedHandler(async e =>
-            {
-                try
-                {
-                    await mqttClient.ReconnectAsync();
-                }
-                catch
-                {
-                    Debug.WriteLine("reconnecting failed");
-                }
-            }); */
             return 0;
         }
 
         public static async Task<string> SendMQTT(string topic, string payload)
         {
+            topic = "test"; //just for testing
+
 
             if (mqttClient == null || !mqttClient.IsConnected)
             {
+                Debug.WriteLine("connecting");
                 int result = await ConnectMQTT();
                 if (result == 2) return "connection_failed";
                 else if (result == 1) return "already_connecting";
+                Debug.WriteLine("result = " + result);
             }
             try
             {
                 var message = new MqttApplicationMessageBuilder()
                     //.WithTopic(topic)
-                    .WithTopic("test")
+                    .WithTopic(topic)
                     .WithPayload(payload)
                     .WithRetainFlag()
                     .Build();
