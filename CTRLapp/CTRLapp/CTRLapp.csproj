@@ -32,6 +32,9 @@
     <Compile Update="Views\Settings_pages\Devices\devices.xaml.cs">
       <DependentUpon>Devices.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Settings_pages\GUI\edit_layouts\Button.xaml.cs">
+      <DependentUpon>Button.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Settings_pages\GUI\gui_page.xaml.cs">
       <DependentUpon>gui_page.xaml</DependentUpon>
     </Compile>
@@ -45,6 +48,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Settings_pages\General\general.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Settings_pages\GUI\edit_layouts\Button.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Settings_pages\GUI\gui_page.xaml">

@@ -57,7 +57,7 @@ namespace CTRLapp.Views
             {
                 Debug.WriteLine(obj);
                 //Layout temp = Build(obj);
-                Main_Layout.Children.Add(Object_view.View(master_menu, bottom_menu, index));
+                Main_Layout.Children.Add(new Object_view(master_menu, bottom_menu, index));
             }
         }
 
