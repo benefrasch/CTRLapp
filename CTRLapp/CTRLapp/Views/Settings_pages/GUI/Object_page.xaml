@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="CTRLapp.Views.Settings_pages.GUI.Object_page" >
+<ContentPage  xmlns="http://xamarin.com/schemas/2014/forms" 
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+              x:Class="CTRLapp.Views.Settings_pages.GUI.Object_page"
+              xmlns:local="clr-namespace:CTRLapp" >
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:FloatToIntConverter x:Key="FloatToInt" />
+            <local:IntToFloatConverter x:Key="IntToFloat"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid x:Name="grid">
             <Grid.ColumnDefinitions>
@@ -9,46 +19,50 @@
             </Grid.ColumnDefinitions>
 
             <!-- sliders, entrys, ...-->
-            <StackLayout Grid.Column="0" x:Name="edit_stack">
+            <ScrollView>
+                <StackLayout Grid.Column="0" x:Name="edit_stack">
 
-                <StackLayout Orientation="Horizontal" BackgroundColor="LightGray" HeightRequest="40">
-                    <Label Text="X: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
-                    <Entry x:Name="Entry_X" Placeholder="Enter X position here" Keyboard="Numeric" 
+                    <StackLayout Orientation="Horizontal" BackgroundColor="LightGray" HeightRequest="40">
+                        <Label Text="X: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
+                        <Entry x:Name="Entry_X" Placeholder="Enter X position here" Keyboard="Numeric" 
                            Text="{Binding X}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
-                    <Label Text="Y: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
-                    <Entry x:Name="Entry_Y" Placeholder="Enter Y position here" Keyboard="Numeric" 
+                        <Label Text="Y: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
+                        <Entry x:Name="Entry_Y" Placeholder="Enter Y position here" Keyboard="Numeric" 
                            Text="{Binding Y}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
-                </StackLayout>
+                    </StackLayout>
 
-                <StackLayout  Orientation="Horizontal" BackgroundColor="LightGray" HeightRequest="40">
-                    <Label Text="Width: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
-                    <Entry x:Name="Entry_Width" Placeholder="Enter Width here" Keyboard="Numeric" 
+                    <StackLayout  Orientation="Horizontal" BackgroundColor="LightGray" HeightRequest="40">
+                        <Label Text="Width: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
+                        <Entry x:Name="Entry_Width" Placeholder="Enter Width here" Keyboard="Numeric" 
                            Text="{Binding Width}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
-                    <Label Text="Height: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
-                    <Entry x:Name="Entry_Height" Placeholder="Enter Height here" Keyboard="Numeric" 
+                        <Label Text="Height: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
+                        <Entry x:Name="Entry_Height" Placeholder="Enter Height here" Keyboard="Numeric" 
                            Text="{Binding Height}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
-                </StackLayout>
+                    </StackLayout>
 
-                <StackLayout Orientation="Horizontal" BackgroundColor="LightGray" HeightRequest="40">
-                    <Label Text="Rotation: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
-                    <Entry x:Name="Entry_Rotation" Placeholder="Enter Rotation here" Keyboard="Numeric" 
-                           Text="{Binding Path=Rotation}" WidthRequest="80" 
+                    <StackLayout Orientation="Horizontal" BackgroundColor="LightGray" HeightRequest="40">
+                        <Label Text="Rotation: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
+                        <Entry x:Name="Entry_Rotation" Placeholder="Enter Rotation here" Keyboard="Numeric" 
+                               BindingContext="{x:Reference Slider_rotation}"
+                           Text="{Binding Value, Mode=TwoWay, Converter={StaticResource IntToFloat}}" WidthRequest="80" 
                            TextChanged="UpdatePreview"/>
-                    <!--<Slider BindingContext="{x:Reference Entry_Rotation}"  x:Name="rotation_slider"
-                            Value="{Binding Text}" HorizontalOptions="FillAndExpand" Maximum="360"/>-->
+                        <Slider x:Name="Slider_rotation" HorizontalOptions="FillAndExpand" Maximum="360" ValueChanged="UpdatePreview" 
+                                Value="{Binding Path=Rotation, Mode=TwoWay, Converter={StaticResource FloatToInt}}"/>
+                    </StackLayout>
+
                 </StackLayout>
+            </ScrollView>
 
+
+            <StackLayout Orientation="Horizontal" HeightRequest="40" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Grid.Column="2">
+                <Button Text="Save" TextTransform="None" BackgroundColor="DarkGreen" WidthRequest="80" HorizontalOptions="Center" Pressed="Save_Button_Pressed"/>
+                <Button Text="Delete" TextTransform="None" BackgroundColor="DarkRed" WidthRequest="80" HorizontalOptions="Center" Pressed="Delete_Button_Pressed"/>
             </StackLayout>
-
-            <!-- object preview -->
-            <!--<StackLayout Grid.Column="2" x:Name="object_grid" VerticalOptions="Fill" HorizontalOptions="Fill" >
-            </StackLayout>-->
-
         </Grid>
-
     </ContentPage.Content>
+
 </ContentPage>

@@ -1,11 +1,8 @@
-﻿using CTRLapp.Variables;
-using CTRLapp.Views.Settings_pages;
+﻿using CTRLapp.Views.Settings_pages;
 using CTRLapp.Views.Settings_pages.GUI;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
-using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Forms;
 
@@ -13,10 +10,12 @@ namespace CTRLapp.Views
 {
     public class Object_view : ContentView
     {
-        public static View View(int master_menu, int bottom_menu, int obj_index)
+        private int master_menu, bottom_menu, obj_index;
+        public Object_view(int master_menu, int bottom_menu, int obj_index, bool noTranslation = false)
         {
+            this.master_menu = master_menu; this.bottom_menu = bottom_menu; this.obj_index = obj_index;
+
             Objects.Object obj = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index];
-            Debug.WriteLine(obj);
             var frame = new Frame
             {
                 HeightRequest = obj.Height,
@@ -30,6 +29,12 @@ namespace CTRLapp.Views
                 HasShadow = false
             };
 
+            if (noTranslation)
+            {
+                frame.TranslationX = 0; frame.TranslationY = 0;
+            }
+            frame.BindingContext = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index];
+
             switch (obj.Type)
             {
                 case "Rectangle":
@@ -37,29 +42,30 @@ namespace CTRLapp.Views
                     break;
 
                 case "Button":
-                    Build_Button(frame, obj, master_menu, bottom_menu, obj_index);
+                    Build_Button(frame, obj);
                     break;
 
                 case "Switch":
-                    Build_Switch(frame, obj, master_menu, bottom_menu, obj_index);
+                    Build_Switch(frame, obj);
                     break;
 
                 case "Slider":
-                    Build_Slider(frame, obj, master_menu, bottom_menu, obj_index);
+                    Build_Slider(frame, obj);
                     break;
 
                 case "Joystick":
-                    Build_Joystick(frame, obj, master_menu, bottom_menu, obj_index);
+                    Build_Joystick(frame, obj);
                     break;
 
             }
 
-            return frame;
+            //return frame;
+            Content = frame;
         }
 
 
 
-        private static void Build_Button(Frame frame, Objects.Object obj, int master_menu, int bottom_menu, int obj_index)
+        private void Build_Button(Frame frame, Objects.Object obj)
         {
             var temp1 = new Button
             {
@@ -70,15 +76,15 @@ namespace CTRLapp.Views
                 Text = obj.Arguments[2],
                 TextTransform = TextTransform.None,
             };
+
             temp1.Clicked += async (s, e) =>
             {
                 Debug.WriteLine("sending mqtt message");
                 string result = await MQTT.SendMQTT(obj.Arguments[3], obj.Arguments[4]);
-                Check_Error(result, master_menu, bottom_menu, obj_index);
             };
             frame.Content = temp1;
         }
-        private static void Build_Switch(Frame frame, Objects.Object obj, int master_menu, int bottom_menu, int obj_index)
+        private static void Build_Switch(Frame frame, Objects.Object obj)
         {
             var temp2 = new Xamarin.Forms.Switch
             {
@@ -93,11 +99,10 @@ namespace CTRLapp.Views
                 string message = obj.Arguments[3];
                 if (e.Value) message = obj.Arguments[4];
                 string result = await MQTT.SendMQTT(obj.Arguments[2], message);
-                Check_Error(result, master_menu, bottom_menu, obj_index);
             };
             frame.Content = temp2;
         }
-        private static void Build_Slider(Frame frame, Objects.Object obj, int master_menu, int bottom_menu, int obj_index)
+        private static void Build_Slider(Frame frame, Objects.Object obj)
         {
             var temp3 = new Slider
             {
@@ -115,11 +120,10 @@ namespace CTRLapp.Views
             {
                 Debug.WriteLine("sending mqtt message");
                 string result = await MQTT.SendMQTT(obj.Arguments[3], e.NewValue.ToString());
-                Check_Error(result, master_menu, bottom_menu, obj_index);
             };
             frame.Content = temp3;
         }
-        private static void Build_Joystick(Frame frame, Objects.Object obj, int master_menu, int bottom_menu, int obj_index)
+        private static void Build_Joystick(Frame frame, Objects.Object obj)
         {
             frame.BorderColor = Color.LightGray;
             var touchEffect = new TouchTracking.Forms.TouchEffect() { Capture = true };
@@ -208,24 +212,16 @@ namespace CTRLapp.Views
                 Debug.WriteLine("sending mqtt message");
                 string result0 = await MQTT.SendMQTT(obj.Arguments[2], coordinates.X.ToString());
                 string result1 = await MQTT.SendMQTT(obj.Arguments[3], coordinates.Y.ToString());
-                Check_Error(result0, master_menu, bottom_menu, obj_index);
-                //Check_Error(result1, master_menu, bottom_menu, obj_index);
             };
-            //MainPage.LoadedEvent += () =>
-            //{
-            //    Debug.WriteLine("received LoadedEvent by Joystick with Index " + obj_index + " and Size " + canvas.CanvasSize);
-            //    touch = new SKPoint((float)(canvas.CanvasSize.Width / 2),
-            //                        (float)(canvas.CanvasSize.Height / 2));
-            //    canvas.InvalidateSurface();
-            //};
             canvas.Effects.Add(touchEffect);
             frame.Content = canvas;
         }
 
 
-        private static async void Check_Error(string result, int master_menu, int bottom_menu, int obj_index)
+        private async void Check_Error(string result)
         {
             return; // not errorcheck not working properly right now
+#pragma warning disable CS0162 // Unerreichbarer Code wurde entdeckt.
             if (result == "connection_failed")
             {
                 if (!Variables.Variables.Alert_active)
@@ -247,6 +243,7 @@ namespace CTRLapp.Views
                 }
 
             }
+#pragma warning restore CS0162 // Unerreichbarer Code wurde entdeckt.
         }
     };
 }

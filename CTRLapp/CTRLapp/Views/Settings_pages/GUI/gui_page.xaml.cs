@@ -158,8 +158,10 @@ namespace CTRLapp.Views.Settings_pages
 
             //visible controls but deactivated
             var obj = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[index];
-            var grid = Object_view.View(master_menu, bottom_menu, index);
-            grid.IsEnabled = false;
+            var grid = new Object_view(master_menu, bottom_menu, index)
+            {
+                IsEnabled = false
+            };
             Main_Layout.Children.Add(grid);
 
 

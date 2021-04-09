@@ -4,9 +4,11 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using ColorPicker;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Timers;
 
 namespace CTRLapp.Views.Settings_pages.GUI
 {
@@ -15,53 +17,59 @@ namespace CTRLapp.Views.Settings_pages.GUI
     {
         private int master_menu, bottom_menu, obj_index;
 
-        private bool deleted = false;
-
         public Object_page(int master_menu, int bottom_menu, int obj_index)
         {
             this.master_menu = master_menu; this.bottom_menu = bottom_menu; this.obj_index = obj_index;
             InitializeComponent();
+
+
+
         }
+
 
         protected override void OnAppearing()
         {
             grid.BindingContext = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index];
 
-            UpdatePreview();
 
+            //just ignore this piece of shit code, it works so don't touch it! (except, if it doesn't)
+            switch (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].Type)
+            {
+                case "Button":
+                    edit_stack.Children.Add(new edit_layouts.Button());
+                    break;
+            }
+
+
+
+            UpdatePreview();
 
             base.OnAppearing();
         }
 
 
-        protected override void OnDisappearing()
-        {
-            if (deleted)
-            {
-                Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects.RemoveAt(obj_index);
-            }
-            base.OnDisappearing();
-        }
-
-
-        private View view;
+        private View view; // so we can easily delete it, when updating preview
         private void UpdatePreview(object sender = null, TextChangedEventArgs e = null) //preview in middle of right side
         {
             if (view != null) grid.Children.Remove(view);
-            view = Object_view.View(master_menu, bottom_menu, obj_index);
-            view.TranslateTo(0, 0, 1);
+            view = new Object_view(master_menu, bottom_menu, obj_index, true); //make the view without translation
             grid.Children.Add(view, 2, 0);
             view.HorizontalOptions = LayoutOptions.Center;
             view.VerticalOptions = LayoutOptions.Center;
         }
 
-        private void Delete_Button_Pressed(object sender, EventArgs e)
+        private void Save_Button_Pressed(object sender, EventArgs e)
         {
-            // List<Master_Menu_Item> temp = JsonConvert.DeserializeObject<List<Master_Menu_Item>>(Json_string.Config);
-            //temp[master_menu].Bottom_Menu_Items[bottom_menu].Objects.RemoveAt(obj_index);
-            //Json_string.Config = JsonConvert.SerializeObject(temp);
-            deleted = true;
             Navigation.PopModalAsync();
         }
+        private async void Delete_Button_Pressed(object sender, EventArgs e)
+        {
+            bool accept = await DisplayAlert("Delete?", "do you really want to delete this?", "Yes", "No");
+            if (accept)
+                Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects.RemoveAt(obj_index);
+            _ = Navigation.PopModalAsync();
+        }
     }
+
+
 }
