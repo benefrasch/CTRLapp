@@ -1,4 +1,5 @@
-﻿namespace CTRLapp.UWP
+﻿
+namespace CTRLapp.UWP
 {
     public sealed partial class MainPage
     {
