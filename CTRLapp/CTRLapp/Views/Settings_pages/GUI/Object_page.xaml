@@ -21,48 +21,61 @@
             <!-- sliders, entrys, ...-->
             <ScrollView>
                 <StackLayout Grid.Column="0" x:Name="edit_stack">
-
-                    <StackLayout Orientation="Horizontal" BackgroundColor="LightGray" HeightRequest="40">
-                        <Label Text="X: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
-                        <Entry x:Name="Entry_X" Placeholder="Enter X position here" Keyboard="Numeric" 
+                    <!--postition-->
+                    <StackLayout Orientation="Horizontal">
+                        <StackLayout Style="{StaticResource descriptionEntryStack}">
+                            <Label Text="X: " Style="{StaticResource descriptionLabel}"/>
+                            <Entry x:Name="Entry_X" Placeholder="Enter X position" Keyboard="Numeric" 
                            Text="{Binding X}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
-                        <Label Text="Y: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
-                        <Entry x:Name="Entry_Y" Placeholder="Enter Y position here" Keyboard="Numeric" 
+                        </StackLayout>
+                        <StackLayout Style="{StaticResource descriptionEntryStack}">
+                            <Label Text="Y: " Style="{StaticResource descriptionLabel}" />
+                            <Entry x:Name="Entry_Y" Placeholder="Enter Y position" Keyboard="Numeric" 
                            Text="{Binding Y}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
+                        </StackLayout>
                     </StackLayout>
-
-                    <StackLayout  Orientation="Horizontal" BackgroundColor="LightGray" HeightRequest="40">
-                        <Label Text="Width: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
-                        <Entry x:Name="Entry_Width" Placeholder="Enter Width here" Keyboard="Numeric" 
+                    
+                    <!--size-->
+                    <StackLayout  Orientation="Horizontal">
+                        <StackLayout Style="{StaticResource descriptionEntryStack}">
+                            <Label Text="Width: " Style="{StaticResource descriptionLabel}"/>
+                            <Entry x:Name="Entry_Width" Placeholder="Enter Width" Keyboard="Numeric" 
                            Text="{Binding Width}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
-                        <Label Text="Height: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
-                        <Entry x:Name="Entry_Height" Placeholder="Enter Height here" Keyboard="Numeric" 
+                        </StackLayout>
+                        <StackLayout Style="{StaticResource descriptionEntryStack}">
+                            <Label Text="Height: " Style="{StaticResource descriptionLabel}"/>
+                            <Entry x:Name="Entry_Height" Placeholder="Enter Height" Keyboard="Numeric" 
                            Text="{Binding Height}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
+                        </StackLayout>
                     </StackLayout>
 
-                    <StackLayout Orientation="Horizontal" BackgroundColor="LightGray" HeightRequest="40">
-                        <Label Text="Rotation: " VerticalOptions="FillAndExpand" FontSize="20" WidthRequest="80" />
-                        <Entry x:Name="Entry_Rotation" Placeholder="Enter Rotation here" Keyboard="Numeric" 
-                               BindingContext="{x:Reference Slider_rotation}"
-                           Text="{Binding Value, Mode=TwoWay, Converter={StaticResource IntToFloat}}" WidthRequest="80" 
-                           TextChanged="UpdatePreview"/>
-                        <Slider x:Name="Slider_rotation" HorizontalOptions="FillAndExpand" Maximum="360" ValueChanged="UpdatePreview" 
-                                Value="{Binding Path=Rotation, Mode=TwoWay, Converter={StaticResource FloatToInt}}"/>
+                    <!--rotation-->
+                    <StackLayout Style="{StaticResource descriptionEntryStack}">
+                        <Label Text="Rotation: "  Style="{StaticResource descriptionLabel}"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Entry x:Name="Entry_Rotation" Placeholder="Enter Rotation" Keyboard="Numeric" 
+                                BindingContext="{x:Reference Slider_rotation}"
+                                Text="{Binding Value, Mode=TwoWay, Converter={StaticResource IntToFloat}}" WidthRequest="80" 
+                                TextChanged="UpdatePreview"/>
+                            <Slider x:Name="Slider_rotation" HorizontalOptions="FillAndExpand" Maximum="360" ValueChanged="UpdatePreview" 
+                                Value="{Binding Path=Rotation, Mode=TwoWay, Converter={StaticResource FloatToInt}}" />
+                        </StackLayout>
                     </StackLayout>
 
                 </StackLayout>
             </ScrollView>
 
-
+            <!--delete/ save button-->
             <StackLayout Orientation="Horizontal" HeightRequest="40" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Grid.Column="2">
                 <Button Text="Save" TextTransform="None" BackgroundColor="DarkGreen" WidthRequest="80" HorizontalOptions="Center" Pressed="Save_Button_Pressed"/>
                 <Button Text="Delete" TextTransform="None" BackgroundColor="DarkRed" WidthRequest="80" HorizontalOptions="Center" Pressed="Delete_Button_Pressed"/>
             </StackLayout>
         </Grid>
+
     </ContentPage.Content>
 
 </ContentPage>

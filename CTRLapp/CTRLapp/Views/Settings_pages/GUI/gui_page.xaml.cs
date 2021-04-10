@@ -196,7 +196,7 @@ namespace CTRLapp.Views.Settings_pages
                         {
                             //Windows is a bitch and doesnt recognize a pan outside the View, 
                             //so I have to make the inv-grid the entire screen
-                            Debug.WriteLine("it ist a windows !!!!!"); 
+                            Debug.WriteLine("it ist a windows !!!!!");
                             first_translation.X = invisible_grid.TranslationX;
                             first_translation.Y = invisible_grid.TranslationY;
                             invisible_grid.HeightRequest = Main_Layout.Height;

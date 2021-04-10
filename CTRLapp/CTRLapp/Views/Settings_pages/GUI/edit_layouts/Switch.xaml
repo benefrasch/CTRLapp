@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CTRLapp.Views.Settings_pages.GUI.edit_layouts.Button"
+             x:Class="CTRLapp.Views.Settings_pages.GUI.edit_layouts.Switch"
              xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker" 
              xmlns:local="clr-namespace:CTRLapp">
     <ContentView.Resources>
@@ -9,45 +9,43 @@
             <local:HexToColorConverter x:Key="HexToColor" />
         </ResourceDictionary>
     </ContentView.Resources>
-    
-  <ContentView.Content>
+
+    <ContentView.Content>
         <StackLayout>
-            
+
             <StackLayout Orientation="Horizontal" Spacing="50">
                 <StackLayout>
-                    <Label Text="Text color" Style="{StaticResource descriptionLabel}"/>
+                    <Label Text="Thumb Color"/>
                     <colorpicker:ColorCircle SelectedColor="{Binding Path=Arguments[0], Mode=TwoWay, Converter={StaticResource HexToColor}}" />
                 </StackLayout>
                 <StackLayout>
-                    <Label Text="Background color" Style="{StaticResource descriptionLabel}"/>
+                    <Label Text="Enabled color"/>
                     <colorpicker:ColorCircle SelectedColor="{Binding Path=Arguments[1], Mode=TwoWay, Converter={StaticResource HexToColor}}" />
                 </StackLayout>
                 <Button Text="refresh colors" Pressed="UpdatePreview" WidthRequest="160" HeightRequest="40" VerticalOptions="Start"/>
             </StackLayout>
 
+            <StackLayout  Orientation="Horizontal">
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
-                <Label Text="Text: " Style="{StaticResource descriptionLabel}"/>
-                <Entry x:Name="Entry_Text" Placeholder="Enter Text"
+                    <Label Text="MQTT Topic:" Style="{StaticResource descriptionLabel}"/>
+                    <Entry x:Name="Entry_Topic" Placeholder="Enter topic"
                            Text="{Binding Arguments[2]}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
-                    
-            </StackLayout>
-
-            <StackLayout  Orientation="Horizontal" >
+                </StackLayout>
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
-                <Label Text="MQTT Topic: " Style="{StaticResource descriptionLabel}"/>
-                <Entry x:Name="Entry_Topic" Placeholder="Enter topic"
+                    <Label Text="Low value:"  Style="{StaticResource descriptionLabel}"/>
+                    <Entry x:Name="Entry_Message_low" Placeholder="Enter low value"
                            Text="{Binding Arguments[3]}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
                 </StackLayout>
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
-                        <Label Text="MQTT Message: " Style="{StaticResource descriptionLabel}"/>
-                <Entry x:Name="Entry_Message" Placeholder="Enter message"
+                    <Label Text="High value:" Style="{StaticResource descriptionLabel}"/>
+                    <Entry x:Name="Entry_Message_high" Placeholder="Enter high value"
                            Text="{Binding Arguments[4]}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
-            </StackLayout>
+                </StackLayout>
             </StackLayout>
 
         </StackLayout>
-  </ContentView.Content>
+    </ContentView.Content>
 </ContentView>

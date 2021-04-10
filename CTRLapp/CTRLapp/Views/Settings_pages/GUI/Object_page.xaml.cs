@@ -31,12 +31,25 @@ namespace CTRLapp.Views.Settings_pages.GUI
         {
             grid.BindingContext = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index];
 
-
+            
             //just ignore this piece of shit code, it works so don't touch it! (except, if it doesn't)
             switch (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].Type)
             {
                 case "Button":
-                    edit_stack.Children.Add(new edit_layouts.Button());
+                    var edit1 = new edit_layouts.Button();
+                    edit1.UpdateEvent += (s, e) =>
+                    {
+                        UpdatePreview();
+                    };
+                    edit_stack.Children.Add(edit1);
+                    break;
+                case "Switch":
+                    var edit2 = new edit_layouts.Switch();
+                    edit2.UpdateEvent += (s, e) =>
+                    {
+                        UpdatePreview();
+                    };
+                    edit_stack.Children.Add(edit2);
                     break;
             }
 

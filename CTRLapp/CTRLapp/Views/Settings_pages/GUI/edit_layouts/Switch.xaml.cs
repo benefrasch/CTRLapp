@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace CTRLapp.Views.Settings_pages.GUI.edit_layouts
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Button : ContentView
+    public partial class Switch : ContentView
     {
-        public Button()
+        public Switch()
         {
             InitializeComponent();
         }
