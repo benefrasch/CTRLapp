@@ -51,6 +51,22 @@ namespace CTRLapp.Views.Settings_pages.GUI
                     };
                     edit_stack.Children.Add(edit2);
                     break;
+                case "Slider":
+                    var edit3 = new edit_layouts.Slider();
+                    edit3.UpdateEvent += (s, e) =>
+                    {
+                        UpdatePreview();
+                    };
+                    edit_stack.Children.Add(edit3);
+                    break;
+                case "Joystick":
+                    var edit4 = new edit_layouts.Joystick();
+                    edit4.UpdateEvent += (s, e) =>
+                    {
+                        UpdatePreview();
+                    };
+                    edit_stack.Children.Add(edit4);
+                    break;
             }
 
 
@@ -65,7 +81,7 @@ namespace CTRLapp.Views.Settings_pages.GUI
         private void UpdatePreview(object sender = null, TextChangedEventArgs e = null) //preview in middle of right side
         {
             if (view != null) grid.Children.Remove(view);
-            view = new Object_view(master_menu, bottom_menu, obj_index, true); //make the view without translation
+            view = new Object_view(master_menu, bottom_menu, obj_index); //make the view without translation
             grid.Children.Add(view, 2, 0);
             view.HorizontalOptions = LayoutOptions.Center;
             view.VerticalOptions = LayoutOptions.Center;
