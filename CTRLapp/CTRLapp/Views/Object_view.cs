@@ -11,66 +11,46 @@ namespace CTRLapp.Views
     public class Object_view : ContentView
     {
         private int master_menu, bottom_menu, obj_index;
-        public Object_view(int master_menu, int bottom_menu, int obj_index, bool noTranslation = false)
+        public Object_view(int master_menu, int bottom_menu, int obj_index)
         {
             this.master_menu = master_menu; this.bottom_menu = bottom_menu; this.obj_index = obj_index;
 
+           
             Objects.Object obj = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index];
-            var frame = new Frame
-            {
-                HeightRequest = obj.Height,
-                WidthRequest = obj.Width,
-                TranslationX = obj.X,
-                TranslationY = obj.Y,
-                CornerRadius = 5,
-                Rotation = obj.Rotation,
-                BorderColor = Color.Transparent,
-                BackgroundColor = Color.Transparent,
-                HasShadow = false
-            };
 
-            if (noTranslation)
-            {
-                frame.TranslationX = 0; frame.TranslationY = 0;
-            }
-            frame.BindingContext = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index];
 
             switch (obj.Type)
             {
-                case "Rectangle":
-                    frame.BackgroundColor = Color.FromHex(obj.Arguments[0]);
-                    break;
-
                 case "Button":
-                    Build_Button(frame, obj);
+                    Content = Build_Button(obj);
                     break;
 
                 case "Switch":
-                    Build_Switch(frame, obj);
+                    Content = Build_Switch( obj);
                     break;
 
                 case "Slider":
-                    Build_Slider(frame, obj);
+                    Content = Build_Slider(obj);
                     break;
 
                 case "Joystick":
-                    Build_Joystick(frame, obj);
+                    Content = Build_Joystick( obj);
                     break;
 
             }
 
-            //return frame;
-            Content = frame;
+
         }
 
 
 
-        private void Build_Button(Frame frame, Objects.Object obj)
+        private View Build_Button(Objects.Object obj)
         {
             var temp1 = new Button
             {
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
+                Rotation = obj.Rotation,
                 BackgroundColor = Color.FromHex(obj.Arguments[1]),
                 TextColor = Color.FromHex(obj.Arguments[0]),
                 Text = obj.Arguments[2],
@@ -82,16 +62,15 @@ namespace CTRLapp.Views
                 Debug.WriteLine("sending mqtt message");
                 string result = await MQTT.SendMQTT(obj.Arguments[3], obj.Arguments[4]);
             };
-            frame.Content = temp1;
+            return temp1;
         }
-        private static void Build_Switch(Frame frame, Objects.Object obj)
+        private View Build_Switch(Objects.Object obj)
         {
             var temp2 = new Xamarin.Forms.Switch
             {
+                Rotation = obj.Rotation,
                 ThumbColor = Color.FromHex(obj.Arguments[0]),
                 OnColor = Color.FromHex(obj.Arguments[1]),
-                HorizontalOptions = LayoutOptions.CenterAndExpand,
-                VerticalOptions = LayoutOptions.CenterAndExpand,
             };
             temp2.Toggled += async (s, e) =>
             {
@@ -100,19 +79,18 @@ namespace CTRLapp.Views
                 if (e.Value) message = obj.Arguments[4];
                 string result = await MQTT.SendMQTT(obj.Arguments[2], message);
             };
-            frame.Content = temp2;
+            return temp2;
         }
-        private static void Build_Slider(Frame frame, Objects.Object obj)
+        private View Build_Slider(Objects.Object obj)
         {
             var temp3 = new Slider
             {
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
+                Rotation = obj.Rotation,
                 ThumbColor = Color.FromHex(obj.Arguments[0]),
                 MinimumTrackColor = Color.FromHex(obj.Arguments[1]),
                 MaximumTrackColor = Color.FromHex(obj.Arguments[2]),
-                HorizontalOptions = LayoutOptions.CenterAndExpand,
-                VerticalOptions = LayoutOptions.CenterAndExpand,
                 Minimum = int.Parse(obj.Arguments[4]),
                 Maximum = int.Parse(obj.Arguments[5]),
             };
@@ -121,15 +99,18 @@ namespace CTRLapp.Views
                 Debug.WriteLine("sending mqtt message");
                 string result = await MQTT.SendMQTT(obj.Arguments[3], e.NewValue.ToString());
             };
-            frame.Content = temp3;
+            return temp3;
         }
-        private static void Build_Joystick(Frame frame, Objects.Object obj)
+        private View Build_Joystick(Objects.Object obj)
         {
-            frame.BorderColor = Color.LightGray;
             var touchEffect = new TouchTracking.Forms.TouchEffect() { Capture = true };
             SKCanvasView canvas = new SKCanvasView
             {
+                HeightRequest = obj.Height,
+                WidthRequest = obj.Width,
+                Rotation = obj.Rotation,
                 EnableTouchEvents = false,
+                BackgroundColor = Color.LightGray,
             };
             SKPoint touch = new SKPoint();
             Timer timer = new Timer
@@ -161,7 +142,6 @@ namespace CTRLapp.Views
                     Color = Color.FromHex(obj.Arguments[0]).ToSKColor(),
                 };
                 surface.DrawCircle((float)touch.X, (float)touch.Y, radius / 3, thumb_paint);
-                Debug.WriteLine("drawing on canvas surface");
             };
             touchEffect.TouchAction += (s, e) =>
             {
@@ -197,8 +177,8 @@ namespace CTRLapp.Views
             };
             timer.Elapsed += async (s, e) =>
             {
-                coordinates.X += (touch.X - canvassize.Width / 2) * float.Parse(obj.Arguments[6]) * 0.1;
-                coordinates.Y += (touch.Y - canvassize.Height / 2) * float.Parse(obj.Arguments[9]) * 0.1;
+                coordinates.X += (touch.X - (canvassize.Width / 2)) * float.Parse(obj.Arguments[6]) * 0.1;
+                coordinates.Y += (touch.Y - (canvassize.Height / 2)) * float.Parse(obj.Arguments[9]) * 0.1;
 
                 int minimumx = int.Parse(obj.Arguments[4]),
                     maximumx = int.Parse(obj.Arguments[5]),
@@ -214,7 +194,7 @@ namespace CTRLapp.Views
                 string result1 = await MQTT.SendMQTT(obj.Arguments[3], coordinates.Y.ToString());
             };
             canvas.Effects.Add(touchEffect);
-            frame.Content = canvas;
+            return canvas;
         }
 
 
