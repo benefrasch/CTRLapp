@@ -9,45 +9,44 @@
             <local:HexToColorConverter x:Key="HexToColor" />
         </ResourceDictionary>
     </ContentView.Resources>
-    
-  <ContentView.Content>
-        <StackLayout>
-            
-            <StackLayout Orientation="Horizontal" Spacing="50">
-                <StackLayout>
-                    <Label Text="Text color" Style="{StaticResource descriptionLabel}"/>
-                    <colorpicker:ColorCircle SelectedColor="{Binding Path=Arguments[0], Mode=TwoWay, Converter={StaticResource HexToColor}}" />
-                </StackLayout>
-                <StackLayout>
-                    <Label Text="Background color" Style="{StaticResource descriptionLabel}"/>
-                    <colorpicker:ColorCircle SelectedColor="{Binding Path=Arguments[1], Mode=TwoWay, Converter={StaticResource HexToColor}}" />
-                </StackLayout>
-                <Button Text="refresh colors" Pressed="UpdatePreview" WidthRequest="160" HeightRequest="40" VerticalOptions="Start"/>
-            </StackLayout>
 
-                <StackLayout Style="{StaticResource descriptionEntryStack}">
+    <ContentView.Content>
+        <StackLayout>
+
+            <Button Text="refresh colors" Pressed="UpdatePreview" WidthRequest="160" HeightRequest="40" VerticalOptions="Start"/>
+            <ScrollView Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" Spacing="50">
+                    <StackLayout>
+                        <Label Text="Text color" Style="{StaticResource descriptionLabel}"/>
+                        <colorpicker:ColorCircle SelectedColor="{Binding Path=Arguments[0], Mode=TwoWay, Converter={StaticResource HexToColor}}" />
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Background color" Style="{StaticResource descriptionLabel}"/>
+                        <colorpicker:ColorCircle SelectedColor="{Binding Path=Arguments[1], Mode=TwoWay, Converter={StaticResource HexToColor}}" />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+
+            <StackLayout Style="{StaticResource descriptionEntryStack}">
                 <Label Text="Text: " Style="{StaticResource descriptionLabel}"/>
-                <Entry x:Name="Entry_Text" Placeholder="Enter Text"
-                           Text="{Binding Arguments[2]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview"/>
-                    
+                <Entry Text="{Binding Arguments[2]}" HorizontalOptions="FillAndExpand" 
+                       TextChanged="UpdatePreview"/>
+
             </StackLayout>
 
             <StackLayout  Orientation="Horizontal" >
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
-                <Label Text="MQTT Topic: " Style="{StaticResource descriptionLabel}"/>
-                <Entry x:Name="Entry_Topic" Placeholder="Enter topic"
-                           Text="{Binding Arguments[3]}" HorizontalOptions="FillAndExpand" 
+                    <Label Text="MQTT Topic: " Style="{StaticResource descriptionLabel}"/>
+                    <Entry Text="{Binding Arguments[3]}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
                 </StackLayout>
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
-                        <Label Text="MQTT Message: " Style="{StaticResource descriptionLabel}"/>
-                <Entry x:Name="Entry_Message" Placeholder="Enter message"
-                           Text="{Binding Arguments[4]}" HorizontalOptions="FillAndExpand" 
+                    <Label Text="MQTT Message: " Style="{StaticResource descriptionLabel}"/>
+                    <Entry Text="{Binding Arguments[4]}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
-            </StackLayout>
+                </StackLayout>
             </StackLayout>
 
         </StackLayout>
-  </ContentView.Content>
+    </ContentView.Content>
 </ContentView>
