@@ -135,10 +135,9 @@ namespace CTRLapp.Views.Settings_pages
 
         private void Add_Object(Objects.Object temp)
         {
-            int index = 0;
-            if (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects != null) index = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects.Count;
+            if (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects == null) Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects = new List<Objects.Object>();
+            int index = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects.Count;
             Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects.Add(temp);
-            Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects;
             Load_Object(index);
         }      //adds the object to the list and to the screen
         //------------------------------------
@@ -160,7 +159,9 @@ namespace CTRLapp.Views.Settings_pages
             var obj = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[index];
             var grid = new Object_view(master_menu, bottom_menu, index)
             {
-                IsEnabled = false
+                IsEnabled = false,
+                TranslationX = obj.X,
+                TranslationY = obj.Y,
             };
             Main_Layout.Children.Add(grid);
 
@@ -178,13 +179,11 @@ namespace CTRLapp.Views.Settings_pages
             tapGestureRecognizer.Tapped += (s, e) =>
             {
                 current_index = index;
-                // Set_Labels();
                 Navigation.PushModalAsync(new Object_page(master_menu, bottom_menu, index));
             };
             invisible_grid.GestureRecognizers.Add(tapGestureRecognizer);
             // add pan gesture
             var panGestureRecognizer = new PanGestureRecognizer();
-            Point first_translation = new Point();
             panGestureRecognizer.PanUpdated += (s, e) =>
             {
                 current_index = index;
@@ -194,22 +193,22 @@ namespace CTRLapp.Views.Settings_pages
                         invisible_grid.Rotation = 0;
                         if (Device.RuntimePlatform == Device.UWP)
                         {
-                            //Windows is a bitch and doesnt recognize a pan outside the View, 
-                            //so I have to make the inv-grid the entire screen
+                            //Windows is a bitch
                             Debug.WriteLine("it ist a windows !!!!!");
-                            first_translation.X = invisible_grid.TranslationX;
-                            first_translation.Y = invisible_grid.TranslationY;
                             invisible_grid.HeightRequest = Main_Layout.Height;
                             invisible_grid.WidthRequest = Main_Layout.Width;
+                            invisible_grid.RaiseChild(Main_Layout); //so it doesnt interfear with other objects
                             invisible_grid.TranslateTo(0, 0, 1);
                         }
                         break;
                     case GestureStatus.Running:
-                        grid.TranslateTo(e.TotalX + invisible_grid.TranslationX + first_translation.X, e.TotalY + invisible_grid.TranslationY + first_translation.Y, 20);
+                        grid.TranslationX = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[index].X + e.TotalX;
+                        grid.TranslationY = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[index].Y + e.TotalY;
                         break;
                     case GestureStatus.Completed:
                         invisible_grid.Rotation = obj.Rotation;
-                        invisible_grid.TranslateTo(grid.TranslationX, grid.TranslationY, 1);
+                        invisible_grid.TranslationX = grid.TranslationX;
+                        invisible_grid.TranslationY = grid.TranslationY;
                         Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[index].X = (int)grid.TranslationX;
                         Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[index].Y = (int)grid.TranslationY;
                         invisible_grid.HeightRequest = obj.Height;
@@ -220,14 +219,6 @@ namespace CTRLapp.Views.Settings_pages
             invisible_grid.GestureRecognizers.Add(panGestureRecognizer);
 
             Main_Layout.Children.Add(invisible_grid);
-        }
-
-
-        async private void Delete_Object(object sender, EventArgs e)
-        {
-            if (!await App.Current.MainPage.DisplayAlert("Attention", "do you really want to delete this object", "yes", "no")) return;
-            Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects.RemoveAt(current_index);
-            Load_Objects();
         }
 
     }

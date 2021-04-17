@@ -55,9 +55,11 @@ namespace CTRLapp.Views
 
             foreach ((Objects.Object obj, int index) in object_list.Select((v, i) => (v, i)))
             {
-                Debug.WriteLine(obj);
-                //Layout temp = Build(obj);
-                Main_Layout.Children.Add(new Object_view(master_menu, bottom_menu, index));
+                Main_Layout.Children.Add(new Object_view(master_menu, bottom_menu, index)
+                {
+                    TranslationX = obj.X,
+                    TranslationY = obj.Y,
+                });
             }
         }
 
