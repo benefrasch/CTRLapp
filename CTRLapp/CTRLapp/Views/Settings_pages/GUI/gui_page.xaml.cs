@@ -15,6 +15,8 @@ namespace CTRLapp.Views.Settings_pages
     {
         private int master_menu, bottom_menu;
 
+        private static readonly int rounding_value = 20;
+
         public Gui_page(int master_menu, int bottom_menu)
         {
             InitializeComponent();
@@ -189,7 +191,7 @@ namespace CTRLapp.Views.Settings_pages
                 switch (e.StatusType)
                 {
                     case GestureStatus.Started:
-                        invisible_grid.Rotation = 0;
+                        invisible_grid.Rotation = 0; //rotation to 0 for correct movement
                         if (Device.RuntimePlatform == Device.UWP)
                         {
                             //Windows is a bitch
@@ -201,11 +203,11 @@ namespace CTRLapp.Views.Settings_pages
                         }
                         break;
                     case GestureStatus.Running:
-                        grid.TranslationX = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].X + e.TotalX;
-                        grid.TranslationY = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].Y + e.TotalY;
+                        grid.TranslationX = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].X + (((int)Math.Round(e.TotalX / (double)rounding_value)) * rounding_value);
+                        grid.TranslationY = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].Y + (((int)Math.Round(e.TotalY / (double)rounding_value)) * rounding_value);
                         break;
                     case GestureStatus.Completed:
-                        invisible_grid.Rotation = obj.Rotation;
+                        invisible_grid.Rotation = obj.Rotation; //reset rotation to before
                         invisible_grid.TranslationX = grid.TranslationX;
                         invisible_grid.TranslationY = grid.TranslationY;
                         Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].X = (int)grid.TranslationX;
@@ -219,6 +221,7 @@ namespace CTRLapp.Views.Settings_pages
 
             Main_Layout.Children.Add(invisible_grid);
         }
+
 
     }
 }
