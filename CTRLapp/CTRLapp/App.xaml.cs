@@ -21,9 +21,10 @@ namespace CTRLapp
 
         protected override void OnStart()
         {
-            String Config = "";
+            string Config = "";
             if (File.Exists(Variables.Variables.configLocation))
                 Config = File.ReadAllText(Variables.Variables.configLocation);
+            Debug.WriteLine(Config);
             Variables.Variables.Layout = JsonConvert.DeserializeObject<List<Master_Menu_Item>>(Config);
         }
 
