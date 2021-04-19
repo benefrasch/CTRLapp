@@ -59,6 +59,7 @@ namespace CTRLapp.Views
                 {
                     TranslationX = obj.X,
                     TranslationY = obj.Y,
+                    Rotation = obj.Rotation,
                 });
             }
         }

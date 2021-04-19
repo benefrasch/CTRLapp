@@ -31,7 +31,7 @@ namespace CTRLapp.Views.Settings_pages.GUI
         {
             grid.BindingContext = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index];
 
-            
+
             //just ignore this piece of shit code, it works so don't touch it! (except, if it doesn't)
             switch (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].Type)
             {
@@ -81,7 +81,11 @@ namespace CTRLapp.Views.Settings_pages.GUI
         private void UpdatePreview(object sender = null, TextChangedEventArgs e = null) //preview in middle of right side
         {
             if (view != null) grid.Children.Remove(view);
-            view = new Object_view(master_menu, bottom_menu, obj_index); //make the view without translation
+            var obj = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index];
+            view = new Object_view(master_menu, bottom_menu, obj_index)
+            {
+                Rotation = obj.Rotation,
+            }; //make the view without translation
             grid.Children.Add(view, 2, 0);
             view.HorizontalOptions = LayoutOptions.Center;
             view.VerticalOptions = LayoutOptions.Center;

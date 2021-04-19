@@ -13,7 +13,7 @@ namespace CTRLapp.Views.Settings_pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Gui_page : ContentPage
     {
-        private int master_menu, bottom_menu, current_index;
+        private int master_menu, bottom_menu;
 
         public Gui_page(int master_menu, int bottom_menu)
         {
@@ -24,7 +24,7 @@ namespace CTRLapp.Views.Settings_pages
         }
         protected override void OnAppearing()
         {
-            Load_Objects();
+            Initialize_Objects();
             base.OnAppearing();
         }
         protected override void OnDisappearing()
@@ -136,32 +136,33 @@ namespace CTRLapp.Views.Settings_pages
         private void Add_Object(Objects.Object temp)
         {
             if (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects == null) Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects = new List<Objects.Object>();
-            int index = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects.Count;
+            int obj_index = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects.Count;
             Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects.Add(temp);
-            Load_Object(index);
+            Load_Object(obj_index);
         }      //adds the object to the list and to the screen
         //------------------------------------
 
-        private void Load_Objects()
+        private void Initialize_Objects()
         {
             if (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects == null) return;
             Main_Layout.Children.Clear();
             //foreach (Objects.Object o in Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects)
-            for (int index = 0; index < Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects.Count; index++)
+            for (int obj_index = 0; obj_index < Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects.Count; obj_index++)
             {
-                Load_Object(index);
+                Load_Object(obj_index);
             }
         }
-        private void Load_Object(int index)
+        private void Load_Object(int obj_index)
         {
 
             //visible controls but deactivated
-            var obj = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[index];
-            var grid = new Object_view(master_menu, bottom_menu, index)
+            var obj = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index];
+            var grid = new Object_view(master_menu, bottom_menu, obj_index)
             {
                 IsEnabled = false,
                 TranslationX = obj.X,
                 TranslationY = obj.Y,
+                Rotation = obj.Rotation,
             };
             Main_Layout.Children.Add(grid);
 
@@ -178,15 +179,13 @@ namespace CTRLapp.Views.Settings_pages
             var tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += (s, e) =>
             {
-                current_index = index;
-                Navigation.PushModalAsync(new Object_page(master_menu, bottom_menu, index));
+                Navigation.PushModalAsync(new Object_page(master_menu, bottom_menu, obj_index));
             };
             invisible_grid.GestureRecognizers.Add(tapGestureRecognizer);
             // add pan gesture
             var panGestureRecognizer = new PanGestureRecognizer();
             panGestureRecognizer.PanUpdated += (s, e) =>
             {
-                current_index = index;
                 switch (e.StatusType)
                 {
                     case GestureStatus.Started:
@@ -202,15 +201,15 @@ namespace CTRLapp.Views.Settings_pages
                         }
                         break;
                     case GestureStatus.Running:
-                        grid.TranslationX = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[index].X + e.TotalX;
-                        grid.TranslationY = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[index].Y + e.TotalY;
+                        grid.TranslationX = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].X + e.TotalX;
+                        grid.TranslationY = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].Y + e.TotalY;
                         break;
                     case GestureStatus.Completed:
                         invisible_grid.Rotation = obj.Rotation;
                         invisible_grid.TranslationX = grid.TranslationX;
                         invisible_grid.TranslationY = grid.TranslationY;
-                        Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[index].X = (int)grid.TranslationX;
-                        Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[index].Y = (int)grid.TranslationY;
+                        Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].X = (int)grid.TranslationX;
+                        Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].Y = (int)grid.TranslationY;
                         invisible_grid.HeightRequest = obj.Height;
                         invisible_grid.WidthRequest = obj.Width;
                         break;

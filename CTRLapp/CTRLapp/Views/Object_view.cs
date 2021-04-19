@@ -50,7 +50,6 @@ namespace CTRLapp.Views
             {
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
-                Rotation = obj.Rotation,
                 BackgroundColor = Color.FromHex(obj.Arguments[1]),
                 TextColor = Color.FromHex(obj.Arguments[0]),
                 Text = obj.Arguments[2],
@@ -68,7 +67,6 @@ namespace CTRLapp.Views
         {
             var temp2 = new Xamarin.Forms.Switch
             {
-                Rotation = obj.Rotation,
                 ThumbColor = Color.FromHex(obj.Arguments[0]),
                 OnColor = Color.FromHex(obj.Arguments[1]),
             };
@@ -87,7 +85,6 @@ namespace CTRLapp.Views
             {
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
-                Rotation = obj.Rotation,
                 ThumbColor = Color.FromHex(obj.Arguments[0]),
                 MinimumTrackColor = Color.FromHex(obj.Arguments[1]),
                 MaximumTrackColor = Color.FromHex(obj.Arguments[2]),
@@ -108,7 +105,6 @@ namespace CTRLapp.Views
             {
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
-                Rotation = obj.Rotation,
                 EnableTouchEvents = false,
                 BackgroundColor = Color.LightGray,
             };
