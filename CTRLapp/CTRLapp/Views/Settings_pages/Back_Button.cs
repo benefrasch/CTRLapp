@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 using Xamarin.Forms;
 
 namespace CTRLapp.Views.Settings_pages
@@ -11,7 +7,7 @@ namespace CTRLapp.Views.Settings_pages
     {
         public Back_Button()
         {
-            
+
         }
 
         protected override void OnAppearing()

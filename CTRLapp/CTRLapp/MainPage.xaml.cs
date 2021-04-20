@@ -1,13 +1,7 @@
-﻿using CTRLapp.Objects;
-using CTRLapp.Variables;
-using CTRLapp.Views.Settings_pages;
-using Newtonsoft.Json;
+﻿using CTRLapp.Views.Settings_pages;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -67,7 +61,7 @@ namespace CTRLapp.Views
 
         private async void Settings_button_Pressed(object sender, EventArgs e)
         {
-             await Navigation.PushAsync(new Settings_page(), true);
+            await Navigation.PushAsync(new Settings_page(), true);
         }
 
 

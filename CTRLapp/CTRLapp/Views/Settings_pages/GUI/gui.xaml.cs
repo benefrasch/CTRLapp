@@ -1,9 +1,6 @@
 ﻿using CTRLapp.Objects;
-using CTRLapp.Variables;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

@@ -1,7 +1,4 @@
-﻿using CTRLapp.Objects;
-using CTRLapp.Variables;
-using CTRLapp.Views.Settings_pages.GUI;
-using Newtonsoft.Json;
+﻿using CTRLapp.Views.Settings_pages.GUI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

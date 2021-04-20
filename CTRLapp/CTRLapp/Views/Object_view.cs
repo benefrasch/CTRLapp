@@ -15,7 +15,7 @@ namespace CTRLapp.Views
         {
             this.master_menu = master_menu; this.bottom_menu = bottom_menu; this.obj_index = obj_index;
 
-           
+
             Objects.Object obj = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index];
 
 
@@ -26,7 +26,7 @@ namespace CTRLapp.Views
                     break;
 
                 case "Switch":
-                    Content = Build_Switch( obj);
+                    Content = Build_Switch(obj);
                     break;
 
                 case "Slider":
@@ -34,7 +34,7 @@ namespace CTRLapp.Views
                     break;
 
                 case "Joystick":
-                    Content = Build_Joystick( obj);
+                    Content = Build_Joystick(obj);
                     break;
 
             }

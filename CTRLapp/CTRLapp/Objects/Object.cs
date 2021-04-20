@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CTRLapp.Objects
+﻿namespace CTRLapp.Objects
 {
     public class Object
     {

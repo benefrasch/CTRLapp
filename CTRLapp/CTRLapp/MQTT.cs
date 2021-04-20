@@ -65,7 +65,7 @@ namespace CTRLapp
                     .WithRetainFlag()
                     .Build();
                 Debug.WriteLine("topic: " + topic + "   payload: " + payload);
-                await mqttClient.PublishAsync(message, CancellationToken.None); 
+                await mqttClient.PublishAsync(message, CancellationToken.None);
                 Debug.WriteLine("message sent successfully");
             }
             catch (Exception)

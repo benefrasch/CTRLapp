@@ -1,14 +1,7 @@
-﻿using CTRLapp.Objects;
-using CTRLapp.Variables;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using ColorPicker;
+﻿using System;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Timers;
 
 namespace CTRLapp.Views.Settings_pages.GUI
 {
