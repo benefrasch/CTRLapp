@@ -26,10 +26,6 @@ namespace CTRLapp.Views.Settings_pages
             Initialize_Objects();
             base.OnAppearing();
         }
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-        }
 
         private async void Exit_button_Clicked(object sender, EventArgs e)
         {

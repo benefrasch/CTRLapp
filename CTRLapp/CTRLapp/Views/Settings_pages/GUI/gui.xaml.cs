@@ -23,10 +23,6 @@ namespace CTRLapp.Views.Settings_pages
             Reload_Master_stack();
             Reload_Bottom_Stack();
         }
-        protected override void OnDisappearing()
-        {
-            base.OnAppearing();
-        }
 
         private void Reload_Master_stack()
         {
