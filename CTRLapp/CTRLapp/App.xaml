@@ -19,7 +19,6 @@
                 <Setter Property="RowSpacing" Value="2" />
             </Style>
             <Style TargetType="Frame">
-                <Setter Property="CornerRadius" Value="10" />
                 <Setter Property="Padding" Value="0" />
             </Style>
 
