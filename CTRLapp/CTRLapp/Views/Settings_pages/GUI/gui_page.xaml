@@ -30,6 +30,7 @@
                             <Button x:Name="Add_Switch" Text="Switch" Pressed="Add_Switch_Pressed" />
                             <Button x:Name="Add_Slider" Text="Slider" Pressed="Add_Slider_Pressed" />
                             <Button x:Name="Add_Joystick" Text="Joystick" Pressed="Add_Joystick_Pressed" />
+                            <Button x:Name="Add_Label" Text="Label" Pressed="Add_Label_Pressed"/>
                         </StackLayout>
                     </Frame>
                 </ScrollView>

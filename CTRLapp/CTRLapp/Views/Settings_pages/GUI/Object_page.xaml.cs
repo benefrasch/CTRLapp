@@ -70,15 +70,20 @@ namespace CTRLapp.Views.Settings_pages.GUI
         }
 
 
-        private View view; // so we can easily delete it, when updating preview
+        private Frame view; // so we can easily delete it, when updating preview
         private void UpdatePreview(object sender = null, TextChangedEventArgs e = null) //preview in middle of right side
         {
             if (view != null) grid.Children.Remove(view);
             var obj = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index];
-            view = new Object_view(master_menu, bottom_menu, obj_index)
+            view = new Frame()
             {
+                BorderColor = Color.LightGray,
+                CornerRadius = 0,
+                HasShadow = false,
+                Padding = 0,
                 Rotation = obj.Rotation,
-            }; //make the view without translation
+            }; //to outline the object, i.e. for visualizing size
+            view.Content = new Object_view(master_menu, bottom_menu, obj_index); //make the view without translation
             grid.Children.Add(view, 2, 0);
             view.HorizontalOptions = LayoutOptions.Center;
             view.VerticalOptions = LayoutOptions.Center;

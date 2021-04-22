@@ -35,3 +35,10 @@ Joystick{
 	maximum y
 	scaling y		(sensitivity, lower is slower)
 }
+
+Label{
+	Text color
+	Background color
+	Text
+	Font size
+}

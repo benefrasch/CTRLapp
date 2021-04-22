@@ -124,7 +124,22 @@ namespace CTRLapp.Views.Settings_pages
             Add_Object(temp);
 
         }
+        private void Add_Label_Pressed(object sender, EventArgs e)
+        {
+            Objects.Object temp = new Objects.Object
+            {
+                Width = 100,
+                Height = 60,
+                Type = "Label"
+            };
+            temp.Arguments = new string[4];
+            temp.Arguments[0] = Color.Black.ToHex();
+            temp.Arguments[1] = Color.Transparent.ToHex();
+            temp.Arguments[2] = "Label";
+            temp.Arguments[3] = "21";
 
+            Add_Object(temp);
+        }
 
 
 
@@ -147,6 +162,9 @@ namespace CTRLapp.Views.Settings_pages
                 Load_Object(obj_index);
             }
         }
+
+
+
         private void Load_Object(int obj_index)
         {
 

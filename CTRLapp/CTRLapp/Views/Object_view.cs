@@ -2,6 +2,7 @@
 using CTRLapp.Views.Settings_pages.GUI;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using System;
 using System.Diagnostics;
 using System.Timers;
 using Xamarin.Forms;
@@ -36,13 +37,14 @@ namespace CTRLapp.Views
                 case "Joystick":
                     Content = Build_Joystick(obj);
                     break;
+                case "Label":
+                    Content = Build_Label(obj);
+                    break;
 
             }
 
 
         }
-
-
 
         private View Build_Button(Objects.Object obj)
         {
@@ -192,7 +194,19 @@ namespace CTRLapp.Views
             canvas.Effects.Add(touchEffect);
             return canvas;
         }
-
+        private View Build_Label(Objects.Object obj)
+        {
+            Label label = new Label()
+            {
+                HeightRequest = obj.Height,
+                WidthRequest = obj.Width,
+                TextColor = Color.FromHex(obj.Arguments[0]),
+                BackgroundColor = Color.FromHex(obj.Arguments[1]),
+                Text = obj.Arguments[2],
+                FontSize = Int32.Parse(obj.Arguments[3]),
+            };
+            return label;
+        }
 
         private async void Check_Error(string result)
         {
@@ -221,5 +235,4 @@ namespace CTRLapp.Views
             }
 #pragma warning restore CS0162 // Unerreichbarer Code wurde entdeckt.
         }
-    };
-}
+    }}
