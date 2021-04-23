@@ -196,6 +196,7 @@ namespace CTRLapp.Views
         }
         private View Build_Label(Objects.Object obj)
         {
+            Int32.TryParse(obj.Arguments[3], out int fontsize);
             Label label = new Label()
             {
                 HeightRequest = obj.Height,
@@ -203,7 +204,7 @@ namespace CTRLapp.Views
                 TextColor = Color.FromHex(obj.Arguments[0]),
                 BackgroundColor = Color.FromHex(obj.Arguments[1]),
                 Text = obj.Arguments[2],
-                FontSize = Int32.Parse(obj.Arguments[3]),
+                FontSize = fontsize,
             };
             return label;
         }

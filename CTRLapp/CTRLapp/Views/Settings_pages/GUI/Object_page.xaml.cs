@@ -60,6 +60,14 @@ namespace CTRLapp.Views.Settings_pages.GUI
                     };
                     edit_stack.Children.Add(edit4);
                     break;
+                case "Label":
+                    var edit5 = new edit_layouts.Label();
+                    edit5.UpdateEvent += (s, e) =>
+                    {
+                        UpdatePreview();
+                    };
+                    edit_stack.Children.Add(edit5);
+                    break;
             }
 
 
