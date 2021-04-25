@@ -34,7 +34,6 @@ namespace CTRLapp.Views.Settings_pages
         private void Reload_Bottom_Stack()
         {
             bottom_list.ItemsSource = null;
-            // if (Master_Menu_selected == -1) return;
             if (Variables.Variables.Layout != null && Variables.Variables.Layout[Master_Menu_selected].Bottom_Menu_Items != null) bottom_list.ItemsSource = Variables.Variables.Layout[Master_Menu_selected].Bottom_Menu_Items;
         } //reloads Bottom_Stack
         private void Relaod_Edit_Stack(string type)
@@ -89,7 +88,6 @@ namespace CTRLapp.Views.Settings_pages
             Master_Menu_selected = number;
             Reload_Master_stack();
             Reload_Bottom_Stack();
-            //Json_string.Config = JsonConvert.SerializeObject(config);
         } //add new Master_Menu_Item
         private void Add_Bottom_Menu_Item(object sender, EventArgs e)
         {
@@ -104,7 +102,6 @@ namespace CTRLapp.Views.Settings_pages
 
             Variables.Variables.Layout[Master_Menu_selected].Bottom_Menu_Items.Add(item);
             Reload_Bottom_Stack();
-            //Json_string.Config = JsonConvert.SerializeObject(config);
         } //add new Bottom_Menu_Item
 
 
