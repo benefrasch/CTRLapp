@@ -7,7 +7,7 @@
              x:Class="CTRLapp.Views.Settings_pages.Gui"
              Title="GUI">
     
-        <Grid BackgroundColor="White">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
@@ -17,11 +17,11 @@
             <!-- Menu Lists-->
             <StackLayout Grid.Column="0" >
                 <Label Text="Main Menu" HorizontalTextAlignment="Center" />
-                <Frame BackgroundColor="LightGray" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
+                <Frame BackgroundColor="#20505050" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
                     <ListView x:Name="master_list" IsPullToRefreshEnabled="False" ItemSelected="Master_list_ItemSelected">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <ImageCell Text="{Binding Name}" ImageSource="{Binding IconPath}" TextColor="Black" />
+                                <ImageCell Text="{Binding Name}" ImageSource="{Binding IconPath}"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
 
@@ -32,11 +32,11 @@
 
             <StackLayout Grid.Column="1"  IsVisible="False" x:Name="bottom_stack">
                 <Label Text="Secondary Menu" HorizontalTextAlignment="Center" />
-                <Frame BackgroundColor="LightGray" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
+            <Frame BackgroundColor="#20505050" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
                     <ListView x:Name="bottom_list" IsPullToRefreshEnabled="False" ItemSelected="Bottom_list_ItemSelected">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <ImageCell Text="{Binding Name}" ImageSource="{Binding IconPath}" TextColor="Black" />
+                                <ImageCell Text="{Binding Name}" ImageSource="{Binding IconPath}"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
 
@@ -52,7 +52,7 @@
             <Label x:Name="Type_label" HorizontalTextAlignment="Center" />
             <Entry x:Name="name_entry" HorizontalOptions="Fill" HeightRequest="50" Placeholder="Menu_name" Text="{Binding Name}"/>
                 
-                <StackLayout Orientation="Horizontal" x:Name="icons_stack" HeightRequest="60" BackgroundColor="LightGray">
+                <StackLayout Orientation="Horizontal" x:Name="icons_stack" HeightRequest="60" >
                     <Label Text="icons select, not added yet" />
                     <!--ICONS still to be added-->
                 </StackLayout>

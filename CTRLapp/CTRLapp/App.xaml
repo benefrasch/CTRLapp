@@ -10,10 +10,6 @@
     <Application.Resources>
         <ResourceDictionary>
             <!--Global Styles-->
-
-            <Style TargetType="Button">
-                <Setter Property="CornerRadius" Value="5" />
-            </Style>
             <Style TargetType="Grid">
                 <Setter Property="ColumnSpacing" Value="2" />
                 <Setter Property="RowSpacing" Value="2" />
@@ -23,12 +19,52 @@
             </Style>
 
 
+
+            <!--Dark/ White Theme-->
+
+            <!-- Light colors -->
+            <Color x:Key="LightPrimaryColor">WhiteSmoke</Color>
+            <Color x:Key="LightSecondaryColor">Black</Color>
+            <!-- Dark colors -->
+            <Color x:Key="DarkPrimaryColor">#181818</Color>
+            <Color x:Key="DarkSecondaryColor">WhiteSmoke</Color>
+
+
+            <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+                <Setter Property="BackgroundColor" 
+                        Value="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" />
+            </Style>
+            <Style TargetType="TabbedPage" ApplyToDerivedTypes="True">
+                <Setter Property="BarBackgroundColor"
+                        Value="{AppThemeBinding Light=LightGray, Dark=#282828}"/>
+                <Setter Property="BarTextColor"
+                        Value="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}" />
+            </Style>
+
+            <Style TargetType="Label" ApplyToDerivedTypes="True">
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}" />
+            </Style>
+            <Style TargetType="Entry" ApplyToDerivedTypes="True">
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}" />
+                <Setter Property="PlaceholderColor"
+                        Value="{AppThemeBinding Light=LightGray, Dark=Gray}"/>
+            </Style>
+            <Style TargetType="Button" ApplyToDerivedTypes="True">
+                <Setter Property="BackgroundColor"
+                        Value="{AppThemeBinding Light=LightGray, Dark=#282828}"/>
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}" />
+
+            </Style>
+
             <!--Settings menu Styles-->
             <Style x:Key="descriptionLabel" TargetType="Label">
                 <Setter Property="FontSize" Value="14"/>
             </Style>
             <Style x:Key="dataEntry" TargetType="Entry">
-                
+
             </Style>
             <Style x:Key="descriptionEntryStack" TargetType="StackLayout">
                 <Setter Property="Padding" Value="0"/>

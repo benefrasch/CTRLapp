@@ -7,7 +7,7 @@
              x:Class="CTRLapp.Views.Settings_pages.General"
              Title="General">
     <ContentPage.Content>
-        <Grid x:Name="grid" BackgroundColor="White">
+        <Grid x:Name="grid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />

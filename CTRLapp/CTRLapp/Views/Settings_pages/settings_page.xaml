@@ -6,8 +6,6 @@
             xmlns:local="clr-namespace:CTRLapp.Views.Settings_pages" 
             mc:Ignorable="d" 
             x:Class="CTRLapp.Views.Settings_pages.Settings_page"
-            BarBackgroundColor="LightGray"
-            BarTextColor="Black"
             NavigationPage.HasNavigationBar="False"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.IsSwipePagingEnabled="False">
