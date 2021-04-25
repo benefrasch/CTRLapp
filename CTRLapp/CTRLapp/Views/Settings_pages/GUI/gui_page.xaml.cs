@@ -72,8 +72,8 @@ namespace CTRLapp.Views.Settings_pages
                 Type = "Button",
             };
             temp.Arguments = new string[5];
-            temp.Arguments[0] = (Color.Black.ToHex());
-            temp.Arguments[1] = Color.LightGray.ToHex();
+            temp.Arguments[0] = Color.Black.ToHex();
+            temp.Arguments[1] = Color.Gray.ToHex();
             temp.Arguments[2] = "";
             temp.Arguments[3] = "";
             temp.Arguments[4] = "";
@@ -151,7 +151,7 @@ namespace CTRLapp.Views.Settings_pages
             };
             temp.Arguments = new string[8];
             temp.Arguments[0] = Color.Black.ToHex();
-            temp.Arguments[1] = Color.LightGray.ToHex();
+            temp.Arguments[1] = Color.Gray.ToHex();
             temp.Arguments[2] = "";
             temp.Arguments[3] = "";
             temp.Arguments[4] = "0";
