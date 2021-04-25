@@ -140,10 +140,11 @@ namespace CTRLapp.Views.Settings_pages
                 PhotoSize = Plugin.Media.Abstractions.PhotoSize.Full,
             };
             var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOptions);
+            if (selectedImageFile == null) return;
 
             previewImage.Source = ImageSource.FromStream(() => selectedImageFile.GetStream());
 
-            Variables.Variables.Layout[Master_Menu_selected].Bottom_Menu_Items[Bottom_Menu_selected].BackgroundImage = selectedImageFile.Path;
+            Variables.Variables.Layout[Master_Menu_selected].Bottom_Menu_Items[Bottom_Menu_selected].BackgroundImageSource = selectedImageFile.Path;
         }
 
     }

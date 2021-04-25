@@ -8,7 +8,7 @@ namespace CTRLapp.Objects
 
         public string IconPath { get; set; }
 
-        public string BackgroundImage { get; set; }
+        public string BackgroundImageSource { get; set; }
 
         public List<CTRLapp.Objects.Object> Objects { get; set; }
     }

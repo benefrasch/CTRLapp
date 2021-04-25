@@ -1,6 +1,7 @@
 ﻿using CTRLapp.Views.Settings_pages;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -26,14 +27,14 @@ namespace CTRLapp.Views
             if (Variables.Variables.Layout != null) Master_List.ItemsSource = Variables.Variables.Layout;
             if (Variables.Variables.Layout != null && Variables.Variables.Layout[master_menu].Bottom_Menu_Items != null) Bottom_List.ItemsSource = Variables.Variables.Layout[master_menu].Bottom_Menu_Items;
             Load_Objects();
-            BackgroundImageSource = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].BackgroundImage;
         }
 
 
         private void Master_List_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             master_menu = e.SelectedItemIndex;
-            bottom_menu = 0;
+            bottom_menu = 0; //default to first page
+            if (Variables.Variables.Layout != null && Variables.Variables.Layout[master_menu].Bottom_Menu_Items != null) Bottom_List.ItemsSource = Variables.Variables.Layout[master_menu].Bottom_Menu_Items;
             Load_Objects();
         }
         private void Bottom_List_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -45,6 +46,13 @@ namespace CTRLapp.Views
         private void Load_Objects()
         {
             Main_Layout.Children.Clear();
+
+            BackgroundImageSource = null;
+            if (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].BackgroundImageSource != "")
+            {
+                BackgroundImageSource = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].BackgroundImageSource;
+            }
+
             if (Variables.Variables.Layout == null || Variables.Variables.Layout[master_menu].Bottom_Menu_Items == null || Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects == null) return;
             List<Objects.Object> object_list = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects;
 
