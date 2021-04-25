@@ -162,7 +162,7 @@ namespace CTRLapp.Views.Settings_pages
         }
 
 
-        private void Add_Object(Objects.Object temp)
+        private void Add_Object(Objects.Object temp) //adds and loads new object
         {
             if (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects == null) Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects = new List<Objects.Object>();
             int obj_index = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects.Count;
@@ -171,7 +171,7 @@ namespace CTRLapp.Views.Settings_pages
         }      //adds the object to the list and to the screen
         //------------------------------------
 
-        private void Initialize_Objects()
+        private void Initialize_Objects() //loads existing objects
         {
             if (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects == null) return;
             Main_Layout.Children.Clear();
@@ -184,7 +184,7 @@ namespace CTRLapp.Views.Settings_pages
 
         
 
-        private void Load_Object(int obj_index)
+        private void Load_Object(int obj_index) //object with pan and tap for config
         {
 
             //visible controls but deactivated
