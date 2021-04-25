@@ -24,6 +24,7 @@ namespace CTRLapp.Views.Settings_pages
         protected override void OnAppearing()
         {
             Initialize_Objects();
+            BackgroundImageSource = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].BackgroundImage;
             base.OnAppearing();
         }
 

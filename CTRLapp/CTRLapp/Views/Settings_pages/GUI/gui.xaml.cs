@@ -1,6 +1,8 @@
 ﻿using CTRLapp.Objects;
+using Plugin.Media;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -42,12 +44,14 @@ namespace CTRLapp.Views.Settings_pages
             if (type == "master_menu_item")
             {
                 Edit_gui.IsVisible = false;
+                Edit_background.IsVisible = false;
                 Type_label.Text = "Main Menu";
                 edit_stack.BindingContext = Variables.Variables.Layout[Master_Menu_selected];
             }
             else if (type == "bottom_menu_item")
             {
                 Edit_gui.IsVisible = true;
+                Edit_background.IsVisible = true;
                 Type_label.Text = "Secondary Menu";
                 edit_stack.BindingContext = Variables.Variables.Layout[Master_Menu_selected].Bottom_Menu_Items[Bottom_Menu_selected];
             }
@@ -77,7 +81,7 @@ namespace CTRLapp.Views.Settings_pages
             Master_Menu_Item item = new Master_Menu_Item
             {
                 Name = "Menu_" + number,
-                Icon_path = "quadrat.png"
+                IconPath = "quadrat.png"
             };
 
 
@@ -95,7 +99,7 @@ namespace CTRLapp.Views.Settings_pages
             Bottom_Menu_Item item = new Bottom_Menu_Item
             {
                 Name = "Menu_" + number,
-                Icon_path = "quadrat.png"
+                IconPath = "quadrat.png"
             };
 
             Variables.Variables.Layout[Master_Menu_selected].Bottom_Menu_Items.Add(item);
@@ -130,8 +134,20 @@ namespace CTRLapp.Views.Settings_pages
             await Navigation.PushModalAsync(new Gui_page(Master_Menu_selected, Bottom_Menu_selected));
         }
 
-        private void Edit_stack_changed(object sender, EventArgs e)
+        private async void BackgroundImageSelect(object sender, EventArgs e)
         {
+            await CrossMedia.Current.Initialize();
+
+            var mediaOptions = new Plugin.Media.Abstractions.PickMediaOptions()
+            {
+                PhotoSize = Plugin.Media.Abstractions.PhotoSize.Full,
+            };
+            var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOptions);
+
+            previewImage.Source = ImageSource.FromStream(() => selectedImageFile.GetStream());
+
+            Variables.Variables.Layout[Master_Menu_selected].Bottom_Menu_Items[Bottom_Menu_selected].BackgroundImage = selectedImageFile.Path;
         }
+
     }
 }

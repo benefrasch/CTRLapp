@@ -26,6 +26,7 @@ namespace CTRLapp.Views
             if (Variables.Variables.Layout != null) Master_List.ItemsSource = Variables.Variables.Layout;
             if (Variables.Variables.Layout != null && Variables.Variables.Layout[master_menu].Bottom_Menu_Items != null) Bottom_List.ItemsSource = Variables.Variables.Layout[master_menu].Bottom_Menu_Items;
             Load_Objects();
+            BackgroundImageSource = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].BackgroundImage;
         }
 
 
@@ -56,6 +57,7 @@ namespace CTRLapp.Views
                     Rotation = obj.Rotation,
                 });
             }
+
         }
 
 

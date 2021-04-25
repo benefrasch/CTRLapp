@@ -6,7 +6,9 @@ namespace CTRLapp.Objects
     {
         public string Name { get; set; }
 
-        public string Icon_path { get; set; }
+        public string IconPath { get; set; }
+
+        public string BackgroundImage { get; set; }
 
         public List<CTRLapp.Objects.Object> Objects { get; set; }
     }
