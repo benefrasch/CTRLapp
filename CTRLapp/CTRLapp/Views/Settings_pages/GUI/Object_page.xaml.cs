@@ -28,6 +28,14 @@ namespace CTRLapp.Views.Settings_pages.GUI
             //just ignore this piece of shit code, it works so don't touch it! (except, if it doesn't)
             switch (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].Type)
             {
+                case "Label":
+                    var edit5 = new edit_layouts.Label();
+                    edit5.UpdateEvent += (s, e) =>
+                    {
+                        UpdatePreview();
+                    };
+                    edit_stack.Children.Add(edit5);
+                    break;
                 case "Button":
                     var edit1 = new edit_layouts.Button();
                     edit1.UpdateEvent += (s, e) =>
@@ -60,13 +68,13 @@ namespace CTRLapp.Views.Settings_pages.GUI
                     };
                     edit_stack.Children.Add(edit4);
                     break;
-                case "Label":
-                    var edit5 = new edit_layouts.Label();
-                    edit5.UpdateEvent += (s, e) =>
+                case "Matrix":
+                    var edit6 = new edit_layouts.Matrix();
+                    edit6.UpdateEvent += (s, e) =>
                     {
                         UpdatePreview();
                     };
-                    edit_stack.Children.Add(edit5);
+                    edit_stack.Children.Add(edit6);
                     break;
             }
 

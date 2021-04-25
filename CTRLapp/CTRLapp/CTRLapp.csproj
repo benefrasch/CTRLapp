@@ -32,6 +32,9 @@
     <Compile Update="Views\Settings_pages\Devices\devices.xaml.cs">
       <DependentUpon>Devices.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Settings_pages\GUI\edit_layouts\Matrix.xaml.cs">
+      <DependentUpon>Matrix.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Settings_pages\GUI\edit_layouts\Label.xaml.cs">
       <DependentUpon>Label.xaml</DependentUpon>
     </Compile>

@@ -1,3 +1,10 @@
+Label{
+	Text color
+	Background color
+	Text
+	Font size
+}
+
 Button{
 	text color
 	background color
@@ -36,9 +43,13 @@ Joystick{
 	scaling y		(sensitivity, lower is slower)
 }
 
-Label{
-	Text color
-	Background color
-	Text
-	Font size
+Matrix{
+	thumb color
+	background color
+	MQTT topic x
+	MQTT topic y
+	minimum x
+	maximum x
+	minimum y
+	maximum y
 }

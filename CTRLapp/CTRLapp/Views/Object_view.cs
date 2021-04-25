@@ -22,6 +22,10 @@ namespace CTRLapp.Views
 
             switch (obj.Type)
             {
+
+                case "Label":
+                    Content = Build_Label(obj);
+                    break;
                 case "Button":
                     Content = Build_Button(obj);
                     break;
@@ -37,15 +41,28 @@ namespace CTRLapp.Views
                 case "Joystick":
                     Content = Build_Joystick(obj);
                     break;
-                case "Label":
-                    Content = Build_Label(obj);
+                case "Matrix":
+                    Content = Build_Matrix(obj);
                     break;
-
             }
 
 
         }
 
+        private View Build_Label(Objects.Object obj)
+        {
+            Int32.TryParse(obj.Arguments[3], out int fontsize);
+            Label label = new Label()
+            {
+                HeightRequest = obj.Height,
+                WidthRequest = obj.Width,
+                TextColor = Color.FromHex(obj.Arguments[0]),
+                BackgroundColor = Color.FromHex(obj.Arguments[1]),
+                Text = obj.Arguments[2],
+                FontSize = fontsize,
+            };
+            return label;
+        }
         private View Build_Button(Objects.Object obj)
         {
             var temp1 = new Button
@@ -194,20 +211,72 @@ namespace CTRLapp.Views
             canvas.Effects.Add(touchEffect);
             return canvas;
         }
-        private View Build_Label(Objects.Object obj)
+        private View Build_Matrix(Objects.Object obj)
         {
-            Int32.TryParse(obj.Arguments[3], out int fontsize);
-            Label label = new Label()
+            var touchEffect = new TouchTracking.Forms.TouchEffect() { Capture = true };
+            SKCanvasView canvas = new SKCanvasView
             {
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
-                TextColor = Color.FromHex(obj.Arguments[0]),
+                EnableTouchEvents = false,
                 BackgroundColor = Color.FromHex(obj.Arguments[1]),
-                Text = obj.Arguments[2],
-                FontSize = fontsize,
             };
-            return label;
+            SKPoint touch = new SKPoint();
+            canvas.PaintSurface += (s, e) =>
+            {
+                var surface = e.Surface.Canvas;
+                surface.Clear();
+
+                float radius = 50;
+                SKPaint thumb_paint = new SKPaint
+                {
+                    Style = SKPaintStyle.Fill,
+                    Color = Color.FromHex(obj.Arguments[0]).ToSKColor(),
+                };
+                surface.DrawCircle((float)touch.X, (float)touch.Y, radius / 3, thumb_paint);
+            };
+            touchEffect.TouchAction += async (s, e) =>
+            {
+                switch (e.Type)
+                {
+                    case TouchTracking.TouchActionType.Pressed:
+                    case TouchTracking.TouchActionType.Moved:
+                    case TouchTracking.TouchActionType.Released:
+                        //map touch point to Canvas because different size
+                        touch = new SKPoint((float)(canvas.CanvasSize.Width * e.Location.X / canvas.Width),
+                                            (float)(canvas.CanvasSize.Height * e.Location.Y / canvas.Height));
+
+                        if (touch.X < 0) touch.X = 0;   // so that the circle doesnt go further than the edge of the canvas
+                        if (touch.X > canvas.CanvasSize.Width) touch.X = canvas.CanvasSize.Width;
+                        if (touch.Y < 0) touch.Y = 0;
+                        if (touch.Y > canvas.CanvasSize.Width) touch.Y = canvas.CanvasSize.Width;
+
+                        //map touch point to defined min and max
+                        Point coordinates = new Point()
+                        {
+                            X = (e.Location.X / canvas.Width) * (float.Parse(obj.Arguments[5]) - float.Parse(obj.Arguments[4])) + float.Parse(obj.Arguments[4]),
+                            Y = (e.Location.X / canvas.Width) * (float.Parse(obj.Arguments[7]) - float.Parse(obj.Arguments[6])) + float.Parse(obj.Arguments[6]),
+                        };
+
+                        Debug.WriteLine("sending mqtt message");
+                        string result0 = await MQTT.SendMQTT(obj.Arguments[2], coordinates.X.ToString());
+                        string result1 = await MQTT.SendMQTT(obj.Arguments[3], coordinates.Y.ToString());
+                        canvas.InvalidateSurface();
+
+                        break;
+                }
+            };
+
+
+            canvas.Effects.Add(touchEffect);
+            return canvas;
         }
+
+
+
+
+
+
 
         private async void Check_Error(string result)
         {
@@ -236,4 +305,5 @@ namespace CTRLapp.Views
             }
 #pragma warning restore CS0162 // Unerreichbarer Code wurde entdeckt.
         }
-    }}
+    }
+}
