@@ -12,7 +12,7 @@ namespace CTRLapp.Views.Settings_pages
     {
         private int master_menu, bottom_menu;
 
-        private static readonly int rounding_value = 20;
+        
 
         public Gui_page(int master_menu, int bottom_menu)
         {
@@ -43,6 +43,22 @@ namespace CTRLapp.Views.Settings_pages
             };
             temp.Arguments = new string[1];
             temp.Arguments[0] = Color.Black.ToHex();
+
+            Add_Object(temp);
+        }
+        private void Add_Label_Pressed(object sender, EventArgs e)
+        {
+            Objects.Object temp = new Objects.Object
+            {
+                Width = 100,
+                Height = 60,
+                Type = "Label"
+            };
+            temp.Arguments = new string[4];
+            temp.Arguments[0] = Color.Black.ToHex();
+            temp.Arguments[1] = Color.Transparent.ToHex();
+            temp.Arguments[2] = "Label";
+            temp.Arguments[3] = "21";
 
             Add_Object(temp);
         }
@@ -124,23 +140,26 @@ namespace CTRLapp.Views.Settings_pages
             Add_Object(temp);
 
         }
-        private void Add_Label_Pressed(object sender, EventArgs e)
+        private void Add_Matrix_Pressed(object sender, EventArgs e)
         {
             Objects.Object temp = new Objects.Object
             {
-                Width = 100,
-                Height = 60,
-                Type = "Label"
+                Width = 200,
+                Height = 200,
+                Type = "Matrix"
             };
-            temp.Arguments = new string[4];
+            temp.Arguments = new string[8];
             temp.Arguments[0] = Color.Black.ToHex();
-            temp.Arguments[1] = Color.Transparent.ToHex();
-            temp.Arguments[2] = "Label";
-            temp.Arguments[3] = "21";
+            temp.Arguments[1] = Color.LightGray.ToHex();
+            temp.Arguments[2] = "";
+            temp.Arguments[3] = "";
+            temp.Arguments[4] = "0";
+            temp.Arguments[5] = "255";
+            temp.Arguments[6] = "0";
+            temp.Arguments[7] = "255";
 
             Add_Object(temp);
         }
-
 
 
         private void Add_Object(Objects.Object temp)
@@ -163,7 +182,7 @@ namespace CTRLapp.Views.Settings_pages
             }
         }
 
-
+        
 
         private void Load_Object(int obj_index)
         {
@@ -199,6 +218,8 @@ namespace CTRLapp.Views.Settings_pages
             var panGestureRecognizer = new PanGestureRecognizer();
             panGestureRecognizer.PanUpdated += (s, e) =>
             {
+                byte rounding_value = 1;
+                if (snapBox.IsChecked) rounding_value = 20;  //checks if snap is enabled
                 switch (e.StatusType)
                 {
                     case GestureStatus.Started:
