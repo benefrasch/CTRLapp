@@ -48,12 +48,13 @@ namespace CTRLapp.Views
             Main_Layout.Children.Clear();
 
             BackgroundImageSource = null;
+            if (Variables.Variables.Layout == null || Variables.Variables.Layout[master_menu].Bottom_Menu_Items == null) return;
             if (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].BackgroundImageSource != "")
             {
                 BackgroundImageSource = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].BackgroundImageSource;
             }
 
-            if (Variables.Variables.Layout == null || Variables.Variables.Layout[master_menu].Bottom_Menu_Items == null || Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects == null) return;
+            if (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects == null) return;
             List<Objects.Object> object_list = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects;
 
             foreach ((Objects.Object obj, int index) in object_list.Select((v, i) => (v, i)))
