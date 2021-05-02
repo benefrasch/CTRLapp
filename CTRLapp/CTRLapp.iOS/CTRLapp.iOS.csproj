@@ -154,6 +154,9 @@
     <PackageReference Include="MQTTnet">
       <Version>3.0.15</Version>
     </PackageReference>
+    <PackageReference Include="MQTTnet.Extensions.ManagedClient">
+      <Version>3.0.15</Version>
+    </PackageReference>
     <PackageReference Include="SkiaSharp">
       <Version>2.80.2</Version>
     </PackageReference>
@@ -183,7 +186,7 @@
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadWrongLinkerErrorInfoBarCTRLappiOSHideInfoBar="True" />
+      <UserProperties XamarinHotReloadWrongLinkerErrorInfoBarCTRLappiOSHideInfoBar="True" TriggeredFromHotReload="False" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

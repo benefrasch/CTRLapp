@@ -105,6 +105,7 @@ namespace CTRLapp.Views.Settings_pages.GUI
                 HasShadow = false,
                 Padding = 0,
                 Rotation = obj.Rotation,
+                BackgroundColor = Color.Transparent,
             }; //to outline the object, i.e. for visualizing size
             view.Content = new Object_view(master_menu, bottom_menu, obj_index); //make the view without translation
             grid.Children.Add(view, 2, 0);

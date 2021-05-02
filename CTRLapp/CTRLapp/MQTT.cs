@@ -2,6 +2,7 @@
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
+using MQTTnet.Extensions.ManagedClient;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -12,19 +13,19 @@ namespace CTRLapp
 {
     class MQTT
     {
-        private static MqttClient mqttClient;
+        private static ManagedMqttClient mqttClient;
 
         public static void DisconnectMQTT()
         {
             Debug.WriteLine("Disconnecting MQTT");
-            if (mqttClient != null) mqttClient.DisconnectAsync();
+            if (mqttClient != null) mqttClient.StopAsync();
         }
         public static async Task<bool> ConnectMQTT()
         {
             DisconnectMQTT();
             Debug.Write("Connecting to MQTT...");
             var factory = new MqttFactory();
-            mqttClient = (MqttClient)factory.CreateMqttClient();
+            mqttClient = (ManagedMqttClient)new MqttFactory().CreateManagedMqttClient();
             try
             {
                 var options = new MqttClientOptionsBuilder()
@@ -32,7 +33,11 @@ namespace CTRLapp
                     .WithTcpServer(Preferences.Get("broker_ip", ""))                                                          //mqtt server
                     .WithCredentials(Preferences.Get("broker_username", ""), Preferences.Get("broker_password", ""))          //username, password
                     .Build();
-                await mqttClient.ConnectAsync(options, CancellationToken.None);
+                var managedOptions = new ManagedMqttClientOptionsBuilder()
+                    .WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
+                    .WithClientOptions(options)
+                    .Build();
+                await mqttClient.StartAsync(managedOptions);
                 Debug.WriteLine("connected");
             }
             catch (Exception e)
@@ -56,7 +61,6 @@ namespace CTRLapp
             try
             {
                 var message = new MqttApplicationMessageBuilder()
-                    //.WithTopic(topic)
                     .WithTopic(topic)
                     .WithPayload(payload)
                     .WithRetainFlag()
@@ -73,6 +77,11 @@ namespace CTRLapp
                 return false;
             };
             return true;
+
+
         }
+
+        
+
     }
 }

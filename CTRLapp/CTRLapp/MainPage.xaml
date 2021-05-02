@@ -25,9 +25,13 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <ImageButton x:Name="Settings_button" Source="settings_icon"  Grid.Row="0" Pressed="Settings_button_Pressed" CornerRadius="10" BackgroundColor="Transparent"/>
+                <ImageButton x:Name="Settings_button" Source="settings_icon"  
+                             Grid.Row="0" Pressed="Settings_button_Pressed" 
+                             CornerRadius="10" BackgroundColor="Transparent" />
 
-                <ListView Grid.Row="1" x:Name="Master_List" RowHeight="100" ItemSelected="Master_List_ItemSelected" SeparatorVisibility="None" BackgroundColor="#80202020">
+                <ListView Grid.Row="1" x:Name="Master_List" RowHeight="100" 
+                          ItemSelected="Master_List_ItemSelected" SeparatorVisibility="None" 
+                          BackgroundColor="#80202020">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -51,7 +55,12 @@
             </Grid>
 
             <RelativeLayout Grid.Row="1" Grid.Column="1" HeightRequest="80">
-                <ListView x:Name="Bottom_List" RowHeight="100" ItemSelected="Bottom_List_ItemSelected" Rotation="270" SeparatorVisibility="None" BackgroundColor="#80202020" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-40}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.5, Constant=40}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=Constant, Constant=80}" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+                <ListView x:Name="Bottom_List" RowHeight="100" ItemSelected="Bottom_List_ItemSelected" 
+                          Rotation="270" SeparatorVisibility="None" BackgroundColor="#80202020" 
+                          RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-40}" 
+                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.5, Constant=40}" 
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=Constant, Constant=80}" 
+                          RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
