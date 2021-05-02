@@ -1,7 +1,9 @@
 ﻿using CTRLapp.Views.Settings_pages.GUI;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,7 +14,7 @@ namespace CTRLapp.Views.Settings_pages
     {
         private int master_menu, bottom_menu;
 
-        
+
 
         public Gui_page(int master_menu, int bottom_menu)
         {
@@ -26,6 +28,12 @@ namespace CTRLapp.Views.Settings_pages
             Initialize_Objects();
             BackgroundImageSource = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].BackgroundImageSource;
             base.OnAppearing();
+        }
+        protected override void OnDisappearing()
+        {
+            Debug.WriteLine(JsonConvert.SerializeObject(Variables.Variables.Layout));
+            File.WriteAllText(Variables.Variables.configLocation, JsonConvert.SerializeObject(Variables.Variables.Layout));
+
         }
 
         private async void Exit_button_Clicked(object sender, EventArgs e)
@@ -183,7 +191,7 @@ namespace CTRLapp.Views.Settings_pages
             }
         }
 
-        
+
 
         private void Load_Object(int obj_index) //object with pan and tap for config
         {
@@ -236,8 +244,8 @@ namespace CTRLapp.Views.Settings_pages
                         }
                         break;
                     case GestureStatus.Running:
-                        grid.TranslationX = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].X + (((int)Math.Round(e.TotalX / (double)rounding_value)) * rounding_value);
-                        grid.TranslationY = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].Y + (((int)Math.Round(e.TotalY / (double)rounding_value)) * rounding_value);
+                        grid.TranslationX = ((int)(Math.Round(Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].X + e.TotalX) / (double)rounding_value)) * rounding_value;
+                        grid.TranslationY = ((int)(Math.Round(Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].Y + e.TotalY) / (double)rounding_value)) * rounding_value;
                         break;
                     case GestureStatus.Completed:
                         invisible_grid.Rotation = obj.Rotation; //reset rotation to before

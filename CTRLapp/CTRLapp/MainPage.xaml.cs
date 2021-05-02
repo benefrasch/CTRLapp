@@ -11,16 +11,16 @@ namespace CTRLapp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
     {
-        int master_menu, bottom_menu;
+        public static int master_menu, bottom_menu;
 
         public MainPage()
         {
             InitializeComponent();
         }
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-            MQTT.DisconnectMQTT();
+            await MQTT.ConnectMQTT();
 
             master_menu = 0; bottom_menu = 0; //reset both menus to 0
 

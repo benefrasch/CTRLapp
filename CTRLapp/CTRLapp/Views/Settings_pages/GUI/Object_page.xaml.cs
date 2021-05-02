@@ -1,5 +1,7 @@
-﻿using System;
-
+﻿using Newtonsoft.Json;
+using System;
+using System.Diagnostics;
+using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -84,7 +86,12 @@ namespace CTRLapp.Views.Settings_pages.GUI
 
             base.OnAppearing();
         }
+        protected override void OnDisappearing()
+        {
+            Debug.WriteLine(JsonConvert.SerializeObject(Variables.Variables.Layout));
+            File.WriteAllText(Variables.Variables.configLocation, JsonConvert.SerializeObject(Variables.Variables.Layout));
 
+        }
 
         private Frame view; // so we can easily delete it, when updating preview
         private void UpdatePreview(object sender = null, TextChangedEventArgs e = null) //preview in middle of right side

@@ -1,4 +1,5 @@
-﻿using MQTTnet;
+﻿using CTRLapp.Views.Settings_pages;
+using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
 using System;
@@ -15,14 +16,13 @@ namespace CTRLapp
 
         public static void DisconnectMQTT()
         {
+            Debug.WriteLine("Disconnecting MQTT");
             if (mqttClient != null) mqttClient.DisconnectAsync();
-            mqttClient = null;
         }
-        public static async Task<int> ConnectMQTT()
+        public static async Task<bool> ConnectMQTT()
         {
-            if (Variables.Variables.MQTT_connecting) return 1;
-            else Variables.Variables.MQTT_connecting = true;
-            Debug.WriteLine("connecting to MQTT Broker...");
+            DisconnectMQTT();
+            Debug.Write("Connecting to MQTT...");
             var factory = new MqttFactory();
             mqttClient = (MqttClient)factory.CreateMqttClient();
             try
@@ -33,28 +33,25 @@ namespace CTRLapp
                     .WithCredentials(Preferences.Get("broker_username", ""), Preferences.Get("broker_password", ""))          //username, password
                     .Build();
                 await mqttClient.ConnectAsync(options, CancellationToken.None);
-                // Debug.WriteLine("connected");
+                Debug.WriteLine("connected");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                mqttClient = null;
-                return 2;
+                Debug.WriteLine("error while connecting: " + e.Message);
+                if (await App.Current.MainPage.DisplayAlert("MQTT connection failed", "do you want to enter settings?", "yes", "no"))
+                    await App.Current.MainPage.Navigation.PushModalAsync(new Settings_page());
+                return false;
             };
-            return 0;
+            return true;
         }
 
-        public static async Task<string> SendMQTT(string topic, string payload)
+        public static async Task<bool> SendMQTT(string topic, string payload)
         {
-            topic = "test"; //just for testing
-
-
             if (mqttClient == null || !mqttClient.IsConnected)
             {
-                Debug.WriteLine("connecting");
-                int result = await ConnectMQTT();
-                if (result == 2) return "connection_failed";
-                else if (result == 1) return "already_connecting";
-                Debug.WriteLine("result = " + result);
+                if (await App.Current.MainPage.DisplayAlert("MQTT connection failed", "do you want to enter settings?", "yes", "no"))
+                    await App.Current.MainPage.Navigation.PushModalAsync(new Settings_page());
+                return false;
             }
             try
             {
@@ -68,11 +65,14 @@ namespace CTRLapp
                 await mqttClient.PublishAsync(message, CancellationToken.None);
                 Debug.WriteLine("message sent successfully");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return "message_sending_failed";
+                Debug.WriteLine("error while sending: " + e.Message);
+                if (await App.Current.MainPage.DisplayAlert("MQTT sending failed", "do you want to enter settings?", "yes", "no"))
+                    await App.Current.MainPage.Navigation.PushModalAsync(new Gui_page(Views.MainPage.master_menu, Views.MainPage.bottom_menu));
+                return false;
             };
-            return "successful";
+            return true;
         }
     }
 }

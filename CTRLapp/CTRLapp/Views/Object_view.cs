@@ -78,7 +78,7 @@ namespace CTRLapp.Views
             temp1.Clicked += async (s, e) =>
             {
                 Debug.WriteLine("sending mqtt message");
-                string result = await MQTT.SendMQTT(obj.Arguments[3], obj.Arguments[4]);
+                await MQTT.SendMQTT(obj.Arguments[3], obj.Arguments[4]);
             };
             return temp1;
         }
@@ -94,7 +94,7 @@ namespace CTRLapp.Views
                 Debug.WriteLine("sending mqtt message");
                 string message = obj.Arguments[3];
                 if (e.Value) message = obj.Arguments[4];
-                string result = await MQTT.SendMQTT(obj.Arguments[2], message);
+                await MQTT.SendMQTT(obj.Arguments[2], message);
             };
             return temp2;
         }
@@ -113,7 +113,7 @@ namespace CTRLapp.Views
             temp3.ValueChanged += async (s, e) =>
             {
                 Debug.WriteLine("sending mqtt message");
-                string result = await MQTT.SendMQTT(obj.Arguments[3], e.NewValue.ToString());
+                await MQTT.SendMQTT(obj.Arguments[3], e.NewValue.ToString());
             };
             return temp3;
         }
@@ -205,8 +205,8 @@ namespace CTRLapp.Views
                 if (coordinates.Y > maximumy) coordinates.Y = maximumy;
 
                 Debug.WriteLine("sending mqtt message");
-                string result0 = await MQTT.SendMQTT(obj.Arguments[2], coordinates.X.ToString());
-                string result1 = await MQTT.SendMQTT(obj.Arguments[3], coordinates.Y.ToString());
+                await MQTT.SendMQTT(obj.Arguments[2], coordinates.X.ToString());
+                await MQTT.SendMQTT(obj.Arguments[3], coordinates.Y.ToString());
             };
             canvas.Effects.Add(touchEffect);
             return canvas;
@@ -259,8 +259,8 @@ namespace CTRLapp.Views
                         };
 
                         Debug.WriteLine("sending mqtt message");
-                        string result0 = await MQTT.SendMQTT(obj.Arguments[2], coordinates.X.ToString());
-                        string result1 = await MQTT.SendMQTT(obj.Arguments[3], coordinates.Y.ToString());
+                        await MQTT.SendMQTT(obj.Arguments[2], coordinates.X.ToString());
+                        await MQTT.SendMQTT(obj.Arguments[3], coordinates.Y.ToString());
                         canvas.InvalidateSurface();
 
                         break;

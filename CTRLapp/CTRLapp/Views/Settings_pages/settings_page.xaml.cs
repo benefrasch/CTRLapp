@@ -20,7 +20,6 @@ namespace CTRLapp.Views.Settings_pages
             Debug.WriteLine(JsonConvert.SerializeObject(Variables.Variables.Layout));
             File.WriteAllText(Variables.Variables.configLocation, JsonConvert.SerializeObject(Variables.Variables.Layout));
 
-            MQTT.DisconnectMQTT();
         }
 
     }
