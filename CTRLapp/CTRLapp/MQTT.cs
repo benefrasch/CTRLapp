@@ -64,6 +64,7 @@ namespace CTRLapp
                     .WithTopic(topic)
                     .WithPayload(payload)
                     .WithRetainFlag()
+                    .WithQualityOfServiceLevel((MQTTnet.Protocol.MqttQualityOfServiceLevel)1)
                     .Build();
                 Debug.WriteLine("topic: " + topic + "   payload: " + payload);
                 await mqttClient.PublishAsync(message, CancellationToken.None);
