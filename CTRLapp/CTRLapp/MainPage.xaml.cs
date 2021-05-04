@@ -1,4 +1,5 @@
 ﻿using CTRLapp.Views.Settings_pages;
+using MQTTnet.Extensions.ManagedClient;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,6 +22,7 @@ namespace CTRLapp.Views
         {
             base.OnAppearing();
             await MQTT.ConnectMQTT();
+            await MQTT.SubscribeMQTT("test");
 
             master_menu = 0; bottom_menu = 0; //reset both menus to 0
 

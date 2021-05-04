@@ -17,7 +17,6 @@ namespace CTRLapp.Views.Settings_pages
         protected override void OnAppearing()
         {
             Load_settings();
-            MQTT.DisconnectMQTT();
         }
         protected override void OnDisappearing()
         {

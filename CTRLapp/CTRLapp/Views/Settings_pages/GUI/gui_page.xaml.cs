@@ -60,7 +60,7 @@ namespace CTRLapp.Views.Settings_pages
             Objects.Object temp = new Objects.Object
             {
                 Width = 100,
-                Height = 60,
+                Height = 30,
                 Type = "Label"
             };
             temp.Arguments = new string[4];

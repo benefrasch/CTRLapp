@@ -13,18 +13,12 @@ namespace CTRLapp
 {
     class MQTT
     {
-        private static ManagedMqttClient mqttClient;
+        public static ManagedMqttClient mqttClient;
 
-        public static void DisconnectMQTT()
-        {
-            Debug.WriteLine("Disconnecting MQTT");
-            if (mqttClient != null) mqttClient.StopAsync();
-        }
         public static async Task<bool> ConnectMQTT()
         {
-            DisconnectMQTT();
+            if (mqttClient != null) await mqttClient.StopAsync();
             Debug.Write("Connecting to MQTT...");
-            var factory = new MqttFactory();
             mqttClient = (ManagedMqttClient)new MqttFactory().CreateManagedMqttClient();
             try
             {
@@ -52,6 +46,8 @@ namespace CTRLapp
 
         public static async Task<bool> SendMQTT(string topic, string payload)
         {
+            if (topic == "") topic = "topic_not_set";
+            Debug.WriteLine("sending mqtt message");
             if (mqttClient == null || !mqttClient.IsConnected)
             {
                 if (await App.Current.MainPage.DisplayAlert("MQTT connection failed", "do you want to enter settings?", "yes", "no"))
@@ -78,11 +74,37 @@ namespace CTRLapp
                 return false;
             };
             return true;
-
-
         }
 
-        
 
+        public static async Task<bool> SubscribeMQTT(string topic)
+        {
+            var topicFilter = new MqttTopicFilterBuilder()
+                .WithAtLeastOnceQoS()
+                .WithTopic(topic)
+                .Build();
+            await mqttClient.SubscribeAsync(topicFilter);
+
+            mqttClient.UseApplicationMessageReceivedHandler(e =>
+            {
+                MqttMessageEventArgs messageReceivedEventArgs = new MqttMessageEventArgs
+                {
+                    Topic = e.ApplicationMessage.Topic,
+                    Message = System.Text.Encoding.Default.GetString(e.ApplicationMessage.Payload),
+                };
+                MqttMessageReceived?.Invoke(null, messageReceivedEventArgs);
+                Debug.WriteLine("Received Message int topic: " + e.ApplicationMessage.Topic + " : " + System.Text.Encoding.Default.GetString(e.ApplicationMessage.Payload));
+            });
+
+            return true;
+        }
+
+        public static event EventHandler<MqttMessageEventArgs> MqttMessageReceived;
+
+    }
+    public class MqttMessageEventArgs : EventArgs
+    {
+        public string Topic;
+        public string Message;
     }
 }

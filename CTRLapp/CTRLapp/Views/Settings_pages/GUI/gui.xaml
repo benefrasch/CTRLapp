@@ -58,12 +58,11 @@
                 </StackLayout>
                 
                 <Button Text="Edit Interface" x:Name="Edit_gui" Clicked="Edit_gui_Clicked" />
-                
-                <Button Text="Set background image for this screen" x:Name="Edit_background" Clicked="BackgroundImageSelect"/>
-                <Image x:Name="previewImage"/>
+
+            <Button Text="Set background image for this screen" x:Name="Edit_background" Clicked="BackgroundImageSelect"/>
 
 
-                <Button Text="Delete" x:Name="Delete_button" Pressed="Delete_button_Pressed" BackgroundColor="DarkRed" WidthRequest="120" HeightRequest="40" VerticalOptions="EndAndExpand" HorizontalOptions="Center" />
+            <Button Text="Delete" x:Name="Delete_button" Pressed="Delete_button_Pressed" BackgroundColor="DarkRed" WidthRequest="120" HeightRequest="40" VerticalOptions="EndAndExpand" HorizontalOptions="Center" />
             </StackLayout>
 
         </Grid>

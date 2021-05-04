@@ -1,5 +1,6 @@
 ﻿using CTRLapp.Views.Settings_pages;
 using CTRLapp.Views.Settings_pages.GUI;
+using MQTTnet.Extensions.ManagedClient;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using System;
@@ -41,6 +42,7 @@ namespace CTRLapp.Views
                 case "Joystick":
                     Content = Build_Joystick(obj);
                     break;
+
                 case "Matrix":
                     Content = Build_Matrix(obj);
                     break;
@@ -51,15 +53,14 @@ namespace CTRLapp.Views
 
         private View Build_Label(Objects.Object obj)
         {
-            Int32.TryParse(obj.Arguments[3], out int fontsize);
+            int.TryParse(obj.Arguments[3], out int fontsize);
             Label label = new Label()
             {
-                HeightRequest = obj.Height,
-                WidthRequest = obj.Width,
                 TextColor = Color.FromHex(obj.Arguments[0]),
                 BackgroundColor = Color.FromHex(obj.Arguments[1]),
                 Text = obj.Arguments[2],
                 FontSize = fontsize,
+                IsEnabled = false,
             };
             return label;
         }
@@ -77,7 +78,6 @@ namespace CTRLapp.Views
 
             temp1.Clicked += async (s, e) =>
             {
-                Debug.WriteLine("sending mqtt message");
                 await MQTT.SendMQTT(obj.Arguments[3], obj.Arguments[4]);
             };
             return temp1;
@@ -91,15 +91,27 @@ namespace CTRLapp.Views
             };
             temp2.Toggled += async (s, e) =>
             {
-                Debug.WriteLine("sending mqtt message");
                 string message = obj.Arguments[3];
                 if (e.Value) message = obj.Arguments[4];
                 await MQTT.SendMQTT(obj.Arguments[2], message);
             };
+
+            //syncing function
+            //MQTT.MqttMessageReceived += (s, e) =>
+            //{
+            //    if (e.Topic != obj.Arguments[2]) return;
+            //    Debug.WriteLine("received by: " + obj_index);
+            //    bool receivedValue = false;
+            //    int.TryParse(e.Message,out int messageInt);
+            //    if (messageInt >= int.Parse(obj.Arguments[4])) receivedValue = true;
+            //    temp2.IsToggled = receivedValue;
+            //};
+            //_ = MQTT.SubscribeMQTT(obj.Arguments[2]);
             return temp2;
         }
         private View Build_Slider(Objects.Object obj)
         {
+            bool block = false; //avoid loopback from mqtt delay
             var temp3 = new Slider
             {
                 HeightRequest = obj.Height,
@@ -112,9 +124,20 @@ namespace CTRLapp.Views
             };
             temp3.ValueChanged += async (s, e) =>
             {
-                Debug.WriteLine("sending mqtt message");
+                if (block) return;
                 await MQTT.SendMQTT(obj.Arguments[3], e.NewValue.ToString());
             };
+
+             //syncing function
+            MQTT.MqttMessageReceived += (s, e) =>
+            {
+                if (e.Topic != obj.Arguments[3]) return;
+                float.TryParse(e.Message, out float messageFloat);
+                block = true;
+                temp3.Value = messageFloat;
+                block = false;
+            };
+            _ = MQTT.SubscribeMQTT(obj.Arguments[3]);
             return temp3;
         }
         private View Build_Joystick(Objects.Object obj)
@@ -204,11 +227,28 @@ namespace CTRLapp.Views
                 if (coordinates.Y < minimumy) coordinates.Y = minimumy;
                 if (coordinates.Y > maximumy) coordinates.Y = maximumy;
 
-                Debug.WriteLine("sending mqtt message");
                 await MQTT.SendMQTT(obj.Arguments[2], coordinates.X.ToString());
                 await MQTT.SendMQTT(obj.Arguments[3], coordinates.Y.ToString());
             };
             canvas.Effects.Add(touchEffect);
+
+             //syncing function
+            MQTT.MqttMessageReceived += (s, e) =>
+            {
+                if (timer.Enabled) return;
+                if (e.Topic == obj.Arguments[2])
+                {
+                    float.TryParse(e.Message, out float messageFloat);
+                    coordinates.X = messageFloat;
+                } else if(e.Topic == obj.Arguments[3])
+                {
+                    float.TryParse(e.Message, out float messageFloat);
+                    coordinates.Y = messageFloat;
+                }
+            };
+            _ = MQTT.SubscribeMQTT(obj.Arguments[2]);
+            _ = MQTT.SubscribeMQTT(obj.Arguments[3]);
+
             return canvas;
         }
         private View Build_Matrix(Objects.Object obj)
@@ -255,10 +295,9 @@ namespace CTRLapp.Views
                         Point coordinates = new Point()
                         {
                             X = (e.Location.X / canvas.Width) * (float.Parse(obj.Arguments[5]) - float.Parse(obj.Arguments[4])) + float.Parse(obj.Arguments[4]),
-                            Y = (e.Location.X / canvas.Width) * (float.Parse(obj.Arguments[7]) - float.Parse(obj.Arguments[6])) + float.Parse(obj.Arguments[6]),
+                            Y = (e.Location.Y / canvas.Width) * (float.Parse(obj.Arguments[7]) - float.Parse(obj.Arguments[6])) + float.Parse(obj.Arguments[6]),
                         };
 
-                        Debug.WriteLine("sending mqtt message");
                         await MQTT.SendMQTT(obj.Arguments[2], coordinates.X.ToString());
                         await MQTT.SendMQTT(obj.Arguments[3], coordinates.Y.ToString());
                         canvas.InvalidateSurface();
@@ -267,43 +306,30 @@ namespace CTRLapp.Views
                 }
             };
 
-
             canvas.Effects.Add(touchEffect);
+
+            //syncing function
+            MQTT.MqttMessageReceived += (s, e) =>
+            {
+                if (e.Topic == obj.Arguments[2])
+                {
+                    float.TryParse(e.Message, out float messageFloat);
+                    touch.X = (messageFloat - float.Parse(obj.Arguments[4])) / (float.Parse(obj.Arguments[5]) - float.Parse(obj.Arguments[4])) * canvas.CanvasSize.Width;
+                    canvas.InvalidateSurface();
+                }
+                else if (e.Topic == obj.Arguments[3])
+                {
+                    float.TryParse(e.Message, out float messageFloat);
+                    touch.Y = (messageFloat - float.Parse(obj.Arguments[6])) / (float.Parse(obj.Arguments[7]) - float.Parse(obj.Arguments[6])) * canvas.CanvasSize.Width;
+                    canvas.InvalidateSurface();
+                }
+            };
+            _ = MQTT.SubscribeMQTT(obj.Arguments[2]);
+            _ = MQTT.SubscribeMQTT(obj.Arguments[3]);
+
             return canvas;
         }
 
 
-
-
-
-
-
-        private async void Check_Error(string result)
-        {
-            return; // not errorcheck not working properly right now
-#pragma warning disable CS0162 // Unerreichbarer Code wurde entdeckt.
-            if (result == "connection_failed")
-            {
-                if (!Variables.Variables.Alert_active)
-                {
-                    Variables.Variables.Alert_active = true;
-                    await App.Current.MainPage.DisplayAlert("Error", "Connecting to Broker failed", "ok");
-                    await App.Current.MainPage.Navigation.PushModalAsync(new Settings_page());
-                    Variables.Variables.Alert_active = false;
-                }
-            }
-            else if (result == "message_sending_failed")
-            {
-                if (!Variables.Variables.Alert_active)
-                {
-                    Variables.Variables.Alert_active = true;
-                    await App.Current.MainPage.DisplayAlert("Error", "MQTT topic not set", "ok");
-                    await App.Current.MainPage.Navigation.PushModalAsync(new Object_page(master_menu, bottom_menu, obj_index));
-                    Variables.Variables.Alert_active = false;
-                }
-
-            }
-#pragma warning restore CS0162 // Unerreichbarer Code wurde entdeckt.
-        }
     }
 }
