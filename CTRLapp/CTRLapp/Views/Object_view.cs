@@ -1,10 +1,5 @@
-﻿using CTRLapp.Views.Settings_pages;
-using CTRLapp.Views.Settings_pages.GUI;
-using MQTTnet.Extensions.ManagedClient;
-using SkiaSharp;
+﻿using SkiaSharp;
 using SkiaSharp.Views.Forms;
-using System;
-using System.Diagnostics;
 using System.Timers;
 using Xamarin.Forms;
 
@@ -124,11 +119,11 @@ namespace CTRLapp.Views
             };
             temp3.ValueChanged += async (s, e) =>
             {
-                if (block) return;
-                await MQTT.SendMQTT(obj.Arguments[3], e.NewValue.ToString());
+                if (!block)
+                    await MQTT.SendMQTT(obj.Arguments[3], e.NewValue.ToString());
             };
 
-             //syncing function
+            //syncing function
             MQTT.MqttMessageReceived += (s, e) =>
             {
                 if (e.Topic != obj.Arguments[3]) return;
@@ -232,7 +227,7 @@ namespace CTRLapp.Views
             };
             canvas.Effects.Add(touchEffect);
 
-             //syncing function
+            //syncing function
             MQTT.MqttMessageReceived += (s, e) =>
             {
                 if (timer.Enabled) return;
@@ -240,7 +235,8 @@ namespace CTRLapp.Views
                 {
                     float.TryParse(e.Message, out float messageFloat);
                     coordinates.X = messageFloat;
-                } else if(e.Topic == obj.Arguments[3])
+                }
+                else if (e.Topic == obj.Arguments[3])
                 {
                     float.TryParse(e.Message, out float messageFloat);
                     coordinates.Y = messageFloat;

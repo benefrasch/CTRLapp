@@ -1,5 +1,4 @@
 ﻿using CTRLapp.Views.Settings_pages;
-using MQTTnet.Extensions.ManagedClient;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,12 +21,17 @@ namespace CTRLapp.Views
         {
             base.OnAppearing();
             await MQTT.ConnectMQTT();
-            await MQTT.SubscribeMQTT("test");
+
+
+            Debug.WriteLine("onappearing");
 
             master_menu = 0; bottom_menu = 0; //reset both menus to 0
+            Master_List.ItemsSource = null; Bottom_List.ItemsSource = null;
 
-            if (Variables.Variables.Layout != null) Master_List.ItemsSource = Variables.Variables.Layout;
-            if (Variables.Variables.Layout != null && Variables.Variables.Layout[master_menu].Bottom_Menu_Items != null) Bottom_List.ItemsSource = Variables.Variables.Layout[master_menu].Bottom_Menu_Items;
+            if (Variables.Variables.Layout != null)
+                Master_List.ItemsSource = Variables.Variables.Layout;
+            if (Variables.Variables.Layout != null && Variables.Variables.Layout[master_menu].Bottom_Menu_Items != null)
+                Bottom_List.ItemsSource = Variables.Variables.Layout[master_menu].Bottom_Menu_Items;
             Load_Objects();
         }
 
@@ -47,6 +51,7 @@ namespace CTRLapp.Views
 
         private void Load_Objects()
         {
+            MQTT.RemoveMQTTHandelers();
             Main_Layout.Children.Clear();
 
             BackgroundImageSource = null;

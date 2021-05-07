@@ -99,6 +99,11 @@ namespace CTRLapp
             return true;
         }
 
+        public static void RemoveMQTTHandelers()
+        {
+            MqttMessageReceived = null;
+        }
+
         public static event EventHandler<MqttMessageEventArgs> MqttMessageReceived;
 
     }
