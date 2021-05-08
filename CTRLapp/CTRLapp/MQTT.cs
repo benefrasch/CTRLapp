@@ -1,4 +1,5 @@
-﻿using CTRLapp.Views.Settings_pages;
+﻿using CTRLapp.Views.SettingsPages;
+using CTRLapp.Views.SettingsPages.GUI;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
@@ -38,7 +39,7 @@ namespace CTRLapp
             {
                 Debug.WriteLine("error while connecting: " + e.Message);
                 if (await App.Current.MainPage.DisplayAlert("MQTT connection failed", "do you want to enter settings?", "yes", "no"))
-                    await App.Current.MainPage.Navigation.PushModalAsync(new Settings_page());
+                    await App.Current.MainPage.Navigation.PushModalAsync(new SettingsPage());
                 return false;
             };
             return true;
@@ -51,7 +52,7 @@ namespace CTRLapp
             if (mqttClient == null || !mqttClient.IsConnected)
             {
                 if (await App.Current.MainPage.DisplayAlert("MQTT connection failed", "do you want to enter settings?", "yes", "no"))
-                    await App.Current.MainPage.Navigation.PushModalAsync(new Settings_page());
+                    await App.Current.MainPage.Navigation.PushModalAsync(new SettingsPage());
                 return false;
             }
             try
@@ -70,7 +71,7 @@ namespace CTRLapp
             {
                 Debug.WriteLine("error while sending: " + e.Message);
                 if (await App.Current.MainPage.DisplayAlert("MQTT sending failed", "do you want to enter settings?", "yes", "no"))
-                    await App.Current.MainPage.Navigation.PushModalAsync(new Gui_page(Views.MainPage.master_menu, Views.MainPage.bottom_menu));
+                    await App.Current.MainPage.Navigation.PushModalAsync(new GuiPage(Views.MainPage.master_menu, Views.MainPage.bottom_menu));
                 return false;
             };
             return true;

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" 
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design" 
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:local="clr-namespace:CTRLapp.Views.SettingsPages"
+            xmlns:GUI="clr-namespace:CTRLapp.Views.SettingsPages.GUI"
+            xmlns:General="clr-namespace:CTRLapp.Views.SettingsPages.General" 
+            xmlns:Devices="clr-namespace:CTRLapp.Views.SettingsPages.Devices"
+            mc:Ignorable="d" 
+            x:Class="CTRLapp.Views.SettingsPages.SettingsPage"
+            NavigationPage.HasNavigationBar="False"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core" 
+            android:TabbedPage.IsSwipePagingEnabled="False">
+
+    <local:Back_Button Title="Back  "/>
+    <General:General Title="   GENERAL   "/>
+    <GUI:Gui Title="      GU‌‌I      "/>
+    <Devices:Devices Title="    DEVICES    "/>
+
+</TabbedPage>

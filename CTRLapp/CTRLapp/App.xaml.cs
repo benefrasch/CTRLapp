@@ -24,7 +24,7 @@ namespace CTRLapp
             if (File.Exists(Variables.Variables.configLocation))
                 Config = File.ReadAllText(Variables.Variables.configLocation);
             Debug.WriteLine(Config);
-            Variables.Variables.Layout = JsonConvert.DeserializeObject<List<Master_Menu_Item>>(Config);
+            Variables.Variables.Layout = JsonConvert.DeserializeObject<List<MasterMenuItem>>(Config);
         }
 
         protected override void OnSleep()

@@ -1,4 +1,4 @@
-﻿using CTRLapp.Views.Settings_pages;
+﻿using CTRLapp.Views.SettingsPages;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,8 +30,8 @@ namespace CTRLapp.Views
 
             if (Variables.Variables.Layout != null)
                 Master_List.ItemsSource = Variables.Variables.Layout;
-            if (Variables.Variables.Layout != null && Variables.Variables.Layout[master_menu].Bottom_Menu_Items != null)
-                Bottom_List.ItemsSource = Variables.Variables.Layout[master_menu].Bottom_Menu_Items;
+            if (Variables.Variables.Layout != null && Variables.Variables.Layout[master_menu].BottomMenuItems != null)
+                Bottom_List.ItemsSource = Variables.Variables.Layout[master_menu].BottomMenuItems;
             Load_Objects();
         }
 
@@ -40,7 +40,7 @@ namespace CTRLapp.Views
         {
             master_menu = e.SelectedItemIndex;
             bottom_menu = 0; //default to first page
-            if (Variables.Variables.Layout != null && Variables.Variables.Layout[master_menu].Bottom_Menu_Items != null) Bottom_List.ItemsSource = Variables.Variables.Layout[master_menu].Bottom_Menu_Items;
+            if (Variables.Variables.Layout != null && Variables.Variables.Layout[master_menu].BottomMenuItems != null) Bottom_List.ItemsSource = Variables.Variables.Layout[master_menu].BottomMenuItems;
             Load_Objects();
         }
         private void Bottom_List_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -55,18 +55,18 @@ namespace CTRLapp.Views
             Main_Layout.Children.Clear();
 
             BackgroundImageSource = null;
-            if (Variables.Variables.Layout == null || Variables.Variables.Layout[master_menu].Bottom_Menu_Items == null) return;
-            if (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].BackgroundImageSource != "")
+            if (Variables.Variables.Layout == null || Variables.Variables.Layout[master_menu].BottomMenuItems == null) return;
+            if (Variables.Variables.Layout[master_menu].BottomMenuItems[bottom_menu].BackgroundImageSource != "")
             {
-                BackgroundImageSource = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].BackgroundImageSource;
+                BackgroundImageSource = Variables.Variables.Layout[master_menu].BottomMenuItems[bottom_menu].BackgroundImageSource;
             }
 
-            if (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects == null) return;
-            List<Objects.Object> object_list = Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects;
+            if (Variables.Variables.Layout[master_menu].BottomMenuItems[bottom_menu].Objects == null) return;
+            List<Objects.Object> object_list = Variables.Variables.Layout[master_menu].BottomMenuItems[bottom_menu].Objects;
 
             foreach ((Objects.Object obj, int index) in object_list.Select((v, i) => (v, i)))
             {
-                Main_Layout.Children.Add(new Object_view(master_menu, bottom_menu, index)
+                Main_Layout.Children.Add(new ObjectView(master_menu, bottom_menu, index)
                 {
                     TranslationX = obj.X,
                     TranslationY = obj.Y,
@@ -79,7 +79,7 @@ namespace CTRLapp.Views
 
         private async void Settings_button_Pressed(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new Settings_page(), true);
+            await Navigation.PushAsync(new SettingsPage(), true);
         }
 
 

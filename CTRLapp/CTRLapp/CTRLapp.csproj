@@ -31,29 +31,38 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\Settings_pages\Devices\devices.xaml.cs">
+    <Compile Update="Views\SettingsPages\Devices\devices.xaml.cs">
       <DependentUpon>Devices.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Settings_pages\GUI\edit_layouts\Matrix.xaml.cs">
+    <Compile Update="Views\SettingsPages\Gui\EditLayouts\Matrix.xaml.cs">
       <DependentUpon>Matrix.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Settings_pages\GUI\edit_layouts\Label.xaml.cs">
+    <Compile Update="Views\SettingsPages\Gui\EditLayouts\Label.xaml.cs">
       <DependentUpon>Label.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Settings_pages\GUI\edit_layouts\Slider.xaml.cs">
+    <Compile Update="Views\SettingsPages\Gui\EditLayouts\Slider.xaml.cs">
       <DependentUpon>Slider.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Settings_pages\GUI\edit_layouts\Joystick.xaml.cs">
+    <Compile Update="Views\SettingsPages\Gui\EditLayouts\Joystick.xaml.cs">
       <DependentUpon>Joystick.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Settings_pages\GUI\edit_layouts\Switch.xaml.cs">
+    <Compile Update="Views\SettingsPages\Gui\EditLayouts\Switch.xaml.cs">
       <DependentUpon>Switch.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Settings_pages\GUI\edit_layouts\Button.xaml.cs">
+    <Compile Update="Views\SettingsPages\Gui\EditLayouts\Button.xaml.cs">
       <DependentUpon>Button.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Settings_pages\GUI\gui_page.xaml.cs">
-      <DependentUpon>gui_page.xaml</DependentUpon>
+    <Compile Update="Views\SettingsPages\Gui\Gui.xaml.cs">
+      <DependentUpon>Gui.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SettingsPages\Gui\GuiPage.xaml.cs">
+      <DependentUpon>GuiPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SettingsPages\GUI\ObjectPage.xaml.cs">
+      <DependentUpon>ObjectPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SettingsPages\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -61,25 +70,25 @@
     <EmbeddedResource Update="MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Settings_pages\Devices\Devices.xaml">
+    <EmbeddedResource Update="Views\SettingsPages\Devices\Devices.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Settings_pages\General\general.xaml">
+    <EmbeddedResource Update="Views\SettingsPages\General\general.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Settings_pages\GUI\edit_layouts\Button.xaml">
+    <EmbeddedResource Update="Views\SettingsPages\Gui\EditLayouts\Button.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Settings_pages\GUI\gui_page.xaml">
+    <EmbeddedResource Update="Views\SettingsPages\Gui\GuiPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Settings_pages\GUI\gui.xaml">
+    <EmbeddedResource Update="Views\SettingsPages\Gui\Gui.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Settings_pages\GUI\Object_page.xaml">
+    <EmbeddedResource Update="Views\SettingsPages\GUI\ObjectPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Settings_pages\settings_page.xaml">
+    <EmbeddedResource Update="Views\SettingsPages\SettingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
