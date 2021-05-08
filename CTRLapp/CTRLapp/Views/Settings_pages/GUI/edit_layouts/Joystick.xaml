@@ -36,17 +36,17 @@
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
                     <Label Text="Minimum value:"  Style="{StaticResource descriptionLabel}"/>
                     <Entry Text="{Binding Arguments[4]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview"/>
+                           TextChanged="UpdatePreview" Keyboard="Numeric"/>
                 </StackLayout>
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
                     <Label Text="Maximum value:" Style="{StaticResource descriptionLabel}"/>
                     <Entry Text="{Binding Arguments[5]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview"/>
+                           TextChanged="UpdatePreview" Keyboard="Numeric"/>
                 </StackLayout>
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
                     <Label Text="Scaling:" Style="{StaticResource descriptionLabel}"/>
                     <Entry Text="{Binding Arguments[6]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview"/>
+                           TextChanged="UpdatePreview" Keyboard="Numeric"/>
                 </StackLayout>
             </StackLayout>
 
@@ -59,17 +59,17 @@
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
                     <Label Text="Minimum value:"  Style="{StaticResource descriptionLabel}"/>
                     <Entry Text="{Binding Arguments[7]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview"/>
+                           TextChanged="UpdatePreview" Keyboard="Numeric"/>
                 </StackLayout>
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
                     <Label Text="Maximum value:" Style="{StaticResource descriptionLabel}"/>
                     <Entry Text="{Binding Arguments[8]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview"/>
+                           TextChanged="UpdatePreview" Keyboard="Numeric"/>
                 </StackLayout>
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
                     <Label Text="Scaling:" Style="{StaticResource descriptionLabel}"/>
                     <Entry Text="{Binding Arguments[9]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview"/>
+                           TextChanged="UpdatePreview" Keyboard="Numeric"/>
                 </StackLayout>
             </StackLayout>
 
