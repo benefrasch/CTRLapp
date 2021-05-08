@@ -31,6 +31,8 @@ namespace CTRLapp.Views.Settings_pages.GUI
             switch (Variables.Variables.Layout[master_menu].Bottom_Menu_Items[bottom_menu].Objects[obj_index].Type)
             {
                 case "Label":
+                    sizeStack.IsVisible = false;
+
                     var edit5 = new edit_layouts.Label();
                     edit5.UpdateEvent += (s, e) =>
                     {
