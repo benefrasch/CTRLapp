@@ -7,44 +7,43 @@ namespace CTRLapp.Views
 {
     public class ObjectView : ContentView
     {
-        public ObjectView(int master_menu, int bottom_menu, int obj_index)
+        public ObjectView(int masterMenu, int bottomMenu, int objIndex)
         {
 
-
-            Objects.Object obj = Variables.Variables.Layout[master_menu].BottomMenuItems[bottom_menu].Objects[obj_index];
+            Objects.Object obj = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects[objIndex];
 
 
             switch (obj.Type)
             {
 
                 case "Label":
-                    Content = Build_Label(obj);
+                    Content = BuildLabel(obj);
                     break;
                 case "Button":
-                    Content = Build_Button(obj);
+                    Content = BuildButton(obj);
                     break;
 
                 case "Switch":
-                    Content = Build_Switch(obj);
+                    Content = BuildSwitch(obj);
                     break;
 
                 case "Slider":
-                    Content = Build_Slider(obj);
+                    Content = BuildSlider(obj);
                     break;
 
                 case "Joystick":
-                    Content = Build_Joystick(obj);
+                    Content = BuildJoystick(obj);
                     break;
 
                 case "Matrix":
-                    Content = Build_Matrix(obj);
+                    Content = BuildMatrix(obj);
                     break;
             }
 
 
         }
 
-        private View Build_Label(Objects.Object obj)
+        private View BuildLabel(Objects.Object obj)
         {
             int.TryParse(obj.Arguments[3], out int fontsize);
             Label label = new Label()
@@ -57,7 +56,7 @@ namespace CTRLapp.Views
             };
             return label;
         }
-        private View Build_Button(Objects.Object obj)
+        private View BuildButton(Objects.Object obj)
         {
             var temp1 = new Button
             {
@@ -75,7 +74,7 @@ namespace CTRLapp.Views
             };
             return temp1;
         }
-        private View Build_Switch(Objects.Object obj)
+        private View BuildSwitch(Objects.Object obj)
         {
             var temp2 = new Xamarin.Forms.Switch
             {
@@ -93,7 +92,7 @@ namespace CTRLapp.Views
             //MQTT.MqttMessageReceived += (s, e) =>
             //{
             //    if (e.Topic != obj.Arguments[2]) return;
-            //    Debug.WriteLine("received by: " + obj_index);
+            //    Debug.WriteLine("received by: " + objIndex);
             //    bool receivedValue = false;
             //    int.TryParse(e.Message,out int messageInt);
             //    if (messageInt >= int.Parse(obj.Arguments[4])) receivedValue = true;
@@ -102,7 +101,7 @@ namespace CTRLapp.Views
             //_ = MQTT.SubscribeMQTT(obj.Arguments[2]);
             return temp2;
         }
-        private View Build_Slider(Objects.Object obj)
+        private View BuildSlider(Objects.Object obj)
         {
             bool block = false; //avoid loopback from mqtt delay
             var temp3 = new Slider
@@ -133,7 +132,7 @@ namespace CTRLapp.Views
             _ = MQTT.SubscribeMQTT(obj.Arguments[3]);
             return temp3;
         }
-        private View Build_Joystick(Objects.Object obj)
+        private View BuildJoystick(Objects.Object obj)
         {
             var touchEffect = new TouchTracking.Forms.TouchEffect() { Capture = true };
             SKCanvasView canvas = new SKCanvasView
@@ -158,21 +157,21 @@ namespace CTRLapp.Views
                 var surface = e.Surface.Canvas;
                 surface.Clear();
 
-                SKPaint background_paint = new SKPaint
+                SKPaint backgroundPaint = new SKPaint
                 {
                     Style = SKPaintStyle.Fill,
                     Color = Color.FromHex(obj.Arguments[1]).ToSKColor(),
                 };
                 float radius = canvassize.Width / 2;
                 if (canvassize.Width < canvassize.Height) radius = canvassize.Height / 2;
-                surface.DrawCircle(canvassize.Width / 2, canvassize.Height / 2, radius, background_paint);
+                surface.DrawCircle(canvassize.Width / 2, canvassize.Height / 2, radius, backgroundPaint);
 
-                SKPaint thumb_paint = new SKPaint
+                SKPaint thumbPaint = new SKPaint
                 {
                     Style = SKPaintStyle.Fill,
                     Color = Color.FromHex(obj.Arguments[0]).ToSKColor(),
                 };
-                surface.DrawCircle((float)touch.X, (float)touch.Y, radius / 3, thumb_paint);
+                surface.DrawCircle((float)touch.X, (float)touch.Y, radius / 3, thumbPaint);
             };
             touchEffect.TouchAction += (s, e) =>
             {
@@ -245,7 +244,7 @@ namespace CTRLapp.Views
 
             return canvas;
         }
-        private View Build_Matrix(Objects.Object obj)
+        private View BuildMatrix(Objects.Object obj)
         {
             var touchEffect = new TouchTracking.Forms.TouchEffect() { Capture = true };
             SKCanvasView canvas = new SKCanvasView
@@ -262,12 +261,12 @@ namespace CTRLapp.Views
                 surface.Clear();
 
                 float radius = 50;
-                SKPaint thumb_paint = new SKPaint
+                SKPaint thumbPaint = new SKPaint
                 {
                     Style = SKPaintStyle.Fill,
                     Color = Color.FromHex(obj.Arguments[0]).ToSKColor(),
                 };
-                surface.DrawCircle((float)touch.X, (float)touch.Y, radius / 3, thumb_paint);
+                surface.DrawCircle((float)touch.X, (float)touch.Y, radius / 3, thumbPaint);
             };
             touchEffect.TouchAction += async (s, e) =>
             {

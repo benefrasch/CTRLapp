@@ -11,31 +11,30 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <AbsoluteLayout x:Name="Main_Layout" Grid.Column="1" />
+            <AbsoluteLayout x:Name="MainLayout" Grid.Column="1" />
 
-            <Grid Grid.RowSpan="2" x:Name="second_grid">
+            <Grid Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="72" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <Button x:Name="Exit_button" Text="Exit" HorizontalOptions="Fill" VerticalOptions="Fill" Clicked="Exit_button_Clicked" CornerRadius="10" />
+                <Button x:Name="ExitButton" Text="Exit" HorizontalOptions="Fill" VerticalOptions="Fill" Clicked="ExitButtonClicked" CornerRadius="10" />
 
-                <ScrollView x:Name="Master_Menu" Grid.Row="1" >
+                <ScrollView Grid.Row="1" >
                     <StackLayout BackgroundColor="#80202020">
                         <!--Buttons to add new Objects-->
-                        <!--<Button x:Name="Add_Rectangle" Text="Rectangle" Pressed="Add_Rectangle_Pressed" />-->
-                        <Button x:Name="Add_Label" Text="Label" Pressed="Add_Label_Pressed"/>
-                        <Button x:Name="Add_Button" Text="Button" Pressed="Add_Button_Pressed" />
-                        <Button x:Name="Add_Switch" Text="Switch" Pressed="Add_Switch_Pressed" />
-                        <Button x:Name="Add_Slider" Text="Slider" Pressed="Add_Slider_Pressed" />
-                        <Button x:Name="Add_Joystick" Text="Joystick" Pressed="Add_Joystick_Pressed" />
-                        <Button x:Name="Add_Matrix" Text="Matrix" Pressed="Add_Matrix_Pressed" />
+                        <Button x:Name="Add_Label" Text="Label" Pressed="AddLabel"/>
+                        <Button x:Name="Add_Button" Text="Button" Pressed="AddButton" />
+                        <Button x:Name="Add_Switch" Text="Switch" Pressed="AddSwitch" />
+                        <Button x:Name="Add_Slider" Text="Slider" Pressed="AddSlider" />
+                        <Button x:Name="Add_Joystick" Text="Joystick" Pressed="AddJoystick" />
+                        <Button x:Name="Add_Matrix" Text="Matrix" Pressed="AddMatrix" />
                     </StackLayout>
                 </ScrollView>
             </Grid>
 
-            <StackLayout Grid.Column="1" Grid.Row="1" x:Name="bottom_stack" BackgroundColor="#80202020">
+            <StackLayout Grid.Column="1" Grid.Row="1" BackgroundColor="#80202020">
                 <StackLayout Orientation="Horizontal">
                     <CheckBox x:Name="snapBox"/>
                     <Label Text="snap" FontSize="20"/>

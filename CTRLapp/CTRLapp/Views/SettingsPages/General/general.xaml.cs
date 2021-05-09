@@ -11,47 +11,47 @@ namespace CTRLapp.Views.SettingsPages.General
         public General()
         {
             InitializeComponent();
-            Load_settings();
+            LoadSettings();
         }
 
         protected override void OnAppearing()
         {
-            Load_settings();
+            LoadSettings();
         }
         protected override void OnDisappearing()
         {
-            Save_settings(null, null);
+            SaveSettings(null, null);
         }
 
 
-        private void Load_settings()
+        private void LoadSettings()
         {
             //---Broker settings
-            broker_ip.Text = Preferences.Get("broker_ip", "");
-            device_name.Text = Preferences.Get("device_name", "");
-            broker_username.Text = Preferences.Get("broker_username", "");
-            broker_password.Text = Preferences.Get("broker_password", "");
+            broker_ip.Text = Preferences.Get("brokerIp", "");
+            device_name.Text = Preferences.Get("deviceName", "");
+            broker_username.Text = Preferences.Get("brokerUsername", "");
+            broker_password.Text = Preferences.Get("brokerPassword", "");
             //---Master Password
-            Settings_password.Text = Preferences.Get("Settings_password_list", "");
+            Settings_password.Text = Preferences.Get("SettingsPassword", "");
         }
 
-        private void Save_settings(object sender, EventArgs e)
+        private void SaveSettings(object sender, EventArgs e)
         {
             //---Broker settings
-            Preferences.Set("broker_ip", broker_ip.Text);
-            Preferences.Set("device_name", device_name.Text);
-            Preferences.Set("broker_username", broker_username.Text);
-            Preferences.Set("broker_password", broker_password.Text);
+            Preferences.Set("brokerIp", broker_ip.Text);
+            Preferences.Set("deviceName", device_name.Text);
+            Preferences.Set("brokerUsername", broker_username.Text);
+            Preferences.Set("brokerPassword", broker_password.Text);
             //---Master Password
-            Preferences.Set("Settings_password_list", Settings_password.Text);
+            Preferences.Set("settingsPassword", Settings_password.Text);
         }
 
         // show passwords
-        private void Show_settings_password(object sender, EventArgs e)
+        private void ShowSettingsPassword(object sender, EventArgs e)
         {
             Settings_password.IsPassword = !Settings_password.IsPassword;
         }
-        private void Show_broker_password(object sender, EventArgs e)
+        private void ShowBrokerPassword(object sender, EventArgs e)
         {
             broker_password.IsPassword = !broker_password.IsPassword;
         }

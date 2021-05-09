@@ -82,7 +82,7 @@
     <EmbeddedResource Update="Views\SettingsPages\Gui\GuiPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SettingsPages\Gui\Gui.xaml">
+    <EmbeddedResource Update="Views\SettingsPages\GUI\Gui.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SettingsPages\GUI\ObjectPage.xaml">

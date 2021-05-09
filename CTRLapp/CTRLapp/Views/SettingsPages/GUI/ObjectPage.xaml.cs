@@ -10,25 +10,23 @@ namespace CTRLapp.Views.SettingsPages.GUI
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ObjectPage : ContentPage
     {
-        private int master_menu, bottom_menu, obj_index;
+        private readonly int masterMenu, bottomMenu, objIndex;
 
-        public ObjectPage(int master_menu, int bottom_menu, int obj_index)
+        public ObjectPage(int masterMenu, int bottomMenu, int objIndex)
         {
-            this.master_menu = master_menu; this.bottom_menu = bottom_menu; this.obj_index = obj_index;
+            this.masterMenu = masterMenu; this.bottomMenu = bottomMenu; this.objIndex = objIndex;
             InitializeComponent();
 
-
-            
         }
 
 
         protected override void OnAppearing()
         {
-            grid.BindingContext = Variables.Variables.Layout[master_menu].BottomMenuItems[bottom_menu].Objects[obj_index];
+            grid.BindingContext = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects[objIndex];
 
 
             //just ignore this piece of shit code, it works so don't touch it! (except, if it doesn't)
-            switch (Variables.Variables.Layout[master_menu].BottomMenuItems[bottom_menu].Objects[obj_index].Type)
+            switch (Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects[objIndex].Type)
             {
                 case "Label":
                     sizeStack.IsVisible = false;
@@ -38,7 +36,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                     {
                         UpdatePreview();
                     };
-                    edit_stack.Children.Add(edit5);
+                    editStack.Children.Add(edit5);
                     break;
                 case "Button":
                     var edit1 = new EditLayouts.Button();
@@ -46,7 +44,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                     {
                         UpdatePreview();
                     };
-                    edit_stack.Children.Add(edit1);
+                    editStack.Children.Add(edit1);
                     break;
                 case "Switch":
                     var edit2 = new EditLayouts.Switch();
@@ -54,7 +52,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                     {
                         UpdatePreview();
                     };
-                    edit_stack.Children.Add(edit2);
+                    editStack.Children.Add(edit2);
                     break;
                 case "Slider":
                     var edit3 = new EditLayouts.Slider();
@@ -62,7 +60,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                     {
                         UpdatePreview();
                     };
-                    edit_stack.Children.Add(edit3);
+                    editStack.Children.Add(edit3);
                     break;
                 case "Joystick":
                     var edit4 = new EditLayouts.Joystick();
@@ -70,7 +68,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                     {
                         UpdatePreview();
                     };
-                    edit_stack.Children.Add(edit4);
+                    editStack.Children.Add(edit4);
                     break;
                 case "Matrix":
                     var edit6 = new EditLayouts.Matrix();
@@ -78,7 +76,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                     {
                         UpdatePreview();
                     };
-                    edit_stack.Children.Add(edit6);
+                    editStack.Children.Add(edit6);
                     break;
             }
 
@@ -99,7 +97,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
         private void UpdatePreview(object sender = null, TextChangedEventArgs e = null) //preview in middle of right side
         {
             if (view != null) grid.Children.Remove(view);
-            var obj = Variables.Variables.Layout[master_menu].BottomMenuItems[bottom_menu].Objects[obj_index];
+            var obj = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects[objIndex];
             view = new Frame()
             {
                 BorderColor = Color.LightGray,
@@ -109,21 +107,21 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Rotation = obj.Rotation,
                 BackgroundColor = Color.Transparent,
             }; //to outline the object, i.e. for visualizing size
-            view.Content = new ObjectView(master_menu, bottom_menu, obj_index); //make the view without translation
+            view.Content = new ObjectView(masterMenu, bottomMenu, objIndex); //make the view without translation
             grid.Children.Add(view, 2, 0);
             view.HorizontalOptions = LayoutOptions.Center;
             view.VerticalOptions = LayoutOptions.Center;
         }
 
-        private void Save_Button_Pressed(object sender, EventArgs e)
+        private void SaveButtonPressed(object sender, EventArgs e)
         {
             Navigation.PopModalAsync();
         }
-        private async void Delete_Button_Pressed(object sender, EventArgs e)
+        private async void DeleteButtonPressed(object sender, EventArgs e)
         {
             bool accept = await DisplayAlert("Delete?", "do you really want to delete this?", "Yes", "No");
             if (accept)
-                Variables.Variables.Layout[master_menu].BottomMenuItems[bottom_menu].Objects.RemoveAt(obj_index);
+                Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects.RemoveAt(objIndex);
             _ = Navigation.PopModalAsync();
         }
     }

@@ -10,6 +10,8 @@
             <local:IntToFloatConverter x:Key="IntToFloat"/>
         </ResourceDictionary>
     </ContentPage.Resources>
+    
+    
     <ContentPage.Content>
         <Grid x:Name="grid">
             <Grid.ColumnDefinitions>
@@ -20,9 +22,9 @@
 
             <!-- sliders, entrys, ...-->
             <ScrollView>
-                <StackLayout Grid.Column="0" x:Name="edit_stack">
+                <StackLayout Grid.Column="0" x:Name="editStack">
                     <!--postition-->
-                    <StackLayout Orientation="Horizontal">
+                    <StackLayout Orientation="Horizontal" x:Name="positionStack">
                         <StackLayout Style="{StaticResource descriptionEntryStack}">
                             <Label Text="X: " Style="{StaticResource descriptionLabel}"/>
                             <Entry x:Name="Entry_X" Placeholder="Enter X position" Keyboard="Numeric" 
@@ -54,7 +56,7 @@
                     </StackLayout>
 
                     <!--rotation-->
-                    <StackLayout Style="{StaticResource descriptionEntryStack}">
+                    <StackLayout Style="{StaticResource descriptionEntryStack}" x:Name="rotationStack">
                         <Label Text="Rotation: "  Style="{StaticResource descriptionLabel}"/>
                         <StackLayout Orientation="Horizontal">
                             <Entry x:Name="Entry_Rotation" Placeholder="Enter Rotation" Keyboard="Numeric" 
@@ -71,8 +73,8 @@
 
             <!--delete/ save button-->
             <StackLayout Orientation="Horizontal" HeightRequest="40" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Grid.Column="2">
-                <Button Text="Save" TextTransform="None" BackgroundColor="DarkGreen" WidthRequest="80" HorizontalOptions="Center" Pressed="Save_Button_Pressed"/>
-                <Button Text="Delete" TextTransform="None" BackgroundColor="DarkRed" WidthRequest="80" HorizontalOptions="Center" Pressed="Delete_Button_Pressed"/>
+                <Button Text="Save" TextTransform="None" BackgroundColor="DarkGreen" WidthRequest="80" HorizontalOptions="Center" Pressed="SaveButtonPressed"/>
+                <Button Text="Delete" TextTransform="None" BackgroundColor="DarkRed" WidthRequest="80" HorizontalOptions="Center" Pressed="DeleteButtonPressed"/>
             </StackLayout>
         </Grid>
 

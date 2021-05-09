@@ -21,11 +21,11 @@ namespace CTRLapp.Views.SettingsPages.GUI
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            Reload_Master_stack();
+            ReloadMasterStack();
             Reload_Bottom_Stack();
         }
 
-        private void Reload_Master_stack()
+        private void ReloadMasterStack()
         {
             master_list.ItemsSource = null;
             if (Variables.Variables.Layout != null) master_list.ItemsSource = Variables.Variables.Layout;
@@ -35,7 +35,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             bottom_list.ItemsSource = null;
             if (Variables.Variables.Layout != null && Variables.Variables.Layout[Master_Menu_selected].BottomMenuItems != null) bottom_list.ItemsSource = Variables.Variables.Layout[Master_Menu_selected].BottomMenuItems;
         } //reloads Bottom_Stack
-        private void Relaod_Edit_Stack(string type)
+        private void ReloadEditStack(string type)
         {
             edit_stack.IsVisible = true;
             edit_type.Text = type;
@@ -57,22 +57,22 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
         }//reload Edit Stack
 
-        private void Master_list_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void MasterListItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItemIndex == -1) return;
             Master_Menu_selected = e.SelectedItemIndex;
             Reload_Bottom_Stack();
             bottom_stack.IsVisible = true;
-            Relaod_Edit_Stack("master_menu_item");
+            ReloadEditStack("master_menu_item");
         } //if different Master_Manu_Item gets selected
-        private void Bottom_list_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void BottomListItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             Bottom_Menu_selected = e.SelectedItemIndex;
             master_list.SelectedItem = null;
-            Relaod_Edit_Stack("BottomMenuItem");
+            ReloadEditStack("BottomMenuItem");
         } //if different Bottom_Manu_Item gets selected
 
-        private void Add_Master_Menu_Item(object sender, EventArgs e)
+        private void AddMasterMenuItem(object sender, EventArgs e)
         {
             if (Variables.Variables.Layout == null) Variables.Variables.Layout = new List<MasterMenuItem>();
             int number = Variables.Variables.Layout.Count;        //gets number of master_menu_items and assigns the next one to the new one
@@ -85,10 +85,10 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
             Variables.Variables.Layout.Add(item);
             Master_Menu_selected = number;
-            Reload_Master_stack();
+            ReloadMasterStack();
             Reload_Bottom_Stack();
         } //add new Master_Menu_Item
-        private void Add_BottomMenuItem(object sender, EventArgs e)
+        private void AddBottomMenuItem(object sender, EventArgs e)
         {
             if (Master_Menu_selected == -1) return;
             if (Variables.Variables.Layout[Master_Menu_selected].BottomMenuItems == null) Variables.Variables.Layout[Master_Menu_selected].BottomMenuItems = new List<BottomMenuItem>();
@@ -104,7 +104,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
         } //add new BottomMenuItem
 
 
-        private async void Delete_button_Pressed(object sender, EventArgs e)
+        private async void DeleteButtonPressed(object sender, EventArgs e)
         {
             bool confirm = await App.Current.MainPage.DisplayAlert("Attention", "do you really want to delete this object", "yes", "no");
             if (!confirm) return; //if "no" is pressed in alert return
@@ -112,7 +112,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             {
                 Variables.Variables.Layout.RemoveAt(Master_Menu_selected); //removes the specified object
 
-                Reload_Master_stack();
+                ReloadMasterStack();
                 bottom_stack.IsVisible = false;
                 edit_stack.IsVisible = false;
             }
@@ -125,7 +125,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             }
         }
 
-        private async void Edit_Gui_Clicked(object sender, EventArgs e)
+        private async void EditGuiClicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new GuiPage(Master_Menu_selected, Bottom_Menu_selected));
         }

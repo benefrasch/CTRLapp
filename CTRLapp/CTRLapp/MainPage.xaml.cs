@@ -11,7 +11,7 @@ namespace CTRLapp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
     {
-        public static int master_menu, bottom_menu;
+        public static int masterMenu, bottomMenu;
 
         public MainPage()
         {
@@ -25,48 +25,48 @@ namespace CTRLapp.Views
 
             Debug.WriteLine("onappearing");
 
-            master_menu = 0; bottom_menu = 0; //reset both menus to 0
-            Master_List.ItemsSource = null; Bottom_List.ItemsSource = null;
+            masterMenu = 0; bottomMenu = 0; //reset both menus to 0
+            masterList.ItemsSource = null; Bottom_List.ItemsSource = null;
 
             if (Variables.Variables.Layout != null)
-                Master_List.ItemsSource = Variables.Variables.Layout;
-            if (Variables.Variables.Layout != null && Variables.Variables.Layout[master_menu].BottomMenuItems != null)
-                Bottom_List.ItemsSource = Variables.Variables.Layout[master_menu].BottomMenuItems;
-            Load_Objects();
+                masterList.ItemsSource = Variables.Variables.Layout;
+            if (Variables.Variables.Layout != null && Variables.Variables.Layout[masterMenu].BottomMenuItems != null)
+                Bottom_List.ItemsSource = Variables.Variables.Layout[masterMenu].BottomMenuItems;
+            LoadObjects();
         }
 
 
-        private void Master_List_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void MasterListItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            master_menu = e.SelectedItemIndex;
-            bottom_menu = 0; //default to first page
-            if (Variables.Variables.Layout != null && Variables.Variables.Layout[master_menu].BottomMenuItems != null) Bottom_List.ItemsSource = Variables.Variables.Layout[master_menu].BottomMenuItems;
-            Load_Objects();
+            masterMenu = e.SelectedItemIndex;
+            bottomMenu = 0; //default to first page
+            if (Variables.Variables.Layout != null && Variables.Variables.Layout[masterMenu].BottomMenuItems != null) Bottom_List.ItemsSource = Variables.Variables.Layout[masterMenu].BottomMenuItems;
+            LoadObjects();
         }
-        private void Bottom_List_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void BottomListItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            bottom_menu = e.SelectedItemIndex;
-            Load_Objects();
+            bottomMenu = e.SelectedItemIndex;
+            LoadObjects();
         }
 
-        private void Load_Objects()
+        private void LoadObjects()
         {
             MQTT.RemoveMQTTHandelers();
-            Main_Layout.Children.Clear();
+            mainLayout.Children.Clear();
 
             BackgroundImageSource = null;
-            if (Variables.Variables.Layout == null || Variables.Variables.Layout[master_menu].BottomMenuItems == null) return;
-            if (Variables.Variables.Layout[master_menu].BottomMenuItems[bottom_menu].BackgroundImageSource != "")
+            if (Variables.Variables.Layout == null || Variables.Variables.Layout[masterMenu].BottomMenuItems == null) return;
+            if (Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].BackgroundImageSource != "")
             {
-                BackgroundImageSource = Variables.Variables.Layout[master_menu].BottomMenuItems[bottom_menu].BackgroundImageSource;
+                BackgroundImageSource = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].BackgroundImageSource;
             }
 
-            if (Variables.Variables.Layout[master_menu].BottomMenuItems[bottom_menu].Objects == null) return;
-            List<Objects.Object> object_list = Variables.Variables.Layout[master_menu].BottomMenuItems[bottom_menu].Objects;
+            if (Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects == null) return;
+            List<Objects.Object> object_list = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects;
 
             foreach ((Objects.Object obj, int index) in object_list.Select((v, i) => (v, i)))
             {
-                Main_Layout.Children.Add(new ObjectView(master_menu, bottom_menu, index)
+                mainLayout.Children.Add(new ObjectView(masterMenu, bottomMenu, index)
                 {
                     TranslationX = obj.X,
                     TranslationY = obj.Y,
@@ -77,7 +77,7 @@ namespace CTRLapp.Views
         }
 
 
-        private async void Settings_button_Pressed(object sender, EventArgs e)
+        private async void SettingsButtonPressed(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new SettingsPage(), true);
         }

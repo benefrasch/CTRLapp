@@ -17,20 +17,20 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <AbsoluteLayout x:Name="Main_Layout" Grid.Column="1" />
+            <AbsoluteLayout x:Name="mainLayout" Grid.Column="1" />
 
-            <Grid Grid.RowSpan="2" x:Name="second_grid">
+            <Grid Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <ImageButton x:Name="Settings_button" Source="settings_icon"  
-                             Grid.Row="0" Pressed="Settings_button_Pressed" 
+                <ImageButton x:Name="settingsButton" Source="settings_icon"  
+                             Grid.Row="0" Pressed="SettingsButtonPressed" 
                              CornerRadius="10" BackgroundColor="Transparent" />
 
-                <ListView Grid.Row="1" x:Name="Master_List" RowHeight="100" 
-                          ItemSelected="Master_List_ItemSelected" SeparatorVisibility="None" 
+                <ListView Grid.Row="1" x:Name="masterList" RowHeight="100" 
+                          ItemSelected="MasterListItemSelected" SeparatorVisibility="None" 
                           BackgroundColor="#80202020">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -55,7 +55,7 @@
             </Grid>
 
             <RelativeLayout Grid.Row="1" Grid.Column="1" HeightRequest="80">
-                <ListView x:Name="Bottom_List" RowHeight="100" ItemSelected="Bottom_List_ItemSelected" 
+                <ListView x:Name="Bottom_List" RowHeight="100" ItemSelected="BottomListItemSelected" 
                           Rotation="270" SeparatorVisibility="None" BackgroundColor="#80202020" 
                           RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-40}" 
                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.5, Constant=40}" 

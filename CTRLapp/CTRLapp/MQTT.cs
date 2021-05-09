@@ -24,9 +24,9 @@ namespace CTRLapp
             try
             {
                 var options = new MqttClientOptionsBuilder()
-                    .WithClientId(Preferences.Get("device_name", ""))                                                         //client name
-                    .WithTcpServer(Preferences.Get("broker_ip", ""))                                                          //mqtt server
-                    .WithCredentials(Preferences.Get("broker_username", ""), Preferences.Get("broker_password", ""))          //username, password
+                    .WithClientId(Preferences.Get("deviceName", ""))                                                         //client name
+                    .WithTcpServer(Preferences.Get("brokerIp", ""))                                                          //mqtt server
+                    .WithCredentials(Preferences.Get("brokerUsername", ""), Preferences.Get("brokerPassword", ""))          //username, password
                     .Build();
                 var managedOptions = new ManagedMqttClientOptionsBuilder()
                     .WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
@@ -71,7 +71,7 @@ namespace CTRLapp
             {
                 Debug.WriteLine("error while sending: " + e.Message);
                 if (await App.Current.MainPage.DisplayAlert("MQTT sending failed", "do you want to enter settings?", "yes", "no"))
-                    await App.Current.MainPage.Navigation.PushModalAsync(new GuiPage(Views.MainPage.master_menu, Views.MainPage.bottom_menu));
+                    await App.Current.MainPage.Navigation.PushModalAsync(new GuiPage(Views.MainPage.masterMenu, Views.MainPage.bottomMenu));
                 return false;
             };
             return true;

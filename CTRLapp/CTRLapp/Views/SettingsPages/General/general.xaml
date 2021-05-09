@@ -36,7 +36,7 @@
                             <ColumnDefinition Width="40" />
                         </Grid.ColumnDefinitions>
                         <Entry Grid.ColumnSpan="2" x:Name="broker_password" IsPassword="True" Placeholder="broker password" HorizontalOptions="FillAndExpand"/>
-                        <ImageButton Grid.Column="1" Source="show_password_icon.png" Pressed="Show_broker_password" BackgroundColor="Transparent"/>
+                        <ImageButton Grid.Column="1" Source="show_password_icon.png" Pressed="ShowBrokerPassword" BackgroundColor="Transparent"/>
                     </Grid>
                     <!-- Master Password-->
                     <Label  Grid.Row="5" VerticalOptions="Fill" 
@@ -47,7 +47,7 @@
                             <ColumnDefinition Width="40" />
                         </Grid.ColumnDefinitions>
                         <Entry Grid.ColumnSpan="2" IsPassword="True" x:Name="Settings_password" Placeholder="Settings Password" HorizontalOptions="FillAndExpand"/>
-                        <ImageButton Grid.Column="1" Source="show_password_icon.png" Pressed="Show_settings_password" BackgroundColor="Transparent" />
+                        <ImageButton Grid.Column="1" Source="show_password_icon.png" Pressed="ShowSettingsPassword" BackgroundColor="Transparent" />
                     </Grid>
                 </Grid>
             </ScrollView>

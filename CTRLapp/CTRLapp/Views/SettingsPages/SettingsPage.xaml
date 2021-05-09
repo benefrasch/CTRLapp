@@ -13,7 +13,7 @@
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core" 
             android:TabbedPage.IsSwipePagingEnabled="False">
 
-    <local:Back_Button Title="Back  "/>
+    <local:BackButton Title="Back  "/>
     <General:General Title="   GENERAL   "/>
     <GUI:Gui Title="      GU‌‌I      "/>
     <Devices:Devices Title="    DEVICES    "/>
