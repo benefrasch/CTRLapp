@@ -26,26 +26,28 @@ namespace CTRLapp.Views
             Debug.WriteLine("onappearing");
 
             masterMenu = 0; bottomMenu = 0; //reset both menus to 0
-            masterList.ItemsSource = null; Bottom_List.ItemsSource = null;
+            masterList.ItemsSource = null; bottomList.ItemsSource = null;
 
             if (Variables.Variables.Layout != null)
                 masterList.ItemsSource = Variables.Variables.Layout;
             if (Variables.Variables.Layout != null && Variables.Variables.Layout[masterMenu].BottomMenuItems != null)
-                Bottom_List.ItemsSource = Variables.Variables.Layout[masterMenu].BottomMenuItems;
+                bottomList.ItemsSource = Variables.Variables.Layout[masterMenu].BottomMenuItems;
             LoadObjects();
         }
 
 
-        private void MasterListItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void MasterListItemSelected(object sender, ItemTappedEventArgs e)
         {
-            masterMenu = e.SelectedItemIndex;
+            masterMenu = e.ItemIndex;
             bottomMenu = 0; //default to first page
-            if (Variables.Variables.Layout != null && Variables.Variables.Layout[masterMenu].BottomMenuItems != null) Bottom_List.ItemsSource = Variables.Variables.Layout[masterMenu].BottomMenuItems;
+            if (Variables.Variables.Layout != null && Variables.Variables.Layout[masterMenu].BottomMenuItems != null) 
+                bottomList.ItemsSource = Variables.Variables.Layout[masterMenu].BottomMenuItems;
+            bottomList.SelectedItem = null;
             LoadObjects();
         }
-        private void BottomListItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void BottomListItemSelected(object sender, ItemTappedEventArgs e)
         {
-            bottomMenu = e.SelectedItemIndex;
+            bottomMenu = e.ItemIndex;
             LoadObjects();
         }
 

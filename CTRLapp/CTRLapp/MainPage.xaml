@@ -30,7 +30,7 @@
                              CornerRadius="10" BackgroundColor="Transparent" />
 
                 <ListView Grid.Row="1" x:Name="masterList" RowHeight="100" 
-                          ItemSelected="MasterListItemSelected" SeparatorVisibility="None" 
+                          ItemTapped="MasterListItemSelected" SeparatorVisibility="None" 
                           BackgroundColor="#80202020">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -55,7 +55,7 @@
             </Grid>
 
             <RelativeLayout Grid.Row="1" Grid.Column="1" HeightRequest="80">
-                <ListView x:Name="Bottom_List" RowHeight="100" ItemSelected="BottomListItemSelected" 
+                <ListView x:Name="bottomList" RowHeight="100" ItemTapped="BottomListItemSelected" 
                           Rotation="270" SeparatorVisibility="None" BackgroundColor="#80202020" 
                           RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-40}" 
                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.5, Constant=40}" 
