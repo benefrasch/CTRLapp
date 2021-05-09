@@ -5,6 +5,7 @@ using MQTTnet.Client;
 using MQTTnet.Client.Options;
 using MQTTnet.Extensions.ManagedClient;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -78,14 +79,19 @@ namespace CTRLapp
         }
 
 
-        public static async Task<bool> SubscribeMQTT(string topic)
+        public static async Task SubscribeMQTT(List<string> topicList)
         {
-            var topicFilter = new MqttTopicFilterBuilder()
-                .WithAtLeastOnceQoS()
-                .WithTopic(topic)
-                .Build();
-            await mqttClient.SubscribeAsync(topicFilter);
-
+            foreach (string topic in topicList)
+            {
+                if (topic != "")
+                {
+                    var topicFilter = new MqttTopicFilterBuilder()
+                        .WithAtLeastOnceQoS()
+                        .WithTopic(topic)
+                        .Build();
+                    await mqttClient.SubscribeAsync(topicFilter);
+                }
+            }
             mqttClient.UseApplicationMessageReceivedHandler(e =>
             {
                 MqttMessageEventArgs messageReceivedEventArgs = new MqttMessageEventArgs
@@ -97,7 +103,7 @@ namespace CTRLapp
                 Debug.WriteLine("Received Message int topic: " + e.ApplicationMessage.Topic + " : " + System.Text.Encoding.Default.GetString(e.ApplicationMessage.Payload));
             });
 
-            return true;
+            return;
         }
 
         public static void RemoveMQTTHandelers()

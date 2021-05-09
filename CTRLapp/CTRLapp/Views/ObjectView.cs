@@ -1,5 +1,7 @@
 ﻿using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Forms;
 
@@ -121,7 +123,7 @@ namespace CTRLapp.Views
             };
 
             //syncing function
-            MQTT.MqttMessageReceived += (s, e) =>
+            MQTT.MqttMessageReceived += (_, e) =>
             {
                 if (e.Topic != obj.Arguments[3]) return;
                 float.TryParse(e.Message, out float messageFloat);
@@ -129,7 +131,8 @@ namespace CTRLapp.Views
                 temp3.Value = messageFloat;
                 block = false;
             };
-            _ = MQTT.SubscribeMQTT(obj.Arguments[3]);
+            if (MainPage.topicList.IndexOf(obj.Arguments[3]) == -1)
+                MainPage.topicList.Add(obj.Arguments[3]);
             return temp3;
         }
         private View BuildJoystick(Objects.Object obj)
@@ -239,8 +242,10 @@ namespace CTRLapp.Views
                     coordinates.Y = messageFloat;
                 }
             };
-            _ = MQTT.SubscribeMQTT(obj.Arguments[2]);
-            _ = MQTT.SubscribeMQTT(obj.Arguments[3]);
+            if (MainPage.topicList.IndexOf(obj.Arguments[2]) == -1)
+                MainPage.topicList.Add(obj.Arguments[2]);
+            if (MainPage.topicList.IndexOf(obj.Arguments[3]) == -1)
+                MainPage.topicList.Add(obj.Arguments[3]);
 
             return canvas;
         }
@@ -317,8 +322,10 @@ namespace CTRLapp.Views
                     canvas.InvalidateSurface();
                 }
             };
-            _ = MQTT.SubscribeMQTT(obj.Arguments[2]);
-            _ = MQTT.SubscribeMQTT(obj.Arguments[3]);
+            if (MainPage.topicList.IndexOf(obj.Arguments[2]) == -1)
+                MainPage.topicList.Add(obj.Arguments[2]);
+            if (MainPage.topicList.IndexOf(obj.Arguments[3]) == -1)
+                MainPage.topicList.Add(obj.Arguments[3]);
 
             return canvas;
         }

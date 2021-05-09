@@ -12,6 +12,7 @@ namespace CTRLapp.Views
     public partial class MainPage : ContentPage
     {
         public static int masterMenu, bottomMenu;
+        public static List<string> topicList = new List<string>();
 
         public MainPage()
         {
@@ -21,7 +22,6 @@ namespace CTRLapp.Views
         {
             base.OnAppearing();
             await MQTT.ConnectMQTT();
-
 
             Debug.WriteLine("onappearing");
 
@@ -51,7 +51,7 @@ namespace CTRLapp.Views
             LoadObjects();
         }
 
-        private void LoadObjects()
+        private async void LoadObjects()
         {
             MQTT.RemoveMQTTHandelers();
             mainLayout.Children.Clear();
@@ -75,6 +75,9 @@ namespace CTRLapp.Views
                     Rotation = obj.Rotation,
                 });
             }
+
+            if(topicList.Count >=1)
+                await MQTT.SubscribeMQTT(topicList);
 
         }
 
