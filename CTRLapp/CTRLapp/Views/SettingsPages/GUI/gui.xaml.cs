@@ -10,7 +10,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Gui : ContentPage
     {
-        private int Master_Menu_selected, Bottom_Menu_selected;
+        private int masterMenuSelected, bottomMenuSelected;
 
 
         public Gui()
@@ -33,44 +33,43 @@ namespace CTRLapp.Views.SettingsPages.GUI
         private void Reload_Bottom_Stack()
         {
             bottom_list.ItemsSource = null;
-            if (Variables.Variables.Layout != null && Variables.Variables.Layout[Master_Menu_selected].BottomMenuItems != null) bottom_list.ItemsSource = Variables.Variables.Layout[Master_Menu_selected].BottomMenuItems;
+            if (Variables.Variables.Layout != null && Variables.Variables.Layout[masterMenuSelected].BottomMenuItems != null) bottom_list.ItemsSource = Variables.Variables.Layout[bottomMenuSelected].BottomMenuItems;
         } //reloads Bottom_Stack
         private void ReloadEditStack(string type)
         {
             edit_stack.IsVisible = true;
             edit_type.Text = type;
-            if (type == "master_menu_item")
+            if (type == "MasterMenuItem")
             {
                 Edit_gui.IsVisible = false;
-                Edit_background.IsVisible = false;
+                editBackground.IsVisible = false;
                 Type_label.Text = "Main Menu";
-                edit_stack.BindingContext = Variables.Variables.Layout[Master_Menu_selected];
+                edit_stack.BindingContext = Variables.Variables.Layout[masterMenuSelected];
             }
             else if (type == "BottomMenuItem")
             {
                 Edit_gui.IsVisible = true;
-                Edit_background.IsVisible = true;
+                editBackground.IsVisible = true;
                 Type_label.Text = "Secondary Menu";
-                edit_stack.BindingContext = Variables.Variables.Layout[Master_Menu_selected].BottomMenuItems[Bottom_Menu_selected];
+                edit_stack.BindingContext = Variables.Variables.Layout[masterMenuSelected].BottomMenuItems[bottomMenuSelected];
             }
 
 
         }//reload Edit Stack
 
-        private void MasterListItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void MasterListItemTapped(object sender, ItemTappedEventArgs e)
         {
-            if (e.SelectedItemIndex == -1) return;
-            Master_Menu_selected = e.SelectedItemIndex;
+            if (e.ItemIndex == -1) return;
+            masterMenuSelected = e.ItemIndex;
             Reload_Bottom_Stack();
-            bottom_stack.IsVisible = true;
-            ReloadEditStack("master_menu_item");
-        } //if different Master_Manu_Item gets selected
-        private void BottomListItemSelected(object sender, SelectedItemChangedEventArgs e)
+            ReloadEditStack("MasterMenuItem");
+        } //if Master_Manu_Item gets selected
+        private void BottomListItemTapped(object sender, ItemTappedEventArgs e)
         {
-            Bottom_Menu_selected = e.SelectedItemIndex;
+            bottomMenuSelected = e.ItemIndex;
             master_list.SelectedItem = null;
             ReloadEditStack("BottomMenuItem");
-        } //if different Bottom_Manu_Item gets selected
+        } //if Bottom_Manu_Item gets selected
 
         private void AddMasterMenuItem(object sender, EventArgs e)
         {
@@ -84,22 +83,22 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
 
             Variables.Variables.Layout.Add(item);
-            Master_Menu_selected = number;
+            masterMenuSelected = number;
             ReloadMasterStack();
             Reload_Bottom_Stack();
         } //add new Master_Menu_Item
         private void AddBottomMenuItem(object sender, EventArgs e)
         {
-            if (Master_Menu_selected == -1) return;
-            if (Variables.Variables.Layout[Master_Menu_selected].BottomMenuItems == null) Variables.Variables.Layout[Master_Menu_selected].BottomMenuItems = new List<BottomMenuItem>();
-            int number = Variables.Variables.Layout[Master_Menu_selected].BottomMenuItems.Count;    //gets number of master_menu_items and assigns the next one to the new one
+            if (masterMenuSelected == -1) return;
+            if (Variables.Variables.Layout[masterMenuSelected].BottomMenuItems == null) Variables.Variables.Layout[masterMenuSelected].BottomMenuItems = new List<BottomMenuItem>();
+            int number = Variables.Variables.Layout[masterMenuSelected].BottomMenuItems.Count;    //gets number of master_menu_items and assigns the next one to the new one
             BottomMenuItem item = new BottomMenuItem
             {
                 Name = "Menu_" + number,
                 IconPath = "quadrat.png"
             };
 
-            Variables.Variables.Layout[Master_Menu_selected].BottomMenuItems.Add(item);
+            Variables.Variables.Layout[masterMenuSelected].BottomMenuItems.Add(item);
             Reload_Bottom_Stack();
         } //add new BottomMenuItem
 
@@ -108,9 +107,9 @@ namespace CTRLapp.Views.SettingsPages.GUI
         {
             bool confirm = await App.Current.MainPage.DisplayAlert("Attention", "do you really want to delete this object", "yes", "no");
             if (!confirm) return; //if "no" is pressed in alert return
-            if (edit_type.Text == "master_menu_item")
+            if (edit_type.Text == "MasterMenuItem")
             {
-                Variables.Variables.Layout.RemoveAt(Master_Menu_selected); //removes the specified object
+                Variables.Variables.Layout.RemoveAt(masterMenuSelected); //removes the specified object
 
                 ReloadMasterStack();
                 bottom_stack.IsVisible = false;
@@ -118,7 +117,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             }
             else if (edit_type.Text == "BottomMenuItem")
             {
-                Variables.Variables.Layout[Master_Menu_selected].BottomMenuItems.RemoveAt(Bottom_Menu_selected); //removes the specified object
+                Variables.Variables.Layout[masterMenuSelected].BottomMenuItems.RemoveAt(bottomMenuSelected); //removes the specified object
 
                 Reload_Bottom_Stack();
                 edit_stack.IsVisible = false;
@@ -127,7 +126,28 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
         private async void EditGuiClicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new GuiPage(Master_Menu_selected, Bottom_Menu_selected));
+            await Navigation.PushModalAsync(new GuiPage(masterMenuSelected, bottomMenuSelected));
+        }
+
+        private async void IconImageSelect(object sender, EventArgs e)
+        {
+            await CrossMedia.Current.Initialize();
+
+            var mediaOptions = new Plugin.Media.Abstractions.PickMediaOptions()
+            {
+                PhotoSize = Plugin.Media.Abstractions.PhotoSize.Small,
+            };
+            var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOptions);
+            if (selectedImageFile == null) return;
+
+            if (Type_label.Text == "Main Menu")
+                Variables.Variables.Layout[masterMenuSelected].IconPath = selectedImageFile.Path;
+            else
+                Variables.Variables.Layout[masterMenuSelected].BottomMenuItems[bottomMenuSelected].IconPath = selectedImageFile.Path;
+
+            ReloadMasterStack();
+            Reload_Bottom_Stack();
+
         }
 
         private async void BackgroundImageSelect(object sender, EventArgs e)
@@ -141,7 +161,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOptions);
             if (selectedImageFile == null) return;
 
-            Variables.Variables.Layout[Master_Menu_selected].BottomMenuItems[Bottom_Menu_selected].BackgroundImageSource = selectedImageFile.Path;
+            Variables.Variables.Layout[masterMenuSelected].BottomMenuItems[bottomMenuSelected].BackgroundImageSource = selectedImageFile.Path;
         }
 
     }
