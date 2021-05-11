@@ -18,7 +18,7 @@
         <StackLayout Grid.Column="0" >
             <Label Text="Main Menu" HorizontalTextAlignment="Center" />
             <Frame BackgroundColor="#20505050" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
-                <ListView x:Name="master_list" IsPullToRefreshEnabled="False" ItemTapped="MasterListItemTapped">
+                <ListView x:Name="masterList" IsPullToRefreshEnabled="False" ItemTapped="MasterListItemTapped">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ImageCell Text="{Binding Name}" ImageSource="{Binding IconPath}"/>
@@ -30,10 +30,10 @@
             <Button Text="Add new" Pressed="AddMasterMenuItem" VerticalOptions="End" HeightRequest="40" />
         </StackLayout>
 
-        <StackLayout Grid.Column="1" x:Name="bottom_stack">
+        <StackLayout Grid.Column="1" x:Name="bottomStack">
             <Label Text="Secondary Menu" HorizontalTextAlignment="Center" />
             <Frame BackgroundColor="#20505050" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
-                <ListView x:Name="bottom_list" IsPullToRefreshEnabled="False" ItemTapped="BottomListItemTapped">
+                <ListView x:Name="bottomList" IsPullToRefreshEnabled="False" ItemTapped="BottomListItemTapped">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ImageCell Text="{Binding Name}" ImageSource="{Binding IconPath}"/>
@@ -42,15 +42,14 @@
 
                 </ListView>
             </Frame>
-            <Button Text="Add new" Pressed="AddBottomMenuItem" VerticalOptions="End" HeightRequest="40" />
+            <Button x:Name="addBottomMenu" IsVisible="false" Text="Add new" Pressed="AddBottomMenuItem" VerticalOptions="End" HeightRequest="40" />
         </StackLayout>
 
         <!--edit stack-->
-        <StackLayout x:Name="edit_stack" Grid.Column="2"  Padding="4" IsVisible="false" VerticalOptions="Fill" HorizontalOptions="Fill">
-            <Label IsVisible="false" x:Name="edit_type" />
-
-            <Label x:Name="Type_label" HorizontalTextAlignment="Center" />
-            <Entry x:Name="name_entry" HorizontalOptions="Fill" HeightRequest="50" Placeholder="Menu_name" Text="{Binding Name}"/>
+        <StackLayout x:Name="editStack" Grid.Column="2"  Padding="4" IsVisible="false" VerticalOptions="Fill" HorizontalOptions="Fill">
+            
+            <Label x:Name="typeLabel" HorizontalTextAlignment="Center" />
+            <Entry x:Name="nameEntry" HorizontalOptions="Fill" HeightRequest="50" Placeholder="Menu Name" Text="{Binding Name}"/>
 
             <Grid >
                 <Grid.ColumnDefinitions>
@@ -61,12 +60,9 @@
                 <Button Grid.Column="1" Text="background image" x:Name="editBackground" Clicked="BackgroundImageSelect"/>
             </Grid>
 
-            <Button Text="Edit Interface" x:Name="Edit_gui" Clicked="EditGuiClicked" />
+            <Button Text="Edit Interface" x:Name="editGui" Clicked="EditGuiClicked" />
 
-            
-
-
-            <Button Text="Delete" x:Name="Delete_button" Pressed="DeleteButtonPressed" BackgroundColor="DarkRed" WidthRequest="120" HeightRequest="40" VerticalOptions="EndAndExpand" HorizontalOptions="Center" />
+            <Button Text="Delete" x:Name="deleteButton" Pressed="DeleteButtonPressed" BackgroundColor="DarkRed" WidthRequest="120" HeightRequest="40" VerticalOptions="EndAndExpand" HorizontalOptions="Center" />
         </StackLayout>
 
     </Grid>

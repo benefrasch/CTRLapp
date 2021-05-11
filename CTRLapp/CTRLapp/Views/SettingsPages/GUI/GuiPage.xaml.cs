@@ -11,7 +11,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class GuiPage : ContentPage
     {
-        private int masterMenu, bottomMenu;
+        private readonly int masterMenu, bottomMenu;
 
 
 
@@ -70,7 +70,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             };
             temp.Arguments = new string[5];
             temp.Arguments[0] = Color.Black.ToHex();
-            temp.Arguments[1] = Color.Gray.ToHex();
+            temp.Arguments[1] = Color.LightGray.ToHex();
             temp.Arguments[2] = "";
             temp.Arguments[3] = "";
             temp.Arguments[4] = "";
