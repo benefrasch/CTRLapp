@@ -70,7 +70,7 @@ namespace CTRLapp.Views
                 TextTransform = TextTransform.None,
             };
 
-            temp1.Clicked += async (s, e) =>
+            temp1.Clicked += async (_, e) =>
             {
                 await MQTT.SendMQTT(obj.Arguments[3], obj.Arguments[4]);
             };
@@ -83,7 +83,7 @@ namespace CTRLapp.Views
                 ThumbColor = Color.FromHex(obj.Arguments[0]),
                 OnColor = Color.FromHex(obj.Arguments[1]),
             };
-            temp2.Toggled += async (s, e) =>
+            temp2.Toggled += async (_, e) =>
             {
                 string message = obj.Arguments[3];
                 if (e.Value) message = obj.Arguments[4];
@@ -91,7 +91,7 @@ namespace CTRLapp.Views
             };
 
             //syncing function
-            //MQTT.MqttMessageReceived += (s, e) =>
+            //MQTT.MqttMessageReceived += (_, e) =>
             //{
             //    if (e.Topic != obj.Arguments[2]) return;
             //    Debug.WriteLine("received by: " + objIndex);
@@ -100,7 +100,8 @@ namespace CTRLapp.Views
             //    if (messageInt >= int.Parse(obj.Arguments[4])) receivedValue = true;
             //    temp2.IsToggled = receivedValue;
             //};
-            //_ = MQTT.SubscribeMQTT(obj.Arguments[2]);
+            //if (MainPage.topicList.IndexOf(obj.Arguments[2]) == -1)
+            //    MainPage.topicList.Add(obj.Arguments[2]);
             return temp2;
         }
         private View BuildSlider(Objects.Object obj)
@@ -116,7 +117,7 @@ namespace CTRLapp.Views
                 Minimum = int.Parse(obj.Arguments[4]),
                 Maximum = int.Parse(obj.Arguments[5]),
             };
-            temp3.ValueChanged += async (s, e) =>
+            temp3.ValueChanged += async (_, e) =>
             {
                 if (!block)
                     await MQTT.SendMQTT(obj.Arguments[3], e.NewValue.ToString());
@@ -155,7 +156,7 @@ namespace CTRLapp.Views
             Point coordinates = new Point();
             SKSize canvassize = new SKSize();
 
-            canvas.PaintSurface += (s, e) =>
+            canvas.PaintSurface += (_, e) =>
             {
                 var surface = e.Surface.Canvas;
                 surface.Clear();
@@ -176,7 +177,7 @@ namespace CTRLapp.Views
                 };
                 surface.DrawCircle((float)touch.X, (float)touch.Y, radius / 3, thumbPaint);
             };
-            touchEffect.TouchAction += (s, e) =>
+            touchEffect.TouchAction += (_, e) =>
             {
                 switch (e.Type)
                 {
@@ -208,7 +209,7 @@ namespace CTRLapp.Views
                         break;
                 }
             };
-            timer.Elapsed += async (s, e) =>
+            timer.Elapsed += async (_, e) =>
             {
                 coordinates.X += (touch.X - (canvassize.Width / 2)) * float.Parse(obj.Arguments[6]) * 0.1;
                 coordinates.Y += (touch.Y - (canvassize.Height / 2)) * float.Parse(obj.Arguments[9]) * 0.1;
@@ -228,7 +229,7 @@ namespace CTRLapp.Views
             canvas.Effects.Add(touchEffect);
 
             //syncing function
-            MQTT.MqttMessageReceived += (s, e) =>
+            MQTT.MqttMessageReceived += (_, e) =>
             {
                 if (timer.Enabled) return;
                 if (e.Topic == obj.Arguments[2])
@@ -260,7 +261,7 @@ namespace CTRLapp.Views
                 BackgroundColor = Color.FromHex(obj.Arguments[1]),
             };
             SKPoint touch = new SKPoint();
-            canvas.PaintSurface += (s, e) =>
+            canvas.PaintSurface += (_, e) =>
             {
                 var surface = e.Surface.Canvas;
                 surface.Clear();
@@ -273,7 +274,7 @@ namespace CTRLapp.Views
                 };
                 surface.DrawCircle((float)touch.X, (float)touch.Y, radius / 3, thumbPaint);
             };
-            touchEffect.TouchAction += async (s, e) =>
+            touchEffect.TouchAction += async (_, e) =>
             {
                 switch (e.Type)
                 {
@@ -307,7 +308,7 @@ namespace CTRLapp.Views
             canvas.Effects.Add(touchEffect);
 
             //syncing function
-            MQTT.MqttMessageReceived += (s, e) =>
+            MQTT.MqttMessageReceived += (_, e) =>
             {
                 if (e.Topic == obj.Arguments[2])
                 {

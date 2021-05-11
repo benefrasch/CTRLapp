@@ -27,15 +27,15 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Entry x:Name="broker_ip" Placeholder="broker ip" Grid.Row="0"/>
-                    <Entry x:Name="device_name" Placeholder="device name" Grid.Row="1"/>
-                    <Entry x:Name="broker_username" Placeholder="broker username" Grid.Row="2"/>
+                    <Entry x:Name="brokerIp" Placeholder="broker ip" Grid.Row="0"/>
+                    <Entry x:Name="deviceName" Placeholder="device name" Grid.Row="1"/>
+                    <Entry x:Name="brokerUsername" Placeholder="broker username" Grid.Row="2"/>
                     <Grid Grid.Row="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="40" />
                         </Grid.ColumnDefinitions>
-                        <Entry Grid.ColumnSpan="2" x:Name="broker_password" IsPassword="True" Placeholder="broker password" HorizontalOptions="FillAndExpand"/>
+                        <Entry Grid.ColumnSpan="2" x:Name="brokerPassword" IsPassword="True" Placeholder="broker password" HorizontalOptions="FillAndExpand"/>
                         <ImageButton Grid.Column="1" Source="show_password_icon.png" Pressed="ShowBrokerPassword" BackgroundColor="Transparent"/>
                     </Grid>
                     <!-- Master Password-->
@@ -46,7 +46,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="40" />
                         </Grid.ColumnDefinitions>
-                        <Entry Grid.ColumnSpan="2" IsPassword="True" x:Name="Settings_password" Placeholder="Settings Password" HorizontalOptions="FillAndExpand"/>
+                        <Entry Grid.ColumnSpan="2" IsPassword="True" x:Name="settingsPasword" Placeholder="Settings Password" HorizontalOptions="FillAndExpand"/>
                         <ImageButton Grid.Column="1" Source="show_password_icon.png" Pressed="ShowSettingsPassword" BackgroundColor="Transparent" />
                     </Grid>
                 </Grid>

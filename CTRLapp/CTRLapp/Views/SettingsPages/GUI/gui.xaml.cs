@@ -24,17 +24,17 @@ namespace CTRLapp.Views.SettingsPages.GUI
         {
             masterList.ItemsSource = null;
             if (Variables.Variables.Layout != null) masterList.ItemsSource = Variables.Variables.Layout;
-        } //reloads Master_Stack
+        }
 
         private void LoadBottomStack()
         {
             bottomList.ItemsSource = null;
             if (Variables.Variables.Layout != null && Variables.Variables.Layout[masterMenuSelected].BottomMenuItems != null) 
                 bottomList.ItemsSource = Variables.Variables.Layout[masterMenuSelected].BottomMenuItems;
-        } //reloads Bottom_Stack
+        }
 
 
-        private void LoadEditStack(string type)
+        private void LoadEditStack(string type) //reload Edit Stack depending on selected type
         {
             editStack.IsVisible = true;
             typeLabel.Text = type;
@@ -53,10 +53,9 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 editStack.BindingContext = Variables.Variables.Layout[masterMenuSelected].BottomMenuItems[bottomMenuSelected];
             }
 
+        }
 
-        }//reload Edit Stack
-
-        private void MasterListItemTapped(object sender, ItemTappedEventArgs e)
+        private void MasterListItemTapped(object _, ItemTappedEventArgs e)
         {
             if (e.ItemIndex == -1) return;
             masterMenuSelected = e.ItemIndex;
@@ -64,7 +63,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             LoadEditStack("MasterMenuItem");
             addBottomMenu.IsVisible = true;
         } 
-        private void BottomListItemTapped(object sender, ItemTappedEventArgs e)
+        private void BottomListItemTapped(object _, ItemTappedEventArgs e)
         {
             if (e.ItemIndex == -1) return;
             bottomMenuSelected = e.ItemIndex;
@@ -72,7 +71,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             LoadEditStack("BottomMenuItem");
         }
 
-        private void AddMasterMenuItem(object sender, EventArgs e)
+        private void AddMasterMenuItem(object _, EventArgs e)
         {
             if (Variables.Variables.Layout == null) Variables.Variables.Layout = new List<MasterMenuItem>();
             MasterMenuItem item = new MasterMenuItem
@@ -83,8 +82,8 @@ namespace CTRLapp.Views.SettingsPages.GUI
             Variables.Variables.Layout.Add(item);
 
             LoadMasterStack();
-        } //add new Master_Menu_Item
-        private void AddBottomMenuItem(object sender, EventArgs e)
+        }
+        private void AddBottomMenuItem(object _, EventArgs e)
         {
             if (Variables.Variables.Layout[masterMenuSelected].BottomMenuItems == null) Variables.Variables.Layout[masterMenuSelected].BottomMenuItems = new List<BottomMenuItem>();
             BottomMenuItem item = new BottomMenuItem
@@ -95,10 +94,10 @@ namespace CTRLapp.Views.SettingsPages.GUI
             Variables.Variables.Layout[masterMenuSelected].BottomMenuItems.Add(item);
 
             LoadBottomStack();
-        } //add new BottomMenuItem
+        }
 
 
-        private async void DeleteButtonPressed(object sender, EventArgs e)
+        private async void DeleteButtonPressed(object _, EventArgs e)
         {
             if (!await App.Current.MainPage.DisplayAlert("Attention", "do you really want to delete this object", "yes", "no")) return; //if "no" is pressed in alert return
             if (typeLabel.Text == "Main Menu")
@@ -119,12 +118,12 @@ namespace CTRLapp.Views.SettingsPages.GUI
             }
         }
 
-        private async void EditGuiClicked(object sender, EventArgs e)
+        private async void EditGuiClicked(object _, EventArgs e)
         {
             await Navigation.PushModalAsync(new GuiPage(masterMenuSelected, bottomMenuSelected));
         }
 
-        private async void IconImageSelect(object sender, EventArgs e)
+        private async void IconImageSelect(object _, EventArgs e)
         {
             await CrossMedia.Current.Initialize();
 
@@ -145,7 +144,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
         }
 
-        private async void BackgroundImageSelect(object sender, EventArgs e)
+        private async void BackgroundImageSelect(object _, EventArgs e)
         {
             await CrossMedia.Current.Initialize();
 

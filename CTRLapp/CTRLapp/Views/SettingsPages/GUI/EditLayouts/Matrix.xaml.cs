@@ -15,7 +15,7 @@ namespace CTRLapp.Views.SettingsPages.GUI.EditLayouts
 
         public event EventHandler UpdateEvent;
 
-        public void UpdatePreview(Object sender, EventArgs e)
+        public void UpdatePreview(object _, EventArgs e)
         {
             UpdateEvent.Invoke(null, null);
         }

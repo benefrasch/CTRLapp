@@ -32,7 +32,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                     sizeStack.IsVisible = false;
 
                     var edit5 = new EditLayouts.Label();
-                    edit5.UpdateEvent += (s, e) =>
+                    edit5.UpdateEvent += (_, e) =>
                     {
                         UpdatePreview();
                     };
@@ -40,7 +40,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                     break;
                 case "Button":
                     var edit1 = new EditLayouts.Button();
-                    edit1.UpdateEvent += (s, e) =>
+                    edit1.UpdateEvent += (_, e) =>
                     {
                         UpdatePreview();
                     };
@@ -48,7 +48,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                     break;
                 case "Switch":
                     var edit2 = new EditLayouts.Switch();
-                    edit2.UpdateEvent += (s, e) =>
+                    edit2.UpdateEvent += (_, e) =>
                     {
                         UpdatePreview();
                     };
@@ -56,7 +56,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                     break;
                 case "Slider":
                     var edit3 = new EditLayouts.Slider();
-                    edit3.UpdateEvent += (s, e) =>
+                    edit3.UpdateEvent += (_, e) =>
                     {
                         UpdatePreview();
                     };
@@ -64,7 +64,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                     break;
                 case "Joystick":
                     var edit4 = new EditLayouts.Joystick();
-                    edit4.UpdateEvent += (s, e) =>
+                    edit4.UpdateEvent += (_, e) =>
                     {
                         UpdatePreview();
                     };
@@ -72,7 +72,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                     break;
                 case "Matrix":
                     var edit6 = new EditLayouts.Matrix();
-                    edit6.UpdateEvent += (s, e) =>
+                    edit6.UpdateEvent += (_, e) =>
                     {
                         UpdatePreview();
                     };
@@ -94,7 +94,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
         }
 
         private Frame view; // so we can easily delete it, when updating preview
-        private void UpdatePreview(object sender = null, TextChangedEventArgs e = null) //preview in middle of right side
+        private void UpdatePreview(object _ = null, TextChangedEventArgs e = null) //preview in middle of right side
         {
             if (view != null) grid.Children.Remove(view);
             var obj = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects[objIndex];
@@ -113,11 +113,11 @@ namespace CTRLapp.Views.SettingsPages.GUI
             view.VerticalOptions = LayoutOptions.Center;
         }
 
-        private void SaveButtonPressed(object sender, EventArgs e)
+        private void SaveButtonPressed(object _, EventArgs e)
         {
             Navigation.PopModalAsync();
         }
-        private async void DeleteButtonPressed(object sender, EventArgs e)
+        private async void DeleteButtonPressed(object _, EventArgs e)
         {
             bool accept = await DisplayAlert("Delete?", "do you really want to delete this?", "Yes", "No");
             if (accept)

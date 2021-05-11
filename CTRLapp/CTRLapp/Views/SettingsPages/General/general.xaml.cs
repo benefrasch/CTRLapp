@@ -27,33 +27,33 @@ namespace CTRLapp.Views.SettingsPages.General
         private void LoadSettings()
         {
             //---Broker settings
-            broker_ip.Text = Preferences.Get("brokerIp", "");
-            device_name.Text = Preferences.Get("deviceName", "");
-            broker_username.Text = Preferences.Get("brokerUsername", "");
-            broker_password.Text = Preferences.Get("brokerPassword", "");
+            brokerIp.Text = Preferences.Get("brokerIp", "");
+            deviceName.Text = Preferences.Get("deviceName", "");
+            brokerUsername.Text = Preferences.Get("brokerUsername", "");
+            brokerPassword.Text = Preferences.Get("brokerPassword", "");
             //---Master Password
-            Settings_password.Text = Preferences.Get("SettingsPassword", "");
+            settingsPasword.Text = Preferences.Get("SettingsPassword", "");
         }
 
-        private void SaveSettings(object sender, EventArgs e)
+        private void SaveSettings(object _, EventArgs e)
         {
             //---Broker settings
-            Preferences.Set("brokerIp", broker_ip.Text);
-            Preferences.Set("deviceName", device_name.Text);
-            Preferences.Set("brokerUsername", broker_username.Text);
-            Preferences.Set("brokerPassword", broker_password.Text);
+            Preferences.Set("brokerIp", brokerIp.Text);
+            Preferences.Set("deviceName", deviceName.Text);
+            Preferences.Set("brokerUsername", brokerUsername.Text);
+            Preferences.Set("brokerPassword", brokerPassword.Text);
             //---Master Password
-            Preferences.Set("settingsPassword", Settings_password.Text);
+            Preferences.Set("settingsPassword", settingsPasword.Text);
         }
 
         // show passwords
-        private void ShowSettingsPassword(object sender, EventArgs e)
+        private void ShowSettingsPassword(object _, EventArgs e)
         {
-            Settings_password.IsPassword = !Settings_password.IsPassword;
+            settingsPasword.IsPassword = !settingsPasword.IsPassword;
         }
-        private void ShowBrokerPassword(object sender, EventArgs e)
+        private void ShowBrokerPassword(object _, EventArgs e)
         {
-            broker_password.IsPassword = !broker_password.IsPassword;
+            brokerPassword.IsPassword = !brokerPassword.IsPassword;
         }
     }
 }

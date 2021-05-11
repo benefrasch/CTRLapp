@@ -36,7 +36,7 @@ namespace CTRLapp.Views
         }
 
 
-        private void MasterListItemSelected(object sender, ItemTappedEventArgs e)
+        private void MasterListItemSelected(object _, ItemTappedEventArgs e)
         {
             masterMenu = e.ItemIndex;
             bottomMenu = 0; //default to first page
@@ -45,7 +45,7 @@ namespace CTRLapp.Views
             bottomList.SelectedItem = null;
             LoadObjects();
         }
-        private void BottomListItemSelected(object sender, ItemTappedEventArgs e)
+        private void BottomListItemSelected(object _, ItemTappedEventArgs e)
         {
             bottomMenu = e.ItemIndex;
             LoadObjects();
@@ -64,9 +64,9 @@ namespace CTRLapp.Views
             }
 
             if (Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects == null) return;
-            List<Objects.Object> object_list = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects;
+            List<Objects.Object> objectList = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects;
 
-            foreach ((Objects.Object obj, int index) in object_list.Select((v, i) => (v, i)))
+            foreach ((Objects.Object obj, int index) in objectList.Select((v, i) => (v, i)))
             {
                 mainLayout.Children.Add(new ObjectView(masterMenu, bottomMenu, index)
                 {
@@ -82,7 +82,7 @@ namespace CTRLapp.Views
         }
 
 
-        private async void SettingsButtonPressed(object sender, EventArgs e)
+        private async void SettingsButtonPressed(object _, EventArgs e)
         {
             await Navigation.PushAsync(new SettingsPage(), true);
         }
