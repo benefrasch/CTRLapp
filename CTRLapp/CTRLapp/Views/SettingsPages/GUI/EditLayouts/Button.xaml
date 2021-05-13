@@ -31,7 +31,6 @@
                 <Label Text="Text: " Style="{StaticResource descriptionLabel}"/>
                 <Entry Text="{Binding Arguments[2]}" HorizontalOptions="FillAndExpand" 
                        TextChanged="UpdatePreview"/>
-
             </StackLayout>
 
             <StackLayout  Orientation="Horizontal" >
