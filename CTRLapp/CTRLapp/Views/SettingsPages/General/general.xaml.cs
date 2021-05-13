@@ -11,7 +11,6 @@ namespace CTRLapp.Views.SettingsPages.General
         public General()
         {
             InitializeComponent();
-            LoadSettings();
         }
 
         protected override void OnAppearing()
@@ -33,6 +32,8 @@ namespace CTRLapp.Views.SettingsPages.General
             brokerPassword.Text = Preferences.Get("brokerPassword", "");
             //---Master Password
             settingsPasword.Text = Preferences.Get("SettingsPassword", "");
+            //---DarkMode
+            darkModeSwitch.IsToggled = (Application.Current.RequestedTheme == OSAppTheme.Dark);
         }
 
         private void SaveSettings(object _, EventArgs e)
@@ -54,6 +55,14 @@ namespace CTRLapp.Views.SettingsPages.General
         private void ShowBrokerPassword(object _, EventArgs e)
         {
             brokerPassword.IsPassword = !brokerPassword.IsPassword;
+        }
+
+        private void DarkModeSwitchToggled(object _, ToggledEventArgs e)
+        {
+            if (e.Value == false)
+                Application.Current.UserAppTheme = OSAppTheme.Light;
+            else
+                Application.Current.UserAppTheme = OSAppTheme.Dark;
         }
     }
 }
