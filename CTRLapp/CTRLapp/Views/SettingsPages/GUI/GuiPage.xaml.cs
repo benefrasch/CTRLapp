@@ -59,14 +59,14 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Width = 200,
                 Height = 200,
                 Type = "Joystick",
-                Arguments = new string[10] { Color.Gray.ToHex(), "#80202020", "", "", "0", "255", "1", "0", "255", "1" },
+                Arguments = new string[10] { Color.Gray.ToHex(), "#80404040", "", "", "0", "255", "1", "0", "255", "1" },
             }),
             new Item("Matrix", new Objects.Object
             {
                 Width = 200,
                 Height = 200,
                 Type = "Matrix",
-                Arguments = new string[8] { Color.Gray.ToHex(), "#80202020", "", "", "0", "255","0", "255" },
+                Arguments = new string[8] { Color.Gray.ToHex(), "#80404040", "", "", "0", "255","0", "255" },
             }),
         };
 

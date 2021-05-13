@@ -21,7 +21,7 @@
 
                 <Button x:Name="ExitButton" Text="Exit" HorizontalOptions="Fill" VerticalOptions="Fill" Clicked="ExitButtonClicked" CornerRadius="10" />
 
-                <ListView x:Name="newObjectListView" Grid.Row="1" IsPullToRefreshEnabled="False" SelectionMode="None" BackgroundColor="#80202020"  ItemTapped="NewObject">
+                <ListView x:Name="newObjectListView" Grid.Row="1" IsPullToRefreshEnabled="False" SelectionMode="None" BackgroundColor="#80404040"  ItemTapped="NewObject">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextCell Text="{Binding Name}"/>
@@ -30,7 +30,7 @@
                 </ListView>
             </Grid>
 
-            <StackLayout Grid.Column="1" Grid.Row="1" BackgroundColor="#80202020">
+            <StackLayout Grid.Column="1" Grid.Row="1" BackgroundColor="#80404040">
                 <StackLayout Orientation="Horizontal">
                     <CheckBox x:Name="snapBox"/>
                     <Label Text="snap" FontSize="20"/>
