@@ -63,9 +63,6 @@
             <Style x:Key="descriptionLabel" TargetType="Label">
                 <Setter Property="FontSize" Value="14"/>
             </Style>
-            <Style x:Key="dataEntry" TargetType="Entry">
-
-            </Style>
             <Style x:Key="descriptionEntryStack" TargetType="StackLayout">
                 <Setter Property="Padding" Value="0"/>
                 <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
