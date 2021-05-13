@@ -144,7 +144,7 @@ namespace CTRLapp.Views
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
                 EnableTouchEvents = false,
-                BackgroundColor = Color.Gray,
+                BackgroundColor = Color.FromHex(obj.Arguments[1]),
             };
             SKPoint touch = new SKPoint();
             Timer timer = new Timer

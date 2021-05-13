@@ -13,6 +13,62 @@ namespace CTRLapp.Views.SettingsPages.GUI
     {
         private readonly int masterMenu, bottomMenu;
 
+        private struct Item
+        {
+            public Item(string name, Objects.Object @object)
+            {
+                Name = name; NewObject = @object;
+            }
+            public string Name { get; set; }
+            public Objects.Object NewObject { get; set; }
+        }
+
+        readonly List<Item> items = new List<Item>()
+        {
+            new Item("Label", new Objects.Object
+            {
+                Width = 100,
+                Height = 30,
+                Type = "Label",
+                Arguments = new string[4] { Color.Gray.ToHex(), Color.Transparent.ToHex(), "Label", "21" }
+            }),
+            new Item("Button", new Objects.Object
+            {
+                Width = 80,
+                Height = 40,
+                Type = "Button",
+                Arguments = new string[5] { Color.Black.ToHex(), Color.Gray.ToHex(), "", "", "" },
+            }),
+            new Item("Switch", new Objects.Object
+            {
+                Width = 80,
+                Height = 40,
+                Type = "Switch",
+                Arguments = new string[5] { Color.Gray.ToHex(), Color.IndianRed.ToHex(), "", "0", "255" },
+            }),
+            new Item("Slider", new Objects.Object
+            {
+                Width = 200,
+                Height = 40,
+                Type = "Slider",
+                Rotation = 0,
+                Arguments = new string[6] { Color.Gray.ToHex(), Color.IndianRed.ToHex(), Color.LightGray.ToHex(), "", "0", "255" },
+            }),
+            new Item("Joystick", new Objects.Object
+            {
+                Width = 200,
+                Height = 200,
+                Type = "Joystick",
+                Arguments = new string[10] { Color.Gray.ToHex(), "#80202020", "", "", "0", "255", "1", "0", "255", "1" },
+            }),
+            new Item("Matrix", new Objects.Object
+            {
+                Width = 200,
+                Height = 200,
+                Type = "Matrix",
+                Arguments = new string[8] { Color.Gray.ToHex(), "#80202020", "", "", "0", "255","0", "255" },
+            }),
+        };
 
 
         public GuiPage(int masterMenu, int bottomMenu)
@@ -21,18 +77,19 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
             this.masterMenu = masterMenu;
             this.bottomMenu = bottomMenu;
-        }
-        protected override void OnAppearing()
-        {
+
+            //new object list view items
+            newObjectListView.ItemsSource = items;
+
+
             InitializeObjects();
             BackgroundImageSource = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].BackgroundImageSource;
-            base.OnAppearing();
         }
+
         protected override void OnDisappearing()
         {
             Debug.WriteLine(JsonConvert.SerializeObject(Variables.Variables.Layout));
             File.WriteAllText(Variables.Variables.configLocation, JsonConvert.SerializeObject(Variables.Variables.Layout));
-
         }
 
         private async void ExitButtonClicked(object _, EventArgs e)
@@ -41,123 +98,14 @@ namespace CTRLapp.Views.SettingsPages.GUI
         }
 
 
-        // \/ \/ add objects here \/ \/
 
-
-        private void AddLabel(object _, EventArgs e)
+        private void NewObject(object _, ItemTappedEventArgs e)
         {
-            Objects.Object temp = new Objects.Object
-            {
-                Width = 100,
-                Height = 30,
-                Type = "Label"
-            };
-            temp.Arguments = new string[4];
-            temp.Arguments[0] = Color.Black.ToHex();
-            temp.Arguments[1] = Color.Transparent.ToHex();
-            temp.Arguments[2] = "Label";
-            temp.Arguments[3] = "21";
-
-            AddObject(temp);
-        }
-        private void AddButton(object _, EventArgs e)
-        {
-            Objects.Object temp = new Objects.Object
-            {
-                Width = 80,
-                Height = 40,
-                Type = "Button",
-            };
-            temp.Arguments = new string[5];
-            temp.Arguments[0] = Color.Black.ToHex();
-            temp.Arguments[1] = Color.LightGray.ToHex();
-            temp.Arguments[2] = "";
-            temp.Arguments[3] = "";
-            temp.Arguments[4] = "";
-
-
-            AddObject(temp);
-        }
-        private void AddSwitch(object _, EventArgs e)
-        {
-            Objects.Object temp = new Objects.Object
-            {
-                Width = 80,
-                Height = 40,
-                Type = "Switch",
-            };
-            temp.Arguments = new string[5];
-            temp.Arguments[0] = Color.Black.ToHex();
-            temp.Arguments[1] = Color.Orange.ToHex();
-            temp.Arguments[2] = "";
-            temp.Arguments[3] = "0";
-            temp.Arguments[4] = "255";
-
-            AddObject(temp);
-        }
-        private void AddSlider(object _, EventArgs e)
-        {
-            Objects.Object temp = new Objects.Object
-            {
-                Width = 200,
-                Height = 40,
-                Type = "Slider",
-                Rotation = 0,
-            };
-            temp.Arguments = new string[6];
-            temp.Arguments[0] = Color.Gray.ToHex();
-            temp.Arguments[1] = Color.Black.ToHex();
-            temp.Arguments[2] = Color.Orange.ToHex();
-            temp.Arguments[3] = "";
-            temp.Arguments[4] = "0";
-            temp.Arguments[5] = "255";
-
-            AddObject(temp);
+            AddObject(((Item)e.Item).NewObject);
 
         }
-        private void AddJoystick(object _, EventArgs e)
-        {
-            Objects.Object temp = new Objects.Object
-            {
-                Width = 200,
-                Height = 200,
-                Type = "Joystick"
-            };
-            temp.Arguments = new string[10];
-            temp.Arguments[0] = Color.Black.ToHex();
-            temp.Arguments[1] = Color.Gray.ToHex();
-            temp.Arguments[2] = "";
-            temp.Arguments[3] = "";
-            temp.Arguments[4] = "0";
-            temp.Arguments[5] = "255";
-            temp.Arguments[6] = "1";
-            temp.Arguments[7] = "0";
-            temp.Arguments[8] = "255";
-            temp.Arguments[9] = "1";
 
-            AddObject(temp);
 
-        }
-        private void AddMatrix(object _, EventArgs e)
-        {
-            Objects.Object temp = new Objects.Object
-            {
-                Width = 200,
-                Height = 200,
-                Type = "Matrix"
-            };
-            temp.Arguments = new string[8];
-            temp.Arguments[0] = Color.Black.ToHex();
-            temp.Arguments[1] = Color.Gray.ToHex();
-            temp.Arguments[2] = "";
-            temp.Arguments[3] = "";
-            temp.Arguments[4] = "0";
-            temp.Arguments[5] = "255";
-            temp.Arguments[6] = "0";
-            temp.Arguments[7] = "255";
-
-            AddObject(temp);
-        }
 
 
         private void AddObject(Objects.Object temp) //adds and loads new object
@@ -167,7 +115,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects.Add(temp);
             LoadObject(objIndex);
         }      //adds the object to the list and to the screen
-        //------------------------------------
+               //------------------------------------
 
         private void InitializeObjects() //loads existing objects
         {
@@ -178,7 +126,6 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 LoadObject(objIndex);
             }
         }
-
 
 
         private void LoadObject(int objIndex) //object with pan and tap for config

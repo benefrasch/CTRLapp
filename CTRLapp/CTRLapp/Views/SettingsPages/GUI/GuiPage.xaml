@@ -21,17 +21,13 @@
 
                 <Button x:Name="ExitButton" Text="Exit" HorizontalOptions="Fill" VerticalOptions="Fill" Clicked="ExitButtonClicked" CornerRadius="10" />
 
-                <ScrollView Grid.Row="1" >
-                    <StackLayout BackgroundColor="#80202020">
-                        <!--Buttons to add new Objects-->
-                        <Button x:Name="addLabel" Text="Label" Pressed="AddLabel"/>
-                        <Button x:Name="addButton" Text="Button" Pressed="AddButton" />
-                        <Button x:Name="addSwitch" Text="Switch" Pressed="AddSwitch" />
-                        <Button x:Name="addSlider" Text="Slider" Pressed="AddSlider" />
-                        <Button x:Name="addJoystick" Text="Joystick" Pressed="AddJoystick" />
-                        <Button x:Name="addMatrix" Text="Matrix" Pressed="AddMatrix" />
-                    </StackLayout>
-                </ScrollView>
+                <ListView x:Name="newObjectListView" Grid.Row="1" IsPullToRefreshEnabled="False" SelectionMode="None" BackgroundColor="#80202020"  ItemTapped="NewObject">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
 
             <StackLayout Grid.Column="1" Grid.Row="1" BackgroundColor="#80202020">
