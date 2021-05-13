@@ -21,7 +21,8 @@
                 <ListView x:Name="masterList" IsPullToRefreshEnabled="False" ItemTapped="MasterListItemTapped">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ImageCell Text="{Binding Name}" ImageSource="{Binding IconPath}"/>
+                            <ImageCell Text="{Binding Name}" ImageSource="{Binding IconPath}"
+                                       TextColor="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
 
@@ -36,7 +37,8 @@
                 <ListView x:Name="bottomList" IsPullToRefreshEnabled="False" ItemTapped="BottomListItemTapped">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ImageCell Text="{Binding Name}" ImageSource="{Binding IconPath}"/>
+                            <ImageCell Text="{Binding Name}" ImageSource="{Binding IconPath}"
+                                       TextColor="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
 
