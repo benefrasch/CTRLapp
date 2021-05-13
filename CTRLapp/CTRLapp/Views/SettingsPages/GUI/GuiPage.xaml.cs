@@ -110,12 +110,12 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
         private void AddObject(Objects.Object temp) //adds and loads new object
         {
-            if (Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects == null) Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects = new List<Objects.Object>();
+            if (Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects == null) 
+                Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects = new List<Objects.Object>();
             int objIndex = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects.Count;
             Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects.Add(temp);
             LoadObject(objIndex);
-        }      //adds the object to the list and to the screen
-               //------------------------------------
+        }
 
         private void InitializeObjects() //loads existing objects
         {
