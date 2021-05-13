@@ -50,13 +50,14 @@
                         Value="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}" />
                 <Setter Property="PlaceholderColor"
                         Value="{AppThemeBinding Light=LightGray, Dark=Gray}"/>
+                <Setter Property="IsSpellCheckEnabled"
+                        Value="False"/>
             </Style>
             <Style TargetType="Button" ApplyToDerivedTypes="True">
                 <Setter Property="BackgroundColor"
                         Value="{AppThemeBinding Light=LightGray, Dark=#282828}"/>
                 <Setter Property="TextColor"
                         Value="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}" />
-
             </Style>
 
             <!--Settings menu Styles-->
