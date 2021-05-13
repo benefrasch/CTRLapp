@@ -81,15 +81,19 @@ namespace CTRLapp.Views.SettingsPages.GUI
             //new object list view items
             newObjectListView.ItemsSource = items;
 
-
-            InitializeObjects();
             BackgroundImageSource = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].BackgroundImageSource;
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            InitializeObjects();
         }
 
         protected override void OnDisappearing()
         {
             Debug.WriteLine(JsonConvert.SerializeObject(Variables.Variables.Layout));
             File.WriteAllText(Variables.Variables.configLocation, JsonConvert.SerializeObject(Variables.Variables.Layout));
+            base.OnDisappearing();
         }
 
         private async void ExitButtonClicked(object _, EventArgs e)
