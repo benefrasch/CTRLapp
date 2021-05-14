@@ -34,30 +34,45 @@ namespace CTRLapp
                     .WithClientOptions(options)
                     .Build();
                 await mqttClient.StartAsync(managedOptions);
-                Debug.WriteLine("connected");
             }
             catch (Exception e)
             {
                 Debug.WriteLine("error while connecting: " + e.Message);
+            };
+            if (!mqttClient.IsConnected)
+            {
+#if !DEBUG
                 if (await App.Current.MainPage.DisplayAlert("MQTT connection failed", "do you want to enter settings?", "yes", "no"))
                     await App.Current.MainPage.Navigation.PushModalAsync(new SettingsPage());
+#endif
+                Debug.WriteLine("connecting failed");
                 return false;
-            };
+            }
+            Debug.WriteLine("connected");
             return true;
         }
 
         public static async Task<bool> SendMQTT(string topic, string payload)
         {
-            if (topic == "") topic = "topic_not_set";
-            Debug.WriteLine("sending mqtt message");
+            if (topic == "")
+            {
+#if DEBUG
+                topic = "topic_not_set";
+#else
+                if (await App.Current.MainPage.DisplayAlert("MQTT sending failed", "do you want to enter settings?", "yes", "no"))
+                    await App.Current.MainPage.Navigation.PushModalAsync(new GuiPage(Views.MainPage.masterMenu, Views.MainPage.bottomMenu));
+                return false;
+#endif
+            }
             if (mqttClient == null || !mqttClient.IsConnected)
             {
-                if (await App.Current.MainPage.DisplayAlert("MQTT connection failed", "do you want to enter settings?", "yes", "no"))
-                    await App.Current.MainPage.Navigation.PushModalAsync(new SettingsPage());
-                return false;
+                if (!await ConnectMQTT())
+                    return false;
             }
+
             try
             {
+                Debug.WriteLine("sending mqtt message");
                 var message = new MqttApplicationMessageBuilder()
                     .WithTopic(topic)
                     .WithPayload(payload)
@@ -66,14 +81,10 @@ namespace CTRLapp
                     .Build();
                 Debug.WriteLine("topic: " + topic + "   payload: " + payload);
                 await mqttClient.PublishAsync(message, CancellationToken.None);
-                Debug.WriteLine("message sent successfully");
             }
             catch (Exception e)
             {
                 Debug.WriteLine("error while sending: " + e.Message);
-                if (await App.Current.MainPage.DisplayAlert("MQTT sending failed", "do you want to enter settings?", "yes", "no"))
-                    await App.Current.MainPage.Navigation.PushModalAsync(new GuiPage(Views.MainPage.masterMenu, Views.MainPage.bottomMenu));
-                return false;
             };
             return true;
         }
