@@ -37,7 +37,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Width = 80,
                 Height = 40,
                 Type = "Button",
-                Arguments = new string[5] { SecondaryColor.ToHex(), PrimaryColor.ToHex(), "", "", "" },
+                Arguments = new string[5] { PrimaryColor.ToHex(), SecondaryColor.ToHex(), "", "", "" },
             }),
             new Item("Switch", new Objects.Object
             {
@@ -52,7 +52,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Height = 40,
                 Type = "Slider",
                 Rotation = 0,
-                Arguments = new string[6] { SecondaryColor.ToHex(), Color.Red.ToHex(), Color.LightGray.ToHex(), "", "0", "255" },
+                Arguments = new string[6] { SecondaryColor.ToHex(), Color.Red.ToHex(), Color.Gray.ToHex(), "", "0", "255" },
             }),
             new Item("Joystick", new Objects.Object
             {
