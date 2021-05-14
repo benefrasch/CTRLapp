@@ -52,6 +52,8 @@
                         Value="{AppThemeBinding Light=LightGray, Dark=Gray}"/>
                 <Setter Property="IsSpellCheckEnabled"
                         Value="False"/>
+                <Setter Property="BackgroundColor"
+                        Value="{AppThemeBinding Light=LightGray, Dark=#282828}"/>
             </Style>
             <Style TargetType="Button" ApplyToDerivedTypes="True">
                 <Setter Property="BackgroundColor"
