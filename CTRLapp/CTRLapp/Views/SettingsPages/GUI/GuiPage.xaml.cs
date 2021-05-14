@@ -30,21 +30,21 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Width = 100,
                 Height = 30,
                 Type = "Label",
-                Arguments = new string[4] { Color.Gray.ToHex(), Color.Transparent.ToHex(), "Label", "21" }
+                Arguments = new string[4] { SecondaryColor.ToHex(), Color.Transparent.ToHex(), "Label", "21" }
             }),
             new Item("Button", new Objects.Object
             {
                 Width = 80,
                 Height = 40,
                 Type = "Button",
-                Arguments = new string[5] { Color.Black.ToHex(), Color.Gray.ToHex(), "", "", "" },
+                Arguments = new string[5] { SecondaryColor.ToHex(), PrimaryColor.ToHex(), "", "", "" },
             }),
             new Item("Switch", new Objects.Object
             {
                 Width = 80,
                 Height = 40,
                 Type = "Switch",
-                Arguments = new string[5] { Color.Gray.ToHex(), Color.Red.ToHex(), "", "0", "255" },
+                Arguments = new string[5] { SecondaryColor.ToHex(), Color.Red.ToHex(), "", "0", "255" },
             }),
             new Item("Slider", new Objects.Object
             {
@@ -52,23 +52,40 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Height = 40,
                 Type = "Slider",
                 Rotation = 0,
-                Arguments = new string[6] { Color.Gray.ToHex(), Color.Red.ToHex(), Color.LightGray.ToHex(), "", "0", "255" },
+                Arguments = new string[6] { SecondaryColor.ToHex(), Color.Red.ToHex(), Color.LightGray.ToHex(), "", "0", "255" },
             }),
             new Item("Joystick", new Objects.Object
             {
                 Width = 200,
                 Height = 200,
                 Type = "Joystick",
-                Arguments = new string[10] { Color.Gray.ToHex(), "#80404040", "", "", "0", "255", "1", "0", "255", "1" },
+                Arguments = new string[10] { SecondaryColor.ToHex(), "#80404040", "", "", "0", "255", "1", "0", "255", "1" },
             }),
             new Item("Matrix", new Objects.Object
             {
                 Width = 200,
                 Height = 200,
                 Type = "Matrix",
-                Arguments = new string[8] { Color.Gray.ToHex(), "#80404040", "", "", "0", "255","0", "255" },
+                Arguments = new string[8] { SecondaryColor.ToHex(), "#80404040", "", "", "0", "255","0", "255" },
             }),
         };
+
+        static private Color PrimaryColor
+        {
+            get
+            {
+                if (Application.Current.RequestedTheme == OSAppTheme.Light) return Color.WhiteSmoke;
+                else return Color.FromHex("#181818");
+            }
+        }
+        static private Color SecondaryColor
+        {
+            get
+            {
+                if (Application.Current.RequestedTheme == OSAppTheme.Light) return Color.Black;
+                else return Color.WhiteSmoke;
+            }
+        }
 
 
         public GuiPage(int masterMenu, int bottomMenu)
@@ -114,7 +131,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
         private void AddObject(Objects.Object temp) //adds and loads new object
         {
-            if (Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects == null) 
+            if (Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects == null)
                 Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects = new List<Objects.Object>();
             int objIndex = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects.Count;
             Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects.Add(temp);
