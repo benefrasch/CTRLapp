@@ -84,7 +84,7 @@ namespace CTRLapp.Views
 
         private async void SettingsButtonPressed(object _, EventArgs e)
         {
-            await Navigation.PushAsync(new SettingsPage(), true);
+            await Navigation.PushAsync(new SettingsPassword( new SettingsPage()), true);
         }
 
 

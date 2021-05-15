@@ -43,7 +43,7 @@ namespace CTRLapp
             {
 #if !DEBUG
                 if (await App.Current.MainPage.DisplayAlert("MQTT connection failed", "do you want to enter settings?", "yes", "no"))
-                    await App.Current.MainPage.Navigation.PushModalAsync(new SettingsPage());
+                    await App.Current.MainPage.Navigation.PushAsync(new SettingsPassword( new SettingsPage()), true);
 #endif
                 Debug.WriteLine("connecting failed");
                 return false;
@@ -60,7 +60,7 @@ namespace CTRLapp
                 topic = "topic_not_set";
 #else
                 if (await App.Current.MainPage.DisplayAlert("MQTT sending failed", "do you want to enter settings?", "yes", "no"))
-                    await App.Current.MainPage.Navigation.PushModalAsync(new GuiPage(Views.MainPage.masterMenu, Views.MainPage.bottomMenu));
+                    await App.Current.MainPage.Navigation.PushAsync(new SettingsPassword(new GuiPage(Views.MainPage.masterMenu, Views.MainPage.bottomMenu)), true);
                 return false;
 #endif
             }
