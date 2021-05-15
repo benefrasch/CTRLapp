@@ -44,7 +44,7 @@ namespace CTRLapp.Views.SettingsPages.General
             Preferences.Set("brokerUsername", brokerUsername.Text);
             Preferences.Set("brokerPassword", brokerPassword.Text);
             //---Master Password
-            Preferences.Set("settingsPassword", settingsPasword.Text);
+            Preferences.Set("SettingsPassword", settingsPasword.Text);
         }
 
         // show passwords

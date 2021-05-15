@@ -45,5 +45,10 @@ namespace CTRLapp.Views.SettingsPages
             if (passowrdEntry.Text == adminPassword) PushSettingsPage();
             else DisplayAlert("wrong passowrd", "", "OK");
         }
+
+        private async void BackButtonPressed(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+        }
     }
 }
