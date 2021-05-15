@@ -8,7 +8,7 @@
              Title="Devices">
 
     <StackLayout>
-        <Label Text="The app isnt even finished, what devices do you want to set up????" />
+        <Label Text="No devides to configure, please use serial console while this is not implemented" />
     </StackLayout>
 
 </ContentPage>
