@@ -78,6 +78,7 @@ namespace CTRLapp.Views
         }
         private View BuildSwitch(Objects.Object obj)
         {
+            bool block = false; //avoid loopback from mqtt delay
             var temp2 = new Xamarin.Forms.Switch
             {
                 ThumbColor = Color.FromHex(obj.Arguments[0]),
@@ -85,20 +86,23 @@ namespace CTRLapp.Views
             };
             temp2.Toggled += async (_, e) =>
             {
-                string message = obj.Arguments[3];
-                if (e.Value) message = obj.Arguments[4];
-                await MQTT.SendMQTT(obj.Arguments[2], message);
+                if (!block)
+                {
+                    string message = obj.Arguments[3];
+                    if (e.Value) message = obj.Arguments[4];
+                    await MQTT.SendMQTT(obj.Arguments[2], message);
+                }
             };
 
             //syncing function
             //MQTT.MqttMessageReceived += (_, e) =>
             //{
             //    if (e.Topic != obj.Arguments[2]) return;
-            //    Debug.WriteLine("received by: " + objIndex);
             //    bool receivedValue = false;
-            //    int.TryParse(e.Message,out int messageInt);
-            //    if (messageInt >= int.Parse(obj.Arguments[4])) receivedValue = true;
+            //    if (e.Message == obj.Arguments[4]) receivedValue = true;
+            //    block = true;
             //    temp2.IsToggled = receivedValue;
+            //    block = false;
             //};
             //if (MainPage.topicList.IndexOf(obj.Arguments[2]) == -1)
             //    MainPage.topicList.Add(obj.Arguments[2]);
