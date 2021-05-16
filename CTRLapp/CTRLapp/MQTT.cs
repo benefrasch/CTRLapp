@@ -39,16 +39,16 @@ namespace CTRLapp
             {
                 Debug.WriteLine("error while connecting: " + e.Message);
             };
-            if (!mqttClient.IsConnected)
-            {
-#if !DEBUG
-                if (await App.Current.MainPage.DisplayAlert("MQTT connection failed", "do you want to enter settings?", "yes", "no"))
-                    await App.Current.MainPage.Navigation.PushAsync(new SettingsPassword( new SettingsPage()), true);
-#endif
-                Debug.WriteLine("connecting failed");
-                return false;
-            }
-            Debug.WriteLine("connected");
+//            if (!mqttClient.IsConnected)
+//            {
+//#if !DEBUG
+//                if (await App.Current.MainPage.DisplayAlert("MQTT connection failed", "do you want to enter settings?", "yes", "no"))
+//                    await App.Current.MainPage.Navigation.PushAsync(new SettingsPassword( new SettingsPage()), true);
+//#endif
+//                Debug.WriteLine("connecting failed");
+//                return false;
+//            }
+            //Debug.WriteLine("connected");
             return true;
         }
 
@@ -64,6 +64,7 @@ namespace CTRLapp
                 return false;
 #endif
             }
+
             if (mqttClient == null || !mqttClient.IsConnected)
             {
                 if (!await ConnectMQTT())
