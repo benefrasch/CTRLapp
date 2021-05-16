@@ -30,6 +30,10 @@ namespace CTRLapp.Views
                     Content = BuildButton(obj);
                     break;
 
+                case "SwitchButton":
+                    Content = BuildSwitchButton(obj);
+                    break;
+
                 case "Switch":
                     Content = BuildSwitch(obj);
                     break;
@@ -105,23 +109,46 @@ namespace CTRLapp.Views
             };
             return button;
         }
-        private View BuildTwoWayButton(Objects.Object obj)
+        private View BuildSwitchButton(Objects.Object obj)
         {
-            var button = new Button
+            bool toggled = false;
+            var switchButton = new Button
             {
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
                 BackgroundColor = Color.FromHex(obj.Arguments[1]),
                 TextColor = Color.FromHex(obj.Arguments[0]),
-                Text = obj.Arguments[2],
+                Text = obj.Arguments[3],
                 TextTransform = TextTransform.None,
             };
 
-            button.Clicked += async (_, e) =>
+            switchButton.Clicked += async (_, e) =>
             {
-                await MQTT.SendMQTT(obj.Arguments[3], obj.Arguments[4]);
+                if (toggled) //when high, send low message and switch to low mode and vise versa
+                {
+                    switchButton.BackgroundColor = Color.FromHex(obj.Arguments[1]);
+                    await MQTT.SendMQTT(obj.Arguments[4], obj.Arguments[5]);
+                }
+                else
+                {
+                    switchButton.BackgroundColor = Color.FromHex(obj.Arguments[2]);
+                    await MQTT.SendMQTT(obj.Arguments[4], obj.Arguments[6]);
+                }
+                toggled = !toggled;
             };
-            return button;
+
+            //syncing function
+            MQTT.MqttMessageReceived += (_, e) =>
+            {
+                if (e.Topic != obj.Arguments[4]) return;
+                if(e.Message == obj.Arguments[6]) //set background color according to received message (high if message == high value, low if else)
+                    switchButton.BackgroundColor = Color.FromHex(obj.Arguments[2]);
+                else
+                    switchButton.BackgroundColor = Color.FromHex(obj.Arguments[1]);
+            };
+            if (MainPage.topicList.IndexOf(obj.Arguments[4]) == -1)
+                MainPage.topicList.Add(obj.Arguments[4]);
+            return switchButton;
         }
         private View BuildSwitch(Objects.Object obj)
         {

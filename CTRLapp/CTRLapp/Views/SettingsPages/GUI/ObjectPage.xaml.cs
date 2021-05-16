@@ -56,6 +56,14 @@ namespace CTRLapp.Views.SettingsPages.GUI
                     };
                     editStack.Children.Add(edit1);
                     break;
+                case "SwitchButton":
+                    var edit10 = new EditLayouts.SwitchButton();
+                    edit10.UpdateEvent += (_, e) =>
+                    {
+                        UpdatePreview();
+                    };
+                    editStack.Children.Add(edit10);
+                    break;
                 case "Switch":
                     var edit2 = new EditLayouts.Switch();
                     edit2.UpdateEvent += (_, e) =>

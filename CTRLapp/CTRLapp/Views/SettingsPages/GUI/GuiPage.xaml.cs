@@ -44,7 +44,14 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Width = 80,
                 Height = 40,
                 Type = "Button",
-                Arguments = new string[5] { PrimaryColor.ToHex(), SecondaryColor.ToHex(), "", "", "" },
+                Arguments = new string[5] { PrimaryColor.ToHex(), SecondaryColor.ToHex(), "Button", "", "" },
+            }),
+            new Item("SwitchButton", new Objects.Object
+            {
+                Width = 80,
+                Height = 40,
+                Type = "SwitchButton",
+                Arguments = new string[7] { PrimaryColor.ToHex(), SecondaryColor.ToHex(),Color.Red.ToHex(), "Switch btn", "", "0", "255"},
             }),
             new Item("Switch", new Objects.Object
             {

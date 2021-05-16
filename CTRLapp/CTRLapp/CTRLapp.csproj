@@ -34,6 +34,9 @@
     <Compile Update="Views\SettingsPages\Devices\devices.xaml.cs">
       <DependentUpon>Devices.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\SettingsPages\GUI\EditLayouts\SwitchButton.xaml.cs">
+      <DependentUpon>SwitchButton.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\SettingsPages\GUI\EditLayouts\ValueDisplay.xaml.cs">
       <DependentUpon>ValueDisplay.xaml</DependentUpon>
     </Compile>

@@ -21,6 +21,16 @@ Button{
 	MQTT message
 }
 
+SwitchButton{
+	text color
+	background color
+	on background color
+	Text
+	MQTT topic
+	low value
+	high value
+}
+
 Switch{
 	thumb color
 	on color
