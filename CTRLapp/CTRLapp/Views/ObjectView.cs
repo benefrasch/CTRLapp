@@ -21,6 +21,11 @@ namespace CTRLapp.Views
                 case "Label":
                     Content = BuildLabel(obj);
                     break;
+
+                case "ValueDisplay":
+                    Content = BuildValueDisplay(obj);
+                    break;
+
                 case "Button":
                     Content = BuildButton(obj);
                     break;
@@ -50,6 +55,7 @@ namespace CTRLapp.Views
             int.TryParse(obj.Arguments[3], out int fontsize);
             Label label = new Label()
             {
+                WidthRequest = obj.Width,
                 TextColor = Color.FromHex(obj.Arguments[0]),
                 BackgroundColor = Color.FromHex(obj.Arguments[1]),
                 Text = obj.Arguments[2],
@@ -58,6 +64,29 @@ namespace CTRLapp.Views
             };
             return label;
         }
+        private View BuildValueDisplay(Objects.Object obj)
+        {
+            int.TryParse(obj.Arguments[5], out int fontsize);
+            Label label = new Label()
+            {
+                WidthRequest = obj.Width,
+                TextColor = Color.FromHex(obj.Arguments[0]),
+                BackgroundColor = Color.FromHex(obj.Arguments[1]),
+                FontSize = fontsize,
+                Text = obj.Arguments[2] + obj.Arguments[4],
+                IsEnabled = false,
+            };
+
+            //mqtt syncing function
+            MQTT.MqttMessageReceived += (_, e) =>
+            {
+                if (e.Topic != obj.Arguments[3]) return;
+                label.Text = obj.Arguments[2] + e.Message + obj.Arguments[4];
+            };
+            if (MainPage.topicList.IndexOf(obj.Arguments[3]) == -1)
+                MainPage.topicList.Add(obj.Arguments[3]);
+            return label;
+        } //buggy
         private View BuildButton(Objects.Object obj)
         {
             var temp1 = new Button

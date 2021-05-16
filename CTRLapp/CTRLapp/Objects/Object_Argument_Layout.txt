@@ -5,6 +5,14 @@ Label{
 	Font size
 }
 
+ValueDisplay{
+	Text color
+	Background color
+	BeforeText
+	Topic
+	Font size
+}
+
 Button{
 	text color
 	background color

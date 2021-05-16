@@ -32,6 +32,13 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Type = "Label",
                 Arguments = new string[4] { SecondaryColor.ToHex(), Color.Transparent.ToHex(), "Label", "21" }
             }),
+            //new Item("ValueDisplay", new Objects.Object
+            //{
+            //    Width = 100,
+            //    Height = 30,
+            //    Type = "ValueDisplay",
+            //    Arguments = new string[6] { SecondaryColor.ToHex(), Color.Transparent.ToHex(), "Value display","","", "21" }
+            //}), //buggy, so it is deactivated until fixed
             new Item("Button", new Objects.Object
             {
                 Width = 80,

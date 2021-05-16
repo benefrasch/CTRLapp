@@ -41,13 +41,13 @@
                     
                     <!--size-->
                     <StackLayout  Orientation="Horizontal" x:Name="sizeStack">
-                        <StackLayout Style="{StaticResource descriptionEntryStack}">
+                        <StackLayout Style="{StaticResource descriptionEntryStack}" >
                             <Label Text="Width: " Style="{StaticResource descriptionLabel}"/>
                             <Entry x:Name="entryWidth" Placeholder="Enter Width" Keyboard="Numeric" 
                            Text="{Binding Width}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
                         </StackLayout>
-                        <StackLayout Style="{StaticResource descriptionEntryStack}">
+                        <StackLayout Style="{StaticResource descriptionEntryStack}" x:Name="heightEntry">
                             <Label Text="Height: " Style="{StaticResource descriptionLabel}"/>
                             <Entry x:Name="entryHeight" Placeholder="Enter Height" Keyboard="Numeric" 
                            Text="{Binding Height}" HorizontalOptions="FillAndExpand" 

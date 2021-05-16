@@ -29,7 +29,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             switch (Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects[objIndex].Type)
             {
                 case "Label":
-                    sizeStack.IsVisible = false;
+                    heightEntry.IsVisible = false;
 
                     var edit5 = new EditLayouts.Label();
                     edit5.UpdateEvent += (_, e) =>
@@ -37,6 +37,16 @@ namespace CTRLapp.Views.SettingsPages.GUI
                         UpdatePreview();
                     };
                     editStack.Children.Add(edit5);
+                    break;
+                case "ValueDisplay":
+                    heightEntry.IsVisible = false;
+
+                    var edit6 = new EditLayouts.ValueDisplay();
+                    edit6.UpdateEvent += (_, e) =>
+                    {
+                        UpdatePreview();
+                    };
+                    editStack.Children.Add(edit6);
                     break;
                 case "Button":
                     var edit1 = new EditLayouts.Button();
@@ -71,12 +81,12 @@ namespace CTRLapp.Views.SettingsPages.GUI
                     editStack.Children.Add(edit4);
                     break;
                 case "Matrix":
-                    var edit6 = new EditLayouts.Matrix();
-                    edit6.UpdateEvent += (_, e) =>
+                    var edit7 = new EditLayouts.Matrix();
+                    edit7.UpdateEvent += (_, e) =>
                     {
                         UpdatePreview();
                     };
-                    editStack.Children.Add(edit6);
+                    editStack.Children.Add(edit7);
                     break;
             }
 
