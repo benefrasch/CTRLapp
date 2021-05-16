@@ -94,7 +94,7 @@ namespace CTRLapp.Views
                 }
             };
 
-            //syncing function
+            //syncing function   -- buggy for switch
             //MQTT.MqttMessageReceived += (_, e) =>
             //{
             //    if (e.Topic != obj.Arguments[2]) return;
