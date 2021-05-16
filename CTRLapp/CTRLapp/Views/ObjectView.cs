@@ -89,7 +89,7 @@ namespace CTRLapp.Views
         } //buggy
         private View BuildButton(Objects.Object obj)
         {
-            var temp1 = new Button
+            var button = new Button
             {
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
@@ -99,21 +99,39 @@ namespace CTRLapp.Views
                 TextTransform = TextTransform.None,
             };
 
-            temp1.Clicked += async (_, e) =>
+            button.Clicked += async (_, e) =>
             {
                 await MQTT.SendMQTT(obj.Arguments[3], obj.Arguments[4]);
             };
-            return temp1;
+            return button;
+        }
+        private View BuildTwoWayButton(Objects.Object obj)
+        {
+            var button = new Button
+            {
+                HeightRequest = obj.Height,
+                WidthRequest = obj.Width,
+                BackgroundColor = Color.FromHex(obj.Arguments[1]),
+                TextColor = Color.FromHex(obj.Arguments[0]),
+                Text = obj.Arguments[2],
+                TextTransform = TextTransform.None,
+            };
+
+            button.Clicked += async (_, e) =>
+            {
+                await MQTT.SendMQTT(obj.Arguments[3], obj.Arguments[4]);
+            };
+            return button;
         }
         private View BuildSwitch(Objects.Object obj)
         {
             bool block = false; //avoid loopback from mqtt delay
-            var temp2 = new Xamarin.Forms.Switch
+            var temp = new Xamarin.Forms.Switch
             {
                 ThumbColor = Color.FromHex(obj.Arguments[0]),
                 OnColor = Color.FromHex(obj.Arguments[1]),
             };
-            temp2.Toggled += async (_, e) =>
+            temp.Toggled += async (_, e) =>
             {
                 if (!block)
                 {
@@ -135,12 +153,12 @@ namespace CTRLapp.Views
             //};
             //if (MainPage.topicList.IndexOf(obj.Arguments[2]) == -1)
             //    MainPage.topicList.Add(obj.Arguments[2]);
-            return temp2;
+            return temp;
         }
         private View BuildSlider(Objects.Object obj)
         {
             bool block = false; //avoid loopback from mqtt delay
-            var temp3 = new Slider
+            var slider = new Slider
             {
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
@@ -150,7 +168,7 @@ namespace CTRLapp.Views
                 Minimum = int.Parse(obj.Arguments[4]),
                 Maximum = int.Parse(obj.Arguments[5]),
             };
-            temp3.ValueChanged += async (_, e) =>
+            slider.ValueChanged += async (_, e) =>
             {
                 if (!block)
                     await MQTT.SendMQTT(obj.Arguments[3], e.NewValue.ToString());
@@ -162,12 +180,12 @@ namespace CTRLapp.Views
                 if (e.Topic != obj.Arguments[3]) return;
                 float.TryParse(e.Message, out float messageFloat);
                 block = true;
-                temp3.Value = messageFloat;
+                slider.Value = messageFloat;
                 block = false;
             };
             if (MainPage.topicList.IndexOf(obj.Arguments[3]) == -1)
                 MainPage.topicList.Add(obj.Arguments[3]);
-            return temp3;
+            return slider;
         }
         private View BuildJoystick(Objects.Object obj)
         {
