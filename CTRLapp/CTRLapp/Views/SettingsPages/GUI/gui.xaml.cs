@@ -106,7 +106,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
                 LoadMasterStack();
                 editStack.IsVisible = false;
-                addBottomMenu.IsVisible = true;
+                addBottomMenu.IsVisible = false;
                 bottomList.ItemsSource = null;
             }
             else if (typeLabel.Text == "Secondary Menu")
