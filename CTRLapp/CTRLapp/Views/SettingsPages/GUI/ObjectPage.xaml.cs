@@ -30,7 +30,6 @@ namespace CTRLapp.Views.SettingsPages.GUI
             {
                 case "Label":
                     heightEntry.IsVisible = false;
-
                     var edit5 = new EditLayouts.Label();
                     edit5.UpdateEvent += (_, e) =>
                     {
@@ -40,7 +39,6 @@ namespace CTRLapp.Views.SettingsPages.GUI
                     break;
                 case "ValueDisplay":
                     heightEntry.IsVisible = false;
-
                     var edit6 = new EditLayouts.ValueDisplay();
                     edit6.UpdateEvent += (_, e) =>
                     {
@@ -81,6 +79,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                     editStack.Children.Add(edit3);
                     break;
                 case "Joystick":
+                    heightEntry.IsVisible = false;
                     var edit4 = new EditLayouts.Joystick();
                     edit4.UpdateEvent += (_, e) =>
                     {

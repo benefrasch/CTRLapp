@@ -219,7 +219,7 @@ namespace CTRLapp.Views
             var touchEffect = new TouchTracking.Forms.TouchEffect() { Capture = true };
             SKCanvasView canvas = new SKCanvasView
             {
-                HeightRequest = obj.Height,
+                HeightRequest = obj.Width,
                 WidthRequest = obj.Width,
                 EnableTouchEvents = false,
                 BackgroundColor = Color.FromHex(obj.Arguments[1]),
@@ -239,19 +239,13 @@ namespace CTRLapp.Views
                 var surface = e.Surface.Canvas;
                 surface.Clear();
 
-                SKPaint backgroundPaint = new SKPaint
-                {
-                    Style = SKPaintStyle.Fill,
-                    Color = Color.FromHex(obj.Arguments[1]).ToSKColor(),
-                };
                 float radius = canvassize.Width / 2;
-                if (canvassize.Width < canvassize.Height) radius = canvassize.Height / 2;
-                surface.DrawCircle(canvassize.Width / 2, canvassize.Height / 2, radius, backgroundPaint);
 
                 SKPaint thumbPaint = new SKPaint
                 {
                     Style = SKPaintStyle.Fill,
                     Color = Color.FromHex(obj.Arguments[0]).ToSKColor(),
+                    IsAntialias = true,
                 };
                 surface.DrawCircle((float)touch.X, (float)touch.Y, radius / 3, thumbPaint);
             };
@@ -326,10 +320,13 @@ namespace CTRLapp.Views
             if (MainPage.topicList.IndexOf(obj.Arguments[3]) == -1)
                 MainPage.topicList.Add(obj.Arguments[3]);
 
-            return canvas;
+
+
+            return new Frame() { Content = canvas, CornerRadius = (float)obj.Width / 2 };
         }
         private View BuildMatrix(Objects.Object obj)
         {
+            float thumbRadius = 50;
             var touchEffect = new TouchTracking.Forms.TouchEffect() { Capture = true };
             SKCanvasView canvas = new SKCanvasView
             {
@@ -344,21 +341,27 @@ namespace CTRLapp.Views
                 var surface = e.Surface.Canvas;
                 surface.Clear();
 
-                float radius = 50;
                 SKPaint thumbPaint = new SKPaint
                 {
                     Style = SKPaintStyle.Fill,
                     Color = Color.FromHex(obj.Arguments[0]).ToSKColor(),
+                    IsAntialias = true,
                 };
-                surface.DrawCircle((float)touch.X, (float)touch.Y, radius / 3, thumbPaint);
+                surface.DrawCircle((float)touch.X, (float)touch.Y, thumbRadius / 3, thumbPaint);
             };
+            bool isTouchDown = false;
             touchEffect.TouchAction += async (_, e) =>
             {
                 switch (e.Type)
                 {
                     case TouchTracking.TouchActionType.Pressed:
-                    case TouchTracking.TouchActionType.Moved:
+                        isTouchDown = true;
+                        goto case TouchTracking.TouchActionType.Moved;
                     case TouchTracking.TouchActionType.Released:
+                        isTouchDown = false;
+                        break;
+                    case TouchTracking.TouchActionType.Moved:
+                        if (!isTouchDown) break;
                         //map touch point to Canvas because different size
                         touch = new SKPoint((float)(canvas.CanvasSize.Width * e.Location.X / canvas.Width),
                                             (float)(canvas.CanvasSize.Height * e.Location.Y / canvas.Height));
@@ -405,6 +408,7 @@ namespace CTRLapp.Views
                 MainPage.topicList.Add(obj.Arguments[2]);
             if (MainPage.topicList.IndexOf(obj.Arguments[3]) == -1)
                 MainPage.topicList.Add(obj.Arguments[3]);
+
 
             return canvas;
         }
