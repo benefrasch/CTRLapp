@@ -19,76 +19,75 @@
 
             <AbsoluteLayout x:Name="mainLayout" Grid.Column="1" />
 
-            <Grid Grid.RowSpan="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="80" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
 
-                <ImageButton x:Name="settingsButton" Source="settings_icon.png"  
+            <Frame BackgroundColor="#40404040" CornerRadius="40" Grid.RowSpan="2">
+                <StackLayout>
+                    <ImageButton x:Name="settingsButton" Source="settings_icon.png"  
                              Grid.Row="0" Pressed="SettingsButtonPressed" 
-                             CornerRadius="10" BackgroundColor="Transparent" />
+                             CornerRadius="40" BackgroundColor="Transparent"/>
 
-                <ListView Grid.Row="1" x:Name="masterList" RowHeight="100" 
+                    <ListView x:Name="masterList" RowHeight="120"
                           ItemTapped="MasterListItemSelected" SeparatorVisibility="None" 
-                          BackgroundColor="#80404040">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="10" />
-                                        <RowDefinition Height="60" />
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="10" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="80" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image Source="{Binding IconPath}" Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                                    <Label Text="{Binding Name}" Grid.Row="2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Grid>
+                          VerticalOptions="Center">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="20" />
+                                            <RowDefinition Height="60" />
+                                            <RowDefinition Height="20" />
+                                            <RowDefinition Height="20" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="{Binding IconPath}" Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                        <Label Text="{Binding Name}" Grid.Row="2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </Frame>
 
-            <RelativeLayout Grid.Row="1" Grid.Column="1" HeightRequest="80">
-                <ListView x:Name="bottomList" RowHeight="100" ItemTapped="BottomListItemSelected" 
-                          Rotation="270" SeparatorVisibility="None" BackgroundColor="#80404040" 
+            <Frame BackgroundColor="#40404040" Grid.Row="1" Grid.Column="1" CornerRadius="40">
+                <RelativeLayout  HeightRequest="80">
+                    <ListView x:Name="bottomList" RowHeight="120" ItemTapped="BottomListItemSelected" 
+                          Rotation="270" SeparatorVisibility="None"  VerticalOptions="Center"
                           RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-40}" 
                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.5, Constant=40}" 
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=Constant, Constant=80}" 
                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="10" />
-                                        <RowDefinition Height="80" />
-                                        <RowDefinition Height="10" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="80" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Grid Grid.Row="1" Rotation="90">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="60" />
+                                            <RowDefinition Height="20" />
+                                            <RowDefinition Height="80" />
                                             <RowDefinition Height="20" />
                                         </Grid.RowDefinitions>
-                                        <Image Source="{Binding IconPath}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
-                                        <Label Text="{Binding Name}" Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid Grid.Row="1" Rotation="90">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="60" />
+                                                <RowDefinition Height="20" />
+                                            </Grid.RowDefinitions>
+                                            <Image Source="{Binding IconPath}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                            <Label Text="{Binding Name}" Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </RelativeLayout>
-            
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </RelativeLayout>
+            </Frame>
 
         </Grid>
     </ContentPage.Content>
