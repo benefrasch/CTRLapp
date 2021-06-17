@@ -25,7 +25,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <ImageButton x:Name="settingsButton" Source="settings_icon"  
+                <ImageButton x:Name="settingsButton" Source="settings_icon.png"  
                              Grid.Row="0" Pressed="SettingsButtonPressed" 
                              CornerRadius="10" BackgroundColor="Transparent" />
 
