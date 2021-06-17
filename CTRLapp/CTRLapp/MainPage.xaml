@@ -7,7 +7,7 @@
              x:Class="CTRLapp.Views.MainPage"
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
-        <Grid x:Name="grid">
+        <Grid x:Name="grid" Padding="4">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="80" />
