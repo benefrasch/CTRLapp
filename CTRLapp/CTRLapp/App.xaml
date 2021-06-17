@@ -61,6 +61,12 @@
                 <Setter Property="TextColor"
                         Value="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}" />
             </Style>
+            <Style TargetType="Switch" ApplyToDerivedTypes="True">
+                <Setter Property="ThumbColor"
+                        Value="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}"/>
+                <Setter Property="OnColor"
+                        Value="Gray"/>
+            </Style>
 
             <!--Settings menu Styles-->
             <Style x:Key="descriptionLabel" TargetType="Label">

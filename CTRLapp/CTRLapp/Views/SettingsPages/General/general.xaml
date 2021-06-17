@@ -15,10 +15,10 @@
             </Grid.ColumnDefinitions>
 
             <!-- Master Password-->
-            <StackLayout Grid.Column="0" Style="{StaticResource descriptionEntryStack}">
+            <StackLayout Style="{StaticResource descriptionEntryStack}">
                 <Label Style="{StaticResource descriptionLabel}" 
-                       Text="Settings Password: &#10;Without this Password, you won't be able to get into the settings again! You can leave this field blank if you don't want a password &#10;(not implemented yet)" />
-                <Grid Grid.Row="6">
+                       Text="Settings Password: &#10;Without this Password, you won't be able to get into the settings again! You can leave this field blank if you don't want a password." />
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="40" />
@@ -31,7 +31,7 @@
 
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Dark mode   " FontSize="20"/>
-                    <Switch x:Name="darkModeSwitch" Toggled="DarkModeSwitchToggled" OnColor="White" ThumbColor="Black"/>
+                    <Switch x:Name="darkModeSwitch" Toggled="DarkModeSwitchToggled"/>
                 </StackLayout>
             </StackLayout>
 
@@ -39,19 +39,19 @@
             <StackLayout Grid.Column="2">
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
                     <Label Text="broker IP: " Style="{StaticResource descriptionLabel}"/>
-                    <Entry x:Name="brokerIp" Grid.Row="0"/>
+                    <Entry x:Name="brokerIp"/>
                 </StackLayout>
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
                     <Label Text="Device Name" Style="{StaticResource descriptionLabel}"/>
-                    <Entry x:Name="deviceName"  Grid.Row="1"/>
+                    <Entry x:Name="deviceName"/>
                 </StackLayout>
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
                     <Label Text="broker username" Style="{StaticResource descriptionLabel}"/>
-                    <Entry x:Name="brokerUsername" Grid.Row="2"/>
+                    <Entry x:Name="brokerUsername"/>
                 </StackLayout>
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
                     <Label Text="broker password" Style="{StaticResource descriptionLabel}"/>
-                    <Grid Grid.Row="3">
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="40" />
