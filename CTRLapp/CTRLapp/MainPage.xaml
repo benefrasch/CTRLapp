@@ -26,18 +26,17 @@
                              Grid.Row="0" Pressed="SettingsButtonPressed" 
                              CornerRadius="40" BackgroundColor="Transparent"/>
 
-                    <ListView x:Name="masterList" RowHeight="120"
-                          ItemTapped="MasterListItemSelected" SeparatorVisibility="None" 
-                          VerticalOptions="Center">
+                    <ListView x:Name="masterList" RowHeight="100"
+                          ItemTapped="MasterListItemSelected" SeparatorVisibility="None">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
                                     <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="20" />
+                                            <RowDefinition Height="10" />
                                             <RowDefinition Height="60" />
                                             <RowDefinition Height="20" />
-                                            <RowDefinition Height="20" />
+                                            <RowDefinition Height="10" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="80" />
