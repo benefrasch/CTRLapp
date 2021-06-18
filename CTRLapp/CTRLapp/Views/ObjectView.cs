@@ -236,7 +236,7 @@ namespace CTRLapp.Views
 
             canvas.PaintSurface += (_, e) =>
             {
-                var surface = e.Surface.Canvas;
+                SKCanvas surface = e.Surface.Canvas;
                 surface.Clear();
 
                 float radius = canvassize.Width / 2;
@@ -322,7 +322,7 @@ namespace CTRLapp.Views
 
 
 
-            return new Frame() { Content = canvas, CornerRadius = (float)obj.Width / 2 };
+            return new Frame() { Content = canvas, CornerRadius = (float)obj.Width / 2, BackgroundColor=Color.Transparent };
         }
         private View BuildMatrix(Objects.Object obj)
         {

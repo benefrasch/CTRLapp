@@ -7,7 +7,7 @@
              x:Class="CTRLapp.Views.SettingsPages.GUI.Gui"
              Title="GUI">
 
-    <Grid Padding="10">
+    <Grid Padding="10" ColumnSpacing="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
@@ -48,7 +48,7 @@
         </StackLayout>
 
         <!--edit stack-->
-        <StackLayout x:Name="editStack" Grid.Column="2"  Padding="4" IsVisible="false" VerticalOptions="Fill" HorizontalOptions="Fill">
+        <StackLayout x:Name="editStack" Grid.Column="2" IsVisible="false" VerticalOptions="Fill" HorizontalOptions="Fill">
             
             <Label x:Name="typeLabel" HorizontalTextAlignment="Center" />
             <Entry x:Name="nameEntry" HorizontalOptions="Fill" HeightRequest="50" Placeholder="Menu Name" Text="{Binding Name}"/>

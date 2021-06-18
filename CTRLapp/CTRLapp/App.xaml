@@ -61,6 +61,10 @@
                 <Setter Property="TextColor"
                         Value="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}" />
             </Style>
+            <Style TargetType="ImageButton" ApplyToDerivedTypes="True">
+                <Setter Property="BackgroundColor"
+                        Value="Transparent"/>
+            </Style>
             <Style TargetType="Switch" ApplyToDerivedTypes="True">
                 <Setter Property="ThumbColor"
                         Value="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}"/>

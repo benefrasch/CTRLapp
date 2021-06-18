@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="CTRLapp.Views.SettingsPages.GUI.GuiPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="CTRLapp.Views.SettingsPages.GUI.GuiPage"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
-        <Grid x:Name="grid">
+        <Grid x:Name="grid" Padding="4" ColumnSpacing="4" RowSpacing="4">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="80" />
@@ -13,29 +16,28 @@
 
             <AbsoluteLayout x:Name="MainLayout" Grid.Column="1" />
 
-            <Grid Grid.RowSpan="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="72" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
+            <Frame BackgroundColor="#40404040" CornerRadius="40" Grid.RowSpan="2">
+                <StackLayout>
 
-                <Button x:Name="ExitButton" Text="Exit" HorizontalOptions="Fill" VerticalOptions="Fill" Clicked="ExitButtonClicked" CornerRadius="10" />
+                    <ImageButton x:Name="ExitButton" BackgroundColor="Transparent" Clicked="ExitButtonClicked" Padding="10"
+                             Source="{AppThemeBinding Light=arrow_thick_left_light.png, Dark=arrow_thick_left_dark.png}"/>
 
-                <ListView x:Name="newObjectListView" Grid.Row="1" IsPullToRefreshEnabled="False" SelectionMode="None" BackgroundColor="#80404040"  ItemTapped="NewObject">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <TextCell Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Grid>
-
-            <StackLayout Grid.Column="1" Grid.Row="1" BackgroundColor="#80404040">
-                <StackLayout Orientation="Horizontal">
-                    <CheckBox x:Name="snapBox"/>
-                    <Label Text="snap" FontSize="20"/>
+                    <ListView x:Name="newObjectListView" Grid.Row="1" IsPullToRefreshEnabled="False" SelectionMode="None" ItemTapped="NewObject">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextCell Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </StackLayout>
-            </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#40404040" Grid.Row="1" Grid.Column="1" CornerRadius="40">
+                <StackLayout Orientation="Horizontal">
+                    <CheckBox x:Name="snapBox" VerticalOptions="Center"/>
+                    <Label Text="snap" FontSize="20" VerticalOptions="Center"/>
+                </StackLayout>
+            </Frame>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

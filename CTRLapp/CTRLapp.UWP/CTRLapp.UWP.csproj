@@ -112,18 +112,15 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\SplashScreen.scale-100.png" />
-    <Content Include="Assets\SplashScreen.scale-125.png" />
-    <Content Include="Assets\SplashScreen.scale-150.png" />
-    <Content Include="Assets\SplashScreen.scale-200.png" />
-    <Content Include="Assets\SplashScreen.scale-400.png" />
-    <Content Include="dk.png" />
-    <Content Include="Assets\settings_icon.png">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Assets\arrow_thick_left_dark.png" />
+    <Content Include="Assets\arrow_thick_left_light.png" />
     <Content Include="Assets\quadrat.png" />
-    <Content Include="Assets\show_password_icon.png" />
+    <Content Include="Assets\settings_icon_dark.png" />
+    <Content Include="Assets\settings_icon_light.png" />
+    <Content Include="Assets\show_password_icon_dark.png" />
+    <Content Include="Assets\show_password_icon_light.png" />
+    <Content Include="dk.png" />
+    <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

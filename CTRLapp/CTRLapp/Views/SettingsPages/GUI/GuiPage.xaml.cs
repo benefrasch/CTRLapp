@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -189,7 +189,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             var tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += (_, e) =>
             {
-                Navigation.PushModalAsync(new ObjectPage(masterMenu, bottomMenu, objIndex));
+                Navigation.PushAsync(new ObjectPage(masterMenu, bottomMenu, objIndex));
             };
             invisibleGrid.GestureRecognizers.Add(tapGestureRecognizer);
             // add pan gesture

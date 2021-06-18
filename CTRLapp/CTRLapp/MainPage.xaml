@@ -7,7 +7,7 @@
              x:Class="CTRLapp.Views.MainPage"
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
-        <Grid x:Name="grid" Padding="4">
+        <Grid x:Name="grid" Padding="4" ColumnSpacing="4" RowSpacing="4">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="80" />
@@ -20,11 +20,10 @@
             <AbsoluteLayout x:Name="mainLayout" Grid.Column="1" />
 
 
-            <Frame BackgroundColor="#40404040" CornerRadius="40" Grid.RowSpan="2">
+            <Frame BackgroundColor="#80404040" CornerRadius="40" Grid.RowSpan="2">
                 <StackLayout>
-                    <ImageButton x:Name="settingsButton" Source="settings_icon.png"  
-                             Grid.Row="0" Pressed="SettingsButtonPressed" 
-                             CornerRadius="40" BackgroundColor="Transparent"/>
+                    <ImageButton x:Name="settingsButton" Grid.Row="0" Pressed="SettingsButtonPressed" CornerRadius="40" BackgroundColor="Transparent"
+                                 Source="{AppThemeBinding Light=settings_icon_light.png, Dark=settings_icon_dark.png}"/>
 
                     <ListView x:Name="masterList" RowHeight="100"
                           ItemTapped="MasterListItemSelected" SeparatorVisibility="None">
@@ -33,10 +32,10 @@
                                 <ViewCell>
                                     <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="10" />
+                                            <RowDefinition Height="*" />
                                             <RowDefinition Height="60" />
                                             <RowDefinition Height="20" />
-                                            <RowDefinition Height="10" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="80" />
@@ -51,7 +50,7 @@
                 </StackLayout>
             </Frame>
 
-            <Frame BackgroundColor="#40404040" Grid.Row="1" Grid.Column="1" CornerRadius="40">
+            <Frame BackgroundColor="#80404040" Grid.Row="1" Grid.Column="1" CornerRadius="40">
                 <RelativeLayout  HeightRequest="80">
                     <ListView x:Name="bottomList" RowHeight="120" ItemTapped="BottomListItemSelected" 
                           Rotation="270" SeparatorVisibility="None"  VerticalOptions="Center"

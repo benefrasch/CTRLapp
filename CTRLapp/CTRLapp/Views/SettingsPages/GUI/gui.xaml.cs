@@ -120,7 +120,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
         private async void EditGuiClicked(object _, EventArgs e)
         {
-            await Navigation.PushModalAsync(new GuiPage(masterMenuSelected, bottomMenuSelected));
+            await Navigation.PushAsync(new GuiPage(masterMenuSelected, bottomMenuSelected));
         }
 
         private async void IconImageSelect(object _, EventArgs e)
