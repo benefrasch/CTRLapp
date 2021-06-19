@@ -1,4 +1,4 @@
-﻿ using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,78 +13,21 @@ namespace CTRLapp.Views.SettingsPages.GUI
     {
         private readonly int masterMenu, bottomMenu;
 
+        private static string theme;
         private struct Item
         {
-            public Item(string name, Objects.Object @object)
+            public Item(string name, string icon, Objects.Object @object)
             {
-                Name = name; NewObject = @object;
+                Name = name; Icon = icon; NewObject = @object;
             }
             public string Name { get; set; }
+            public string Icon { get; set; }
             public Objects.Object NewObject { get; set; }
         }
 
-        readonly List<Item> items = new List<Item>()
-        {
-            new Item("Label", new Objects.Object
-            {
-                Width = 100,
-                Height = 30,
-                Type = "Label",
-                Arguments = new string[4] { SecondaryColor.ToHex(), Color.Transparent.ToHex(), "Label", "21" }
-            }),
-            //new Item("ValueDisplay", new Objects.Object
-            //{
-            //    Width = 100,
-            //    Height = 30,
-            //    Type = "ValueDisplay",
-            //    Arguments = new string[6] { SecondaryColor.ToHex(), Color.Transparent.ToHex(), "Value display","","", "21" }
-            //}), //buggy, so it is deactivated until fixed
-            new Item("Button", new Objects.Object
-            {
-                Width = 80,
-                Height = 40,
-                Type = "Button",
-                Arguments = new string[5] { PrimaryColor.ToHex(), SecondaryColor.ToHex(), "Button", "", "" },
-            }),
-            new Item("SwitchButton", new Objects.Object
-            {
-                Width = 80,
-                Height = 40,
-                Type = "SwitchButton",
-                Arguments = new string[7] { PrimaryColor.ToHex(), SecondaryColor.ToHex(),Color.Red.ToHex(), "Switch btn", "", "0", "255"},
-            }),
-            new Item("Switch", new Objects.Object
-            {
-                Width = 80,
-                Height = 40,
-                Type = "Switch",
-                Arguments = new string[5] { SecondaryColor.ToHex(), Color.Red.ToHex(), "", "0", "255" },
-            }),
-            new Item("Slider", new Objects.Object
-            {
-                Width = 200,
-                Height = 40,
-                Type = "Slider",
-                Rotation = 0,
-                Arguments = new string[6] { SecondaryColor.ToHex(), Color.Red.ToHex(), Color.Gray.ToHex(), "", "0", "255" },
-            }),
-            new Item("Joystick", new Objects.Object
-            {
-                Width = 200,
-                Height = 200,
-                Type = "Joystick",
-                Arguments = new string[10] { SecondaryColor.ToHex(), "#80404040", "", "", "0", "255", "1", "0", "255", "1" },
-            }),
-            new Item("Matrix", new Objects.Object
-            {
-                Width = 200,
-                Height = 200,
-                Type = "Matrix",
-                Arguments = new string[8] { SecondaryColor.ToHex(), "#80404040", "", "", "0", "255","0", "255" },
-            }),
-        };
+        private readonly List<Item> items;
 
-        static private Color PrimaryColor
+        private static Color PrimaryColor
         {
             get
             {
@@ -92,7 +35,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 else return Color.FromHex("#181818");
             }
         }
-        static private Color SecondaryColor
+        private static Color SecondaryColor
         {
             get
             {
@@ -108,6 +51,83 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
             this.masterMenu = masterMenu;
             this.bottomMenu = bottomMenu;
+
+            if (Application.Current.RequestedTheme == OSAppTheme.Light) theme = "light";
+            else theme = "dark";
+
+            items = new List<Item>()
+        {
+            new Item("Label", "text_box_icon_"+theme+".png",
+                new Objects.Object
+            {
+                Width = 100,
+                Height = 30,
+                Type = "Label",
+                Arguments = new string[4] { SecondaryColor.ToHex(), Color.Transparent.ToHex(), "Label", "21" }
+            }),
+
+            //new Item("ValueDisplay", new Objects.Object
+            //{
+            //    Width = 100,
+            //    Height = 30,
+            //    Type = "ValueDisplay",
+            //    Arguments = new string[6] { SecondaryColor.ToHex(), Color.Transparent.ToHex(), "Value display","","", "21" }
+            //}), //buggy, so it is deactivated until fixed
+            new Item("Button", "button_icon_"+theme+".png",
+                new Objects.Object
+            {
+                Width = 80,
+                Height = 40,
+                Type = "Button",
+                Arguments = new string[5] { PrimaryColor.ToHex(), SecondaryColor.ToHex(), "Button", "", "" },
+            }),
+
+            new Item("SwitchBtn", "switch_button_icon_"+theme+".png",
+                new Objects.Object
+            {
+                Width = 80,
+                Height = 40,
+                Type = "SwitchButton",
+                Arguments = new string[7] { PrimaryColor.ToHex(), SecondaryColor.ToHex(),Color.Red.ToHex(), "Switch btn", "", "0", "255"},
+            }),
+
+            new Item("Switch", "switch_icon_"+theme+".png",
+                new Objects.Object
+            {
+                Width = 80,
+                Height = 40,
+                Type = "Switch",
+                Arguments = new string[5] { SecondaryColor.ToHex(), Color.Red.ToHex(), "", "0", "255" },
+            }),
+
+            new Item("Slider", "slider_icon_"+theme+".png",
+                new Objects.Object
+            {
+                Width = 200,
+                Height = 40,
+                Type = "Slider",
+                Rotation = 0,
+                Arguments = new string[6] { SecondaryColor.ToHex(), Color.Red.ToHex(), Color.Gray.ToHex(), "", "0", "255" },
+            }),
+
+            new Item("Joystick", "joystick_icon_"+theme+".png",
+                new Objects.Object
+            {
+                Width = 200,
+                Height = 200,
+                Type = "Joystick",
+                Arguments = new string[10] { SecondaryColor.ToHex(), "#80404040", "", "", "0", "255", "1", "0", "255", "1" },
+            }),
+
+            new Item("Matrix", "matrix_icon_"+theme+".png",
+                new Objects.Object
+            {
+                Width = 200,
+                Height = 200,
+                Type = "Matrix",
+                Arguments = new string[8] { SecondaryColor.ToHex(), "#80404040", "", "", "0", "255","0", "255" },
+            }),
+        };
 
             //new object list view items
             newObjectListView.ItemsSource = items;

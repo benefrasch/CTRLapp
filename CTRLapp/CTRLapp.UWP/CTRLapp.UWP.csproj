@@ -114,6 +114,20 @@
   <ItemGroup>
     <Content Include="Assets\arrow_thick_left_dark.png" />
     <Content Include="Assets\arrow_thick_left_light.png" />
+    <Content Include="Assets\button_icon_dark.png" />
+    <Content Include="Assets\button_icon_light.png" />
+    <Content Include="Assets\joystick_icon_dark.png" />
+    <Content Include="Assets\joystick_icon_light.png" />
+    <Content Include="Assets\matrix_icon_dark.png" />
+    <Content Include="Assets\matrix_icon_light.png" />
+    <Content Include="Assets\slider_icon_dark.png" />
+    <Content Include="Assets\slider_icon_light.png" />
+    <Content Include="Assets\switch_button_icon_dark.png" />
+    <Content Include="Assets\switch_button_icon_light.png" />
+    <Content Include="Assets\switch_icon_dark.png" />
+    <Content Include="Assets\switch_icon_light.png" />
+    <Content Include="Assets\text_box_icon_dark.png" />
+    <Content Include="Assets\text_box_icon_light.png" />
     <Content Include="Assets\quadrat.png" />
     <Content Include="Assets\settings_icon_dark.png" />
     <Content Include="Assets\settings_icon_light.png" />
