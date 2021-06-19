@@ -132,14 +132,14 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
         private void SaveButtonPressed(object _, EventArgs e)
         {
-            Navigation.PopModalAsync();
+            Navigation.PopAsync();
         }
         private async void DeleteButtonPressed(object _, EventArgs e)
         {
             bool accept = await DisplayAlert("Delete?", "do you really want to delete this?", "Yes", "No");
             if (accept)
                 Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects.RemoveAt(objIndex);
-            _ = Navigation.PopModalAsync();
+            _ = Navigation.PopAsync();
         }
     }
 

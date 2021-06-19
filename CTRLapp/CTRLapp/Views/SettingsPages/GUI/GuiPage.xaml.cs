@@ -129,7 +129,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
         private async void ExitButtonClicked(object _, EventArgs e)
         {
-            await Navigation.PopModalAsync();
+            await Navigation.PopAsync();
         }
 
 
