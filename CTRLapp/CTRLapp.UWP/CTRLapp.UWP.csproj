@@ -133,6 +133,11 @@
     <Content Include="Assets\settings_icon_light.png" />
     <Content Include="Assets\show_password_icon_dark.png" />
     <Content Include="Assets\show_password_icon_light.png" />
+    <Content Include="Assets\splashscreen\SplashScreen.scale-100.png" />
+    <Content Include="Assets\splashscreen\SplashScreen.scale-125.png" />
+    <Content Include="Assets\splashscreen\SplashScreen.scale-150.png" />
+    <Content Include="Assets\splashscreen\SplashScreen.scale-200.png" />
+    <Content Include="Assets\splashscreen\SplashScreen.scale-400.png" />
     <Content Include="dk.png" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
