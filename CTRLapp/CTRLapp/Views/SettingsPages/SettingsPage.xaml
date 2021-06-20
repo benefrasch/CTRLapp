@@ -14,8 +14,8 @@
             android:TabbedPage.IsSwipePagingEnabled="False">
 
     <local:BackButton IconImageSource="{AppThemeBinding Light=arrow_thick_left_light.png, Dark=arrow_thick_left_dark.png}"/>
-    <General:General Title="   GENERAL   "/>
-    <GUI:Gui Title="      GU‌‌I      "/>
-    <Devices:Devices Title="    DEVICES    "/>
+    <General:General Title="GENERAL"/>
+    <GUI:Gui Title="GU‌‌I"/>
+    <Devices:Devices Title="DEVICES"/>
 
 </TabbedPage>
