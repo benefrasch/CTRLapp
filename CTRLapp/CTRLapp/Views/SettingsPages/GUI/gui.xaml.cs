@@ -11,7 +11,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
     public partial class Gui : ContentView
     {
         private int masterMenuSelected = 0, bottomMenuSelected = 0;
-
+        private string type;
 
         public Gui()
         {
@@ -37,19 +37,18 @@ namespace CTRLapp.Views.SettingsPages.GUI
         private void LoadEditStack(string type) //reload Edit Stack depending on selected type
         {
             editStack.IsVisible = true;
+            this.type = type;
             typeLabel.Text = type;
-            if (type == "MasterMenuItem")
+            if (type == "Main Menu")
             {
                 editGui.IsVisible = false;
                 editBackground.IsVisible = false;
-                typeLabel.Text = "Main Menu";
                 editStack.BindingContext = Variables.Variables.Layout[masterMenuSelected];
             }
-            else if (type == "BottomMenuItem")
+            else if (type == "Secondary Menu")
             {
                 editGui.IsVisible = true;
                 editBackground.IsVisible = true;
-                typeLabel.Text = "Secondary Menu";
                 editStack.BindingContext = Variables.Variables.Layout[masterMenuSelected].BottomMenuItems[bottomMenuSelected];
             }
 
@@ -60,7 +59,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             if (e.ItemIndex == -1) return;
             masterMenuSelected = e.ItemIndex;
             LoadBottomStack();
-            LoadEditStack("MasterMenuItem");
+            LoadEditStack("Main Menu");
             addBottomMenu.IsVisible = true;
         } 
         private void BottomListItemTapped(object _, ItemTappedEventArgs e)
@@ -68,7 +67,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             if (e.ItemIndex == -1) return;
             bottomMenuSelected = e.ItemIndex;
             masterList.SelectedItem = null;
-            LoadEditStack("BottomMenuItem");
+            LoadEditStack("Secondary Menu");
         }
 
         private void AddMasterMenuItem(object _, EventArgs e)
@@ -100,7 +99,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
         private async void DeleteButtonPressed(object _, EventArgs e)
         {
             if (!await App.Current.MainPage.DisplayAlert("Attention", "do you really want to delete this object", "yes", "no")) return; //if "no" is pressed in alert return
-            if (typeLabel.Text == "Main Menu")
+            if (type == "Main Menu")
             {
                 Variables.Variables.Layout.RemoveAt(masterMenuSelected); //removes the specified object
 
@@ -109,7 +108,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 addBottomMenu.IsVisible = false;
                 bottomList.ItemsSource = null;
             }
-            else if (typeLabel.Text == "Secondary Menu")
+            else if (type == "Secondary Menu")
             {
                 Variables.Variables.Layout[masterMenuSelected].BottomMenuItems.RemoveAt(bottomMenuSelected); //removes the specified object
 
@@ -134,7 +133,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOptions);
             if (selectedImageFile == null) return;
 
-            if (typeLabel.Text == "Main Menu")
+            if (type == "Main Menu")
                 Variables.Variables.Layout[masterMenuSelected].IconPath = selectedImageFile.Path;
             else
                 Variables.Variables.Layout[masterMenuSelected].BottomMenuItems[bottomMenuSelected].IconPath = selectedImageFile.Path;

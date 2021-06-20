@@ -14,41 +14,65 @@
         </Grid.ColumnDefinitions>
 
         <!-- Menu Lists-->
-        <StackLayout Grid.Column="0" >
-            <Label Text="Main Menu" HorizontalTextAlignment="Center" />
-            <Frame BackgroundColor="#20505050" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
-                <ListView x:Name="masterList" IsPullToRefreshEnabled="False" ItemTapped="MasterListItemTapped">
+        <Grid Grid.Column="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="22"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="Main Menu" HorizontalTextAlignment="Center" />
+            <Frame Grid.Row="1" BackgroundColor="#20505050" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
+                <ListView x:Name="masterList" IsPullToRefreshEnabled="False" ItemTapped="MasterListItemTapped" RowHeight="70">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ImageCell Text="{Binding Name}" ImageSource="{Binding IconPath}"
-                                       TextColor="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}"/>
+                            <ViewCell>
+                                <Grid Padding="5" ColumnSpacing="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Source="{Binding IconPath}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <Label Grid.Column="1" Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="Start"/>
+                                </Grid>
+                            </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-
                 </ListView>
             </Frame>
-            <Button Text="Add new" Pressed="AddMasterMenuItem" VerticalOptions="End" HeightRequest="40" />
-        </StackLayout>
+            <Button Grid.Row="2" Text="Add new" Pressed="AddMasterMenuItem" VerticalOptions="End" HeightRequest="40" />
+        </Grid>
 
-        <StackLayout Grid.Column="1" x:Name="bottomStack">
-            <Label Text="Secondary Menu" HorizontalTextAlignment="Center" />
-            <Frame BackgroundColor="#20505050" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
-                <ListView x:Name="bottomList" IsPullToRefreshEnabled="False" ItemTapped="BottomListItemTapped">
+        <Grid Grid.Column="1" x:Name="bottomStack">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="22"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="Secondary Menu" HorizontalTextAlignment="Center" />
+            <Frame Grid.Row="1" BackgroundColor="#20505050" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
+                <ListView x:Name="bottomList" IsPullToRefreshEnabled="False" ItemTapped="BottomListItemTapped" RowHeight="70">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ImageCell Text="{Binding Name}" ImageSource="{Binding IconPath}"
-                                       TextColor="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}"/>
+                            <ViewCell>
+                                <Grid Padding="5" ColumnSpacing="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Source="{Binding IconPath}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <Label Grid.Column="1" Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="Start"/>
+                                </Grid>
+                            </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-
                 </ListView>
             </Frame>
-            <Button x:Name="addBottomMenu" IsVisible="false" Text="Add new" Pressed="AddBottomMenuItem" VerticalOptions="End" HeightRequest="40" />
-        </StackLayout>
+            <Button Grid.Row="2" x:Name="addBottomMenu" IsVisible="false" Text="Add new" Pressed="AddBottomMenuItem" VerticalOptions="End" HeightRequest="40" />
+        </Grid>
 
         <!--edit stack-->
         <StackLayout x:Name="editStack" Grid.Column="2" IsVisible="false" VerticalOptions="Fill" HorizontalOptions="Fill">
-            
+
             <Label x:Name="typeLabel" HorizontalTextAlignment="Center" />
             <Entry x:Name="nameEntry" HorizontalOptions="Fill" HeightRequest="50" Placeholder="Menu Name" Text="{Binding Name}"/>
 
