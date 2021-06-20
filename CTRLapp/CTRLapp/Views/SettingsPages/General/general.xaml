@@ -1,68 +1,67 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://xamarin.com/schemas/2014/forms/design" 
              mc:Ignorable="d" 
-             x:Class="CTRLapp.Views.SettingsPages.General.General"
-             Title="General">
-    <ContentPage.Content>
-        <Grid x:Name="grid" Padding="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="4*" />
-            </Grid.ColumnDefinitions>
+             x:Class="CTRLapp.Views.SettingsPages.General.General">
 
-            <!-- Master Password-->
-            <StackLayout Style="{StaticResource descriptionEntryStack}">
-                <Label Style="{StaticResource descriptionLabel}" 
+    <Grid x:Name="grid" Padding="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Master Password-->
+        <StackLayout Style="{StaticResource descriptionEntryStack}">
+            <Label Style="{StaticResource descriptionLabel}" 
                        Text="Settings Password: &#10;Without this Password, you won't be able to get into the settings again! You can leave this field blank if you don't want a password." />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="40" />
+                </Grid.ColumnDefinitions>
+                <Entry Grid.ColumnSpan="2" IsPassword="True" x:Name="settingsPasword" HorizontalOptions="FillAndExpand" TextChanged="SaveSettings"/>
+                <ImageButton Grid.Column="1" Pressed="ShowSettingsPassword" HeightRequest="30"
+                                 Source="{AppThemeBinding Light=show_password_icon_light.png, Dark=show_password_icon_dark.png}"/>
+            </Grid>
+
+            <Frame HeightRequest="40" BackgroundColor="Transparent"/>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Dark mode   " FontSize="20"/>
+                <Switch x:Name="darkModeSwitch" Toggled="DarkModeSwitchToggled"/>
+            </StackLayout>
+        </StackLayout>
+
+        <!-- Broker Settings-->
+        <StackLayout Grid.Column="2">
+            <StackLayout Style="{StaticResource descriptionEntryStack}">
+                <Label Text="broker IP: " Style="{StaticResource descriptionLabel}"/>
+                <Entry x:Name="brokerIp" TextChanged="SaveSettings"/>
+            </StackLayout>
+            <StackLayout Style="{StaticResource descriptionEntryStack}">
+                <Label Text="Device Name" Style="{StaticResource descriptionLabel}"/>
+                <Entry x:Name="deviceName" TextChanged="SaveSettings"/>
+            </StackLayout>
+            <StackLayout Style="{StaticResource descriptionEntryStack}">
+                <Label Text="broker username" Style="{StaticResource descriptionLabel}"/>
+                <Entry x:Name="brokerUsername" TextChanged="SaveSettings"/>
+            </StackLayout>
+            <StackLayout Style="{StaticResource descriptionEntryStack}">
+                <Label Text="broker password" Style="{StaticResource descriptionLabel}"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="40" />
                     </Grid.ColumnDefinitions>
-                    <Entry Grid.ColumnSpan="2" IsPassword="True" x:Name="settingsPasword" HorizontalOptions="FillAndExpand"/>
-                    <ImageButton Grid.Column="1" Pressed="ShowSettingsPassword" HeightRequest="30"
-                                 Source="{AppThemeBinding Light=show_password_icon_light.png, Dark=show_password_icon_dark.png}"/>
-                </Grid>
-
-                <Frame HeightRequest="40" BackgroundColor="Transparent"/>
-
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Dark mode   " FontSize="20"/>
-                    <Switch x:Name="darkModeSwitch" Toggled="DarkModeSwitchToggled"/>
-                </StackLayout>
-            </StackLayout>
-
-            <!-- Broker Settings-->
-            <StackLayout Grid.Column="2">
-                <StackLayout Style="{StaticResource descriptionEntryStack}">
-                    <Label Text="broker IP: " Style="{StaticResource descriptionLabel}"/>
-                    <Entry x:Name="brokerIp"/>
-                </StackLayout>
-                <StackLayout Style="{StaticResource descriptionEntryStack}">
-                    <Label Text="Device Name" Style="{StaticResource descriptionLabel}"/>
-                    <Entry x:Name="deviceName"/>
-                </StackLayout>
-                <StackLayout Style="{StaticResource descriptionEntryStack}">
-                    <Label Text="broker username" Style="{StaticResource descriptionLabel}"/>
-                    <Entry x:Name="brokerUsername"/>
-                </StackLayout>
-                <StackLayout Style="{StaticResource descriptionEntryStack}">
-                    <Label Text="broker password" Style="{StaticResource descriptionLabel}"/>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="40" />
-                        </Grid.ColumnDefinitions>
-                        <Entry Grid.ColumnSpan="2" x:Name="brokerPassword" IsPassword="True" HorizontalOptions="FillAndExpand"/>
-                        <ImageButton Grid.Column="1" Pressed="ShowBrokerPassword" HeightRequest="30"
+                    <Entry Grid.ColumnSpan="2" x:Name="brokerPassword" IsPassword="True" HorizontalOptions="FillAndExpand" TextChanged="SaveSettings"/>
+                    <ImageButton Grid.Column="1" Pressed="ShowBrokerPassword" HeightRequest="30"
                                     Source="{AppThemeBinding Light=show_password_icon_light.png, Dark=show_password_icon_dark.png}"/>
-                    </Grid>
-                </StackLayout>
+                </Grid>
             </StackLayout>
-        </Grid>
-    </ContentPage.Content>
-</ContentPage>
+        </StackLayout>
+    </Grid>
+    
+</ContentView>

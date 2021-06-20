@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" 
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
             xmlns:d="http://xamarin.com/schemas/2014/forms/design" 
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -9,13 +9,29 @@
             xmlns:Devices="clr-namespace:CTRLapp.Views.SettingsPages.Devices"
             mc:Ignorable="d" 
             x:Class="CTRLapp.Views.SettingsPages.SettingsPage"
-            NavigationPage.HasNavigationBar="False"
-            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core" 
-            android:TabbedPage.IsSwipePagingEnabled="False">
+            NavigationPage.HasNavigationBar="False">
 
-    <local:BackButton IconImageSource="{AppThemeBinding Light=arrow_thick_left_light.png, Dark=arrow_thick_left_dark.png}"/>
-    <General:General Title="GENERAL"/>
-    <GUI:Gui Title="GU‌‌I"/>
-    <Devices:Devices Title="DEVICES"/>
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid MinimumHeightRequest="40" HeightRequest="40" BackgroundColor="{AppThemeBinding Light=LightGray, Dark=#282828}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-</TabbedPage>
+                <ImageButton Source="{AppThemeBinding Light=arrow_thick_left_light.png, Dark=arrow_thick_left_dark.png}" 
+                             Clicked="BackClicked" Grid.Column="0" HorizontalOptions="Start"/>
+                <Button x:Name="generalButton" Text="General" Clicked="GeneralClicked" Grid.Column="1" HorizontalOptions="FillAndExpand"/>
+                <Button x:Name="guiButton" Text="GUI" Clicked="GuiClicked" Grid.Column="2" HorizontalOptions="FillAndExpand"/>
+                <Button x:Name="devicesButton" Text="Devices" Clicked="DevicesClicked" Grid.Column="3" HorizontalOptions="FillAndExpand"/>
+            </Grid>
+
+            <ContentView x:Name="content"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

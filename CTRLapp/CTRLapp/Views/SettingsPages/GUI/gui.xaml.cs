@@ -8,7 +8,7 @@ using Xamarin.Forms.Xaml;
 namespace CTRLapp.Views.SettingsPages.GUI
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Gui : ContentPage
+    public partial class Gui : ContentView
     {
         private int masterMenuSelected = 0, bottomMenuSelected = 0;
 
