@@ -86,7 +86,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             new Item("Slider", "slider_icon_"+theme+".png",
                 new Objects.Object
             {
-                Width = 200,
+                Width = 230,
                 Height = 40,
                 Type = "Slider",
                 Rotation = 0,
@@ -139,20 +139,12 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
         private void NewObject(object _, ItemTappedEventArgs e)
         {
-            AddObject(((Item)e.Item).NewObject);
 
-        }
-
-
-
-
-        private void AddObject(Objects.Object temp) //adds and loads new object
-        {
             if (Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects == null)
                 Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects = new List<Objects.Object>();
             int objIndex = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects.Count;
             Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects.Add
-                (JsonConvert.DeserializeObject<Objects.Object>(JsonConvert.SerializeObject(temp)));
+                (JsonConvert.DeserializeObject<Objects.Object>(JsonConvert.SerializeObject(((Item)e.Item).NewObject)));
             LoadObject(objIndex);
         }
 
