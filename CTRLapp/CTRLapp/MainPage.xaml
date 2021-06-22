@@ -22,7 +22,7 @@
 
             <Frame BackgroundColor="#80404040" CornerRadius="40" Grid.RowSpan="2">
                 <StackLayout>
-                    <ImageButton x:Name="settingsButton" Grid.Row="0" Pressed="SettingsButtonPressed" CornerRadius="40" BackgroundColor="Transparent"
+                    <ImageButton x:Name="settingsButton" Grid.Row="0" Pressed="SettingsButtonPressed" CornerRadius="40" BackgroundColor="Transparent" HeightRequest="80"
                                  Source="{AppThemeBinding Light=settings_icon_light.png, Dark=settings_icon_dark.png}"/>
 
                     <ListView x:Name="masterList" RowHeight="100"

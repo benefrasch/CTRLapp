@@ -27,24 +27,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
         private readonly List<Item> items;
 
-        private static Color PrimaryColor
-        {
-            get
-            {
-                if (Application.Current.RequestedTheme == OSAppTheme.Light) return Color.WhiteSmoke;
-                else return Color.FromHex("#181818");
-            }
-        }
-        private static Color SecondaryColor
-        {
-            get
-            {
-                if (Application.Current.RequestedTheme == OSAppTheme.Light) return Color.Black;
-                else return Color.WhiteSmoke;
-            }
-        }
-
-
+       
         public GuiPage(int masterMenu, int bottomMenu)
         {
             InitializeComponent();
@@ -63,7 +46,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Width = 100,
                 Height = 30,
                 Type = "Label",
-                Arguments = new string[4] { SecondaryColor.ToHex(), Color.Transparent.ToHex(), "Label", "21" }
+                Arguments = new string[4] { "color_secondary", Color.Transparent.ToHex(), "Label", "21" }
             }),
 
             //new Item("ValueDisplay", new Objects.Object
@@ -79,7 +62,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Width = 80,
                 Height = 40,
                 Type = "Button",
-                Arguments = new string[5] { PrimaryColor.ToHex(), SecondaryColor.ToHex(), "Button", "", "" },
+                Arguments = new string[5] { "color_primary", "color_secondary", "Button", "", "" },
             }),
 
             new Item("SwitchBtn", "switch_button_icon_"+theme+".png",
@@ -88,7 +71,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Width = 80,
                 Height = 40,
                 Type = "SwitchButton",
-                Arguments = new string[7] { PrimaryColor.ToHex(), SecondaryColor.ToHex(),Color.Red.ToHex(), "Switch btn", "", "0", "255"},
+                Arguments = new string[7] { "color_primary", "color_secondary",Color.Red.ToHex(), "Switch btn", "", "0", "255"},
             }),
 
             new Item("Switch", "switch_icon_"+theme+".png",
@@ -97,7 +80,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Width = 80,
                 Height = 40,
                 Type = "Switch",
-                Arguments = new string[5] { SecondaryColor.ToHex(), Color.Red.ToHex(), "", "0", "255" },
+                Arguments = new string[5] { "color_secondary", Color.Red.ToHex(), "", "0", "255" },
             }),
 
             new Item("Slider", "slider_icon_"+theme+".png",
@@ -107,7 +90,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Height = 40,
                 Type = "Slider",
                 Rotation = 0,
-                Arguments = new string[6] { SecondaryColor.ToHex(), Color.Red.ToHex(), Color.Gray.ToHex(), "", "0", "255" },
+                Arguments = new string[6] { "color_secondary", Color.Red.ToHex(), Color.Gray.ToHex(), "", "0", "255" },
             }),
 
             new Item("Joystick", "joystick_icon_"+theme+".png",
@@ -116,7 +99,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Width = 200,
                 Height = 200,
                 Type = "Joystick",
-                Arguments = new string[10] { SecondaryColor.ToHex(), "#80404040", "", "", "0", "255", "1", "0", "255", "1" },
+                Arguments = new string[10] { "color_secondary", "#80404040", "", "", "0", "255", "1", "0", "255", "1" },
             }),
 
             new Item("Matrix", "matrix_icon_"+theme+".png",
@@ -125,7 +108,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Width = 200,
                 Height = 200,
                 Type = "Matrix",
-                Arguments = new string[8] { SecondaryColor.ToHex(), "#80404040", "", "", "0", "255","0", "255" },
+                Arguments = new string[8] { "color_secondary", "#80404040", "", "", "0", "255","0", "255" },
             }),
         };
 
@@ -168,7 +151,8 @@ namespace CTRLapp.Views.SettingsPages.GUI
             if (Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects == null)
                 Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects = new List<Objects.Object>();
             int objIndex = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects.Count;
-            Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects.Add(temp);
+            Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects.Add
+                (JsonConvert.DeserializeObject<Objects.Object>(JsonConvert.SerializeObject(temp)));
             LoadObject(objIndex);
         }
 

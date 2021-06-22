@@ -4,16 +4,19 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Forms;
+using static CTRLapp.HexToColorConverter;
 
 namespace CTRLapp.Views
 {
     public class ObjectView : ContentView
     {
+        private static HexToColorConverter colorConverter = new HexToColorConverter();
         public ObjectView(int masterMenu, int bottomMenu, int objIndex)
         {
 
             Objects.Object obj = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects[objIndex];
-
+            
+            
 
             switch (obj.Type)
             {
@@ -60,8 +63,8 @@ namespace CTRLapp.Views
             Label label = new Label()
             {
                 WidthRequest = obj.Width,
-                TextColor = Color.FromHex(obj.Arguments[0]),
-                BackgroundColor = Color.FromHex(obj.Arguments[1]),
+                TextColor = (Color)colorConverter.Convert(obj.Arguments[0]),
+                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]),
                 Text = obj.Arguments[2],
                 FontSize = fontsize,
                 IsEnabled = false,
@@ -74,8 +77,8 @@ namespace CTRLapp.Views
             Label label = new Label()
             {
                 WidthRequest = obj.Width,
-                TextColor = Color.FromHex(obj.Arguments[0]),
-                BackgroundColor = Color.FromHex(obj.Arguments[1]),
+                TextColor = (Color)colorConverter.Convert(obj.Arguments[0]),
+                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]),
                 FontSize = fontsize,
                 Text = obj.Arguments[2] + obj.Arguments[4],
                 IsEnabled = false,
@@ -97,8 +100,8 @@ namespace CTRLapp.Views
             {
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
-                BackgroundColor = Color.FromHex(obj.Arguments[1]),
-                TextColor = Color.FromHex(obj.Arguments[0]),
+                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]),
+                TextColor = (Color)colorConverter.Convert(obj.Arguments[0]),
                 Text = obj.Arguments[2],
                 TextTransform = TextTransform.None,
             };
@@ -116,8 +119,8 @@ namespace CTRLapp.Views
             {
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
-                BackgroundColor = Color.FromHex(obj.Arguments[1]),
-                TextColor = Color.FromHex(obj.Arguments[0]),
+                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]),
+                TextColor = (Color)colorConverter.Convert(obj.Arguments[0]),
                 Text = obj.Arguments[3],
                 TextTransform = TextTransform.None,
             };
@@ -126,12 +129,12 @@ namespace CTRLapp.Views
             {
                 if (toggled) //when high, send low message and switch to low mode and vise versa
                 {
-                    switchButton.BackgroundColor = Color.FromHex(obj.Arguments[1]);
+                    switchButton.BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]);
                     await MQTT.SendMQTT(obj.Arguments[4], obj.Arguments[5]);
                 }
                 else
                 {
-                    switchButton.BackgroundColor = Color.FromHex(obj.Arguments[2]);
+                    switchButton.BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[2]);
                     await MQTT.SendMQTT(obj.Arguments[4], obj.Arguments[6]);
                 }
                 toggled = !toggled;
@@ -141,10 +144,10 @@ namespace CTRLapp.Views
             MQTT.MqttMessageReceived += (_, e) =>
             {
                 if (e.Topic != obj.Arguments[4]) return;
-                if(e.Message == obj.Arguments[6]) //set background color according to received message (high if message == high value, low if else)
-                    switchButton.BackgroundColor = Color.FromHex(obj.Arguments[2]);
+                if (e.Message == obj.Arguments[6]) //set background color according to received message (high if message == high value, low if else)
+                    switchButton.BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[2]);
                 else
-                    switchButton.BackgroundColor = Color.FromHex(obj.Arguments[1]);
+                    switchButton.BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]);
             };
             if (MainPage.topicList.IndexOf(obj.Arguments[4]) == -1)
                 MainPage.topicList.Add(obj.Arguments[4]);
@@ -155,8 +158,8 @@ namespace CTRLapp.Views
             bool block = false; //avoid loopback from mqtt delay
             var temp = new Xamarin.Forms.Switch
             {
-                ThumbColor = Color.FromHex(obj.Arguments[0]),
-                OnColor = Color.FromHex(obj.Arguments[1]),
+                ThumbColor = (Color)colorConverter.Convert(obj.Arguments[0]),
+                OnColor = (Color)colorConverter.Convert(obj.Arguments[1]),
             };
             temp.Toggled += async (_, e) =>
             {
@@ -189,9 +192,9 @@ namespace CTRLapp.Views
             {
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
-                ThumbColor = Color.FromHex(obj.Arguments[0]),
-                MinimumTrackColor = Color.FromHex(obj.Arguments[1]),
-                MaximumTrackColor = Color.FromHex(obj.Arguments[2]),
+                ThumbColor = (Color)colorConverter.Convert(obj.Arguments[0]),
+                MinimumTrackColor = (Color)colorConverter.Convert(obj.Arguments[1]),
+                MaximumTrackColor = (Color)colorConverter.Convert(obj.Arguments[2]),
                 Minimum = int.Parse(obj.Arguments[4]),
                 Maximum = int.Parse(obj.Arguments[5]),
             };
@@ -222,7 +225,7 @@ namespace CTRLapp.Views
                 HeightRequest = obj.Width,
                 WidthRequest = obj.Width,
                 EnableTouchEvents = false,
-                BackgroundColor = Color.FromHex(obj.Arguments[1]),
+                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]),
             };
             SKPoint touch = new SKPoint();
             Timer timer = new Timer
@@ -244,7 +247,7 @@ namespace CTRLapp.Views
                 SKPaint thumbPaint = new SKPaint
                 {
                     Style = SKPaintStyle.Fill,
-                    Color = Color.FromHex(obj.Arguments[0]).ToSKColor(),
+                    Color = ((Color)colorConverter.Convert(obj.Arguments[0])).ToSKColor(),
                     IsAntialias = true,
                 };
                 surface.DrawCircle((float)touch.X, (float)touch.Y, radius / 3, thumbPaint);
@@ -333,7 +336,7 @@ namespace CTRLapp.Views
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
                 EnableTouchEvents = false,
-                BackgroundColor = Color.FromHex(obj.Arguments[1]),
+                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]),
             };
             SKPoint touch = new SKPoint();
             canvas.PaintSurface += (_, e) =>
@@ -344,7 +347,7 @@ namespace CTRLapp.Views
                 SKPaint thumbPaint = new SKPaint
                 {
                     Style = SKPaintStyle.Fill,
-                    Color = Color.FromHex(obj.Arguments[0]).ToSKColor(),
+                    Color = ((Color)colorConverter.Convert(obj.Arguments[0])).ToSKColor(),
                     IsAntialias = true,
                 };
                 surface.DrawCircle((float)touch.X, (float)touch.Y, thumbRadius / 3, thumbPaint);
