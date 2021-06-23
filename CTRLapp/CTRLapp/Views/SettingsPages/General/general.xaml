@@ -2,7 +2,7 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design" 
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:views="clr-namespace:CTRLapp.Views"
              mc:Ignorable="d" 
              x:Class="CTRLapp.Views.SettingsPages.General.General">
 
@@ -33,6 +33,10 @@
                 <Label Text="Dark mode   " FontSize="20"/>
                 <Switch x:Name="darkModeSwitch" Toggled="DarkModeSwitchToggled"/>
             </StackLayout>
+            
+            <Frame HeightRequest="40" BackgroundColor="Transparent"/>
+
+            <views:ColorPicker HeightRequest="200"/>
         </StackLayout>
 
         <!-- Broker Settings-->
