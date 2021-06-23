@@ -125,7 +125,6 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
         protected override void OnDisappearing()
         {
-            Debug.WriteLine(JsonConvert.SerializeObject(Variables.Variables.Layout));
             File.WriteAllText(Variables.Variables.configLocation, JsonConvert.SerializeObject(Variables.Variables.Layout));
             base.OnDisappearing();
         }
