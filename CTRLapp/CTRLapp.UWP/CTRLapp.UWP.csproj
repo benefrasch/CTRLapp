@@ -138,7 +138,6 @@
     <Content Include="Assets\splashscreen\SplashScreen.scale-150.png" />
     <Content Include="Assets\splashscreen\SplashScreen.scale-200.png" />
     <Content Include="Assets\splashscreen\SplashScreen.scale-400.png" />
-    <Content Include="dk.png" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>
