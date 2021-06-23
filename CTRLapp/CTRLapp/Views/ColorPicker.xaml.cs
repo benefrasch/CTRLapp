@@ -54,7 +54,6 @@ namespace CTRLapp.Views
 
         public ColorPicker()
         {
-            BindingContext = this;
             InitializeComponent();
         }
 
