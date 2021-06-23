@@ -18,12 +18,13 @@
                 <StackLayout Orientation="Horizontal" Spacing="50">
                     <StackLayout>
                         <Label Text="Text color" Style="{StaticResource descriptionLabel}"/>
-                        <Views:ColorPicker HeightRequest="300" WidthRequest="300" ColorPicked="UpdatePreview" 
+                        <Views:ColorPicker WidthRequest="300" ColorPicked="UpdatePreview" 
                                            SelectedColor="{Binding Path=Arguments[0], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
                     </StackLayout>
                     <StackLayout>
                         <Label Text="Background color" Style="{StaticResource descriptionLabel}"/>
-                        <colorpicker:ColorCircle SelectedColor="{Binding Path=Arguments[1], Mode=TwoWay, Converter={StaticResource HexToColor}}" />
+                        <Views:ColorPicker WidthRequest="300" ColorPicked="UpdatePreview" 
+                                           SelectedColor="{Binding Path=Arguments[0], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
                     </StackLayout>
                 </StackLayout>
             </ScrollView>

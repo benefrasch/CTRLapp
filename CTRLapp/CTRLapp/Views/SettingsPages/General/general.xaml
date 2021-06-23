@@ -36,7 +36,7 @@
             
             <Frame HeightRequest="40" BackgroundColor="Transparent"/>
 
-            <views:ColorPicker HeightRequest="200"/>
+            <views:ColorPicker HeightRequest="200" SelectedColor="Orange"/>
         </StackLayout>
 
         <!-- Broker Settings-->

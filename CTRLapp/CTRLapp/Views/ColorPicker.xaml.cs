@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,18 +15,20 @@ namespace CTRLapp.Views
     {
         public event EventHandler<ColorPickedEventArgs> ColorPicked;
 
-        public static readonly BindableProperty SelectedColorProperty
-            = BindableProperty.Create(nameof(SelectedColor), typeof(Color), typeof(ColorPicker));
+        public static readonly BindableProperty SelectedColorProperty = BindableProperty.Create(
+                nameof(SelectedColor), typeof(Color), typeof(ColorPicker));
+
         public Color SelectedColor
         {
-            get { return (Color) GetValue (SelectedColorProperty); }
+            get { return (Color)GetValue(SelectedColorProperty); }
             set
             {
+                Debug.WriteLine("color set----------------------------");
                 SetValue(SelectedColorProperty, value);
                 OnPropertyChanged();
                 ColorPicked?.Invoke(null, new ColorPickedEventArgs { newColor = value });
 
-                
+
                 //visuals
                 HueSlider.Value = SelectedColor.Hue;
                 SaturationSlider.Value = SelectedColor.Saturation;

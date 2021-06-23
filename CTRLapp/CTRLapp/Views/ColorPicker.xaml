@@ -3,13 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CTRLapp.Views.ColorPicker">
     <ContentView.Content>
-        <StackLayout>
+        <StackLayout HeightRequest="200">
             <StackLayout Orientation="Horizontal" HeightRequest="35">
                 <Label Style="{StaticResource descriptionLabel}" Text="Hex: " VerticalOptions="Center"/>
                 <Entry x:Name="HexEntry" HeightRequest="35" FontSize="14" WidthRequest="100" TextChanged="HexColorChanged" 
-                       TextColor="{Binding Color}"/>
+                       TextColor="{Binding Color}" Keyboard="Default"/>
             </StackLayout>
-            <Grid>
+            <Grid VerticalOptions="FillAndExpand" RowSpacing="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="20"/>
                     <ColumnDefinition/>
@@ -22,31 +22,40 @@
                 </Grid.RowDefinitions>
 
                 <Label Grid.Column="0" Grid.Row="0" Text="H" VerticalOptions="Center"/>
-                <Slider x:Name="HueSlider" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ValueChanged="SliderColorChanged"
-                    Grid.Column="1" Grid.Row="0" ThumbColor="{Binding Color}" Minimum="0" Maximum="1" MinimumTrackColor="Transparent">
-                    <Slider.Background>
-                        <LinearGradientBrush EndPoint="1,0">
-                            <GradientStop Color="Red" Offset="0"/>
-                            <GradientStop Color="Green" Offset="0.33"/>
-                            <GradientStop Color="Blue" Offset="0.66"/>
-                            <GradientStop Color="Red" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Slider.Background>
-                </Slider>
+                <Frame Grid.Column="1" Grid.Row="0" CornerRadius="25">
+                    <Slider x:Name="HueSlider" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ValueChanged="SliderColorChanged"
+                     ThumbColor="{Binding Color}" Minimum="0" Maximum="1" MinimumTrackColor="Transparent">
+                        <Slider.Background>
+                            <LinearGradientBrush EndPoint="1,0">
+                                <GradientStop Color="Red" Offset="0"/>
+                                <GradientStop Color="Green" Offset="0.33"/>
+                                <GradientStop Color="Blue" Offset="0.66"/>
+                                <GradientStop Color="Red" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Slider.Background>
+                    </Slider>
+                </Frame>
+
 
                 <Label Grid.Column="0" Grid.Row="1" Text="S" VerticalOptions="Center"/>
-                <Slider x:Name="SaturationSlider" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ValueChanged="SliderColorChanged"
-                    Grid.Column="1" Grid.Row="1" ThumbColor="{Binding Color}" Minimum="0" Maximum="1" MinimumTrackColor="Transparent"/>
+                <Frame Grid.Column="1" Grid.Row="1" CornerRadius="25">
+                    <Slider x:Name="SaturationSlider" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ValueChanged="SliderColorChanged"
+                    ThumbColor="{Binding Color}" Minimum="0" Maximum="1" MinimumTrackColor="Transparent"/>
+                </Frame>
 
                 <Label Grid.Column="0" Grid.Row="2" Text="L" VerticalOptions="Center"/>
-                <Slider x:Name="LuminiocitySlider" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ValueChanged="SliderColorChanged"
-                    Grid.Column="1" Grid.Row="2" ThumbColor="{Binding Color}" Minimum="0" Maximum="1" MinimumTrackColor="Transparent"/>
+                <Frame Grid.Column="1" Grid.Row="2" CornerRadius="25">
+                    <Slider x:Name="LuminiocitySlider" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ValueChanged="SliderColorChanged"
+                    ThumbColor="{Binding Color}" Minimum="0" Maximum="1" MinimumTrackColor="Transparent"/>
+                </Frame>
 
                 <Label Grid.Column="0" Grid.Row="3" Text="A" VerticalOptions="Center"/>
-                <Slider x:Name="AlphaSlider" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ValueChanged="SliderColorChanged"
-                    Grid.Column="1" Grid.Row="3" ThumbColor="{Binding Color}" Minimum="0" Maximum="1" MinimumTrackColor="Transparent"/> 
-            
-            
+                <Frame Grid.Column="1" Grid.Row="3" CornerRadius="25">
+                    <Slider x:Name="AlphaSlider" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ValueChanged="SliderColorChanged"
+                   ThumbColor="{Binding Color}" Minimum="0" Maximum="1" MinimumTrackColor="Transparent"/>
+                </Frame>
+
+
             </Grid>
         </StackLayout>
     </ContentView.Content>
