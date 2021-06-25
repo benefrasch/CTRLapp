@@ -6,8 +6,7 @@
         <StackLayout HeightRequest="200">
             <StackLayout Orientation="Horizontal" HeightRequest="35">
                 <Label Style="{StaticResource descriptionLabel}" Text="Hex: " VerticalOptions="Center"/>
-                <Entry x:Name="HexEntry" HeightRequest="35" FontSize="14" WidthRequest="100" TextChanged="HexColorChanged" 
-                       TextColor="{Binding Color}" Keyboard="Default"/>
+                <Entry x:Name="HexEntry" HeightRequest="35" FontSize="14" WidthRequest="100" TextChanged="HexColorChanged" Keyboard="Default"/>
             </StackLayout>
             <Grid VerticalOptions="FillAndExpand" RowSpacing="10">
                 <Grid.ColumnDefinitions>
