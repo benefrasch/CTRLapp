@@ -13,6 +13,8 @@ namespace CTRLapp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ColorPicker : ContentView
     {
+        private bool changing = false;
+
         public event EventHandler<ColorPickedEventArgs> ColorPicked;
 
         public static readonly BindableProperty SelectedColorProperty = BindableProperty.Create(
@@ -53,13 +55,13 @@ namespace CTRLapp.Views
             get { return (Color)GetValue(SelectedColorProperty); }
             set
             {
+                if (changing) return;
                 SetValue(SelectedColorProperty, value);
                 OnPropertyChanged();
             }
         }
 
 
-        private bool changing = false;
 
         public ColorPicker()
         {
@@ -68,17 +70,11 @@ namespace CTRLapp.Views
 
         private void HexColorChanged(object sender, ValueChangedEventArgs e)
         {
-            if (changing) return;
-            changing = true;
             SelectedColor = Color.FromHex(HexEntry.Text);
-            changing = false;
         }
         private void SliderColorChanged(object sender, ValueChangedEventArgs e)
         {
-            if (changing) return;
-            changing = true;
             SelectedColor = Color.FromHsla(HueSlider.Value, SaturationSlider.Value, LuminiocitySlider.Value, AlphaSlider.Value);
-            changing = false;
         }
     }
 
