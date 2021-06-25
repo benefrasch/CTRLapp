@@ -27,7 +27,6 @@ namespace CTRLapp.Views
 
             control.changing = true;
             Color newColor = (Color)newValue;
-            control.HexEntry.TextColor = newColor;
             control.HueSlider.Value = newColor.Hue;
             control.SaturationSlider.Value = newColor.Saturation;
             control.LuminiocitySlider.Value = newColor.Luminosity;
@@ -66,6 +65,7 @@ namespace CTRLapp.Views
         public ColorPicker()
         {
             InitializeComponent();
+            stack.BindingContext = this;
         }
 
         private void HexColorChanged(object sender, ValueChangedEventArgs e)
