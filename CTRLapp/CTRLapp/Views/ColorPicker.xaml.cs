@@ -16,7 +16,7 @@ namespace CTRLapp.Views
         public event EventHandler<ColorPickedEventArgs> ColorPicked;
 
         public static readonly BindableProperty SelectedColorProperty = BindableProperty.Create(
-                nameof(SelectedColor), typeof(Color), typeof(ColorPicker));
+                "SelectedColor", typeof(Color), typeof(ColorPicker));
 
         public Color SelectedColor
         {
