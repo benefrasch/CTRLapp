@@ -16,39 +16,43 @@ namespace CTRLapp.Views
         public event EventHandler<ColorPickedEventArgs> ColorPicked;
 
         public static readonly BindableProperty SelectedColorProperty = BindableProperty.Create(
-                "SelectedColor", typeof(Color), typeof(ColorPicker));
+                "SelectedColor", typeof(Color), typeof(ColorPicker), defaultBindingMode: BindingMode.TwoWay, propertyChanged: ColorPropertyChanged);
+
+        private static void ColorPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var control = (ColorPicker)bindable;
+            control.ColorPicked?.Invoke(null, new ColorPickedEventArgs { newColor = newValue });
+
+            control.changing = true;
+            control.HueSlider.Value = control.SelectedColor.Hue;
+            control.SaturationSlider.Value = control.SelectedColor.Saturation;
+            control.LuminiocitySlider.Value = control.SelectedColor.Luminosity;
+            control.AlphaSlider.Value = control.SelectedColor.A;
+            control.HexEntry.Text = control.SelectedColor.ToHex();
+
+            control.SaturationSlider.Background = new LinearGradientBrush(new GradientStopCollection() {
+                    new GradientStop(Color.FromHsla(control.SelectedColor.Hue, 0, control.SelectedColor.Luminosity, control.SelectedColor.A), 0),
+                    new GradientStop(Color.FromHsla(control.SelectedColor.Hue, 1, control.SelectedColor.Luminosity, control.SelectedColor.A), 1),
+                    }, new Point(0, 0), new Point(1, 0));
+            control.LuminiocitySlider.Background = new LinearGradientBrush(new GradientStopCollection() {
+                    new GradientStop(Color.FromHsla(control.SelectedColor.Hue, control.SelectedColor.Saturation, 0, control.SelectedColor.A), 0),
+                    new GradientStop(Color.FromHsla(control.SelectedColor.Hue, control.SelectedColor.Saturation, 0.5, control.SelectedColor.A), (float)0.5),
+                    new GradientStop(Color.FromHsla(control.SelectedColor.Hue, control.SelectedColor.Saturation, 1, control.SelectedColor.A), 1),
+                    }, new Point(0, 0), new Point(1, 0));
+            control.AlphaSlider.Background = new LinearGradientBrush(new GradientStopCollection() {
+                    new GradientStop(Color.FromHsla(control.SelectedColor.Hue, control.SelectedColor.Saturation, control.SelectedColor.Luminosity, 0), 0),
+                    new GradientStop(Color.FromHsla(control.SelectedColor.Hue, control.SelectedColor.Saturation, control.SelectedColor.Luminosity, 1), 1),
+                    }, new Point(0, 0), new Point(1, 0));
+            control.changing = false;
+        }
 
         public Color SelectedColor
         {
             get { return (Color)GetValue(SelectedColorProperty); }
             set
             {
-                Debug.WriteLine("color set----------------------------");
                 SetValue(SelectedColorProperty, value);
                 OnPropertyChanged();
-                ColorPicked?.Invoke(null, new ColorPickedEventArgs { newColor = value });
-
-
-                //visuals
-                HueSlider.Value = SelectedColor.Hue;
-                SaturationSlider.Value = SelectedColor.Saturation;
-                LuminiocitySlider.Value = SelectedColor.Luminosity;
-                AlphaSlider.Value = SelectedColor.A;
-                HexEntry.Text = SelectedColor.ToHex();
-
-                SaturationSlider.Background = new LinearGradientBrush(new GradientStopCollection() {
-                    new GradientStop(Color.FromHsla(SelectedColor.Hue, 0, SelectedColor.Luminosity, SelectedColor.A), 0),
-                    new GradientStop(Color.FromHsla(SelectedColor.Hue, 1, SelectedColor.Luminosity, SelectedColor.A), 1),
-                    }, new Point(0, 0), new Point(1, 0));
-                LuminiocitySlider.Background = new LinearGradientBrush(new GradientStopCollection() {
-                    new GradientStop(Color.FromHsla(SelectedColor.Hue, SelectedColor.Saturation, 0, SelectedColor.A), 0),
-                    new GradientStop(Color.FromHsla(SelectedColor.Hue, SelectedColor.Saturation, 0.5, SelectedColor.A), (float)0.5),
-                    new GradientStop(Color.FromHsla(SelectedColor.Hue, SelectedColor.Saturation, 1, SelectedColor.A), 1),
-                    }, new Point(0, 0), new Point(1, 0));
-                AlphaSlider.Background = new LinearGradientBrush(new GradientStopCollection() {
-                    new GradientStop(Color.FromHsla(SelectedColor.Hue, SelectedColor.Saturation, SelectedColor.Luminosity, 0), 0),
-                    new GradientStop(Color.FromHsla(SelectedColor.Hue, SelectedColor.Saturation, SelectedColor.Luminosity, 1), 1),
-                    }, new Point(0, 0), new Point(1, 0));
             }
         }
 

@@ -14,20 +14,18 @@
         <StackLayout>
 
             <Button Text="refresh colors" Pressed="UpdatePreview" WidthRequest="160" HeightRequest="40" VerticalOptions="Start"/>
-            <ScrollView Orientation="Horizontal">
-                <StackLayout Orientation="Horizontal" Spacing="50">
-                    <StackLayout>
-                        <Label Text="Text color" Style="{StaticResource descriptionLabel}"/>
-                        <Views:ColorPicker WidthRequest="300" ColorPicked="UpdatePreview" 
+            <StackLayout Orientation="Horizontal" Spacing="50">
+                <StackLayout>
+                    <Label Text="Text color" Style="{StaticResource descriptionLabel}"/>
+                    <Views:ColorPicker WidthRequest="300" ColorPicked="UpdatePreview" 
                                            SelectedColor="{Binding Path=Arguments[0], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
-                    </StackLayout>
-                    <StackLayout>
-                        <Label Text="Background color" Style="{StaticResource descriptionLabel}"/>
-                        <Views:ColorPicker WidthRequest="300" ColorPicked="UpdatePreview" 
-                                           SelectedColor="{Binding Path=Arguments[0], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
-                    </StackLayout>
                 </StackLayout>
-            </ScrollView>
+                <StackLayout>
+                    <Label Text="Background color" Style="{StaticResource descriptionLabel}"/>
+                    <Views:ColorPicker WidthRequest="300" ColorPicked="UpdatePreview" 
+                                           SelectedColor="{Binding Path=Arguments[1], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
+                </StackLayout>
+            </StackLayout>
 
             <StackLayout Style="{StaticResource descriptionEntryStack}">
                 <Label Text="Text: " Style="{StaticResource descriptionLabel}"/>
