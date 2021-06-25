@@ -23,7 +23,7 @@
 
             <!-- sliders, entrys, ...-->
             <ScrollView>
-                <StackLayout Grid.Column="0" x:Name="editStack">
+                <StackLayout Grid.Column="0" x:Name="editStack" Padding="10">
                     <!--postition-->
                     <StackLayout Orientation="Horizontal" x:Name="positionStack">
                         <StackLayout Style="{StaticResource descriptionEntryStack}">
@@ -69,6 +69,8 @@
                         </StackLayout>
                     </StackLayout>
 
+                    <Frame HeightRequest="2" CornerRadius="1" 
+                           BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}"/>
                 </StackLayout>
             </ScrollView>
 

@@ -2,8 +2,7 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CTRLapp.Views.SettingsPages.GUI.EditLayouts.Joystick"
-             xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker" 
-             xmlns:local="clr-namespace:CTRLapp">
+             xmlns:local="clr-namespace:CTRLapp" xmlns:Views="clr-namespace:CTRLapp.Views">
     <ContentView.Resources>
         <ResourceDictionary>
             <local:HexToColorConverter x:Key="HexToColor" />
@@ -13,19 +12,19 @@
     <ContentView.Content>
         <StackLayout>
 
-            <Button Text="refresh colors" Pressed="UpdatePreview" WidthRequest="160" HeightRequest="40" VerticalOptions="Start"/>
-            <ScrollView Orientation="Horizontal">
-                <StackLayout Orientation="Horizontal" Spacing="50">
-                    <StackLayout>
-                        <Label Text="Thumb Color"/>
-                        <colorpicker:ColorCircle SelectedColor="{Binding Path=Arguments[0], Mode=TwoWay, Converter={StaticResource HexToColor}}" />
-                    </StackLayout>
-                    <StackLayout>
-                        <Label Text="Circle color"/>
-                        <colorpicker:ColorCircle SelectedColor="{Binding Path=Arguments[1], Mode=TwoWay, Converter={StaticResource HexToColor}}" />
-                    </StackLayout>
-                </StackLayout>
-            </ScrollView>
+            <StackLayout>
+                <Label Text="Thumb Color"/>
+                <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
+                                           SelectedColor="{Binding Path=Arguments[0], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
+            </StackLayout>
+            <StackLayout>
+                <Label Text="Circle color"/>
+                <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
+                                           SelectedColor="{Binding Path=Arguments[1], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
+            </StackLayout>
+
+            <Frame HeightRequest="2" CornerRadius="1" 
+                           BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}"/>
 
             <StackLayout  Orientation="Horizontal">
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
