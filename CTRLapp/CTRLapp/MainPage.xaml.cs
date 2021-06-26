@@ -41,7 +41,7 @@ namespace CTRLapp.Views
             masterMenu = e.ItemIndex;
             bottomMenu = 0; //default to first page
             bottomList.ItemsSource = null;
-            if (Variables.Variables.Layout != null && Variables.Variables.Layout[masterMenu].BottomMenuItems != null) 
+            if (Variables.Variables.Layout != null && Variables.Variables.Layout[masterMenu].BottomMenuItems != null)
                 bottomList.ItemsSource = Variables.Variables.Layout[masterMenu].BottomMenuItems;
             bottomList.SelectedItem = null;
             LoadObjects();
@@ -77,7 +77,7 @@ namespace CTRLapp.Views
                 });
             }
 
-            if(topicList.Count >=1)
+            if (topicList.Count >= 1)
                 await MQTT.SubscribeMQTT(topicList);
 
         }
@@ -85,7 +85,7 @@ namespace CTRLapp.Views
 
         private async void SettingsButtonPressed(object _, EventArgs e)
         {
-            await Navigation.PushAsync(new SettingsPassword( new SettingsPage()), true);
+            await Navigation.PushAsync(new SettingsPassword(new SettingsPage()), true);
         }
 
 

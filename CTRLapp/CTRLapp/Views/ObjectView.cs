@@ -1,10 +1,7 @@
 ﻿using SkiaSharp;
 using SkiaSharp.Views.Forms;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Forms;
-using static CTRLapp.HexToColorConverter;
 
 namespace CTRLapp.Views
 {
@@ -15,8 +12,8 @@ namespace CTRLapp.Views
         {
 
             Objects.Object obj = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects[objIndex];
-            
-            
+
+
 
             switch (obj.Type)
             {
@@ -325,7 +322,7 @@ namespace CTRLapp.Views
 
 
 
-            return new Frame() { Content = canvas, CornerRadius = (float)obj.Width / 2, BackgroundColor=Color.Transparent };
+            return new Frame() { Content = canvas, CornerRadius = (float)obj.Width / 2, BackgroundColor = Color.Transparent };
         }
         private View BuildMatrix(Objects.Object obj)
         {

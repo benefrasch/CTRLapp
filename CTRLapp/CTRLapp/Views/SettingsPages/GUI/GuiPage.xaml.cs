@@ -27,7 +27,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
         private readonly List<Item> items;
 
-       
+
         public GuiPage(int masterMenu, int bottomMenu)
         {
             InitializeComponent();

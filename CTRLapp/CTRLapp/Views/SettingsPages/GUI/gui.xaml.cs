@@ -29,7 +29,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
         private void LoadBottomStack()
         {
             bottomList.ItemsSource = null;
-            if (Variables.Variables.Layout != null && Variables.Variables.Layout[masterMenuSelected].BottomMenuItems != null) 
+            if (Variables.Variables.Layout != null && Variables.Variables.Layout[masterMenuSelected].BottomMenuItems != null)
                 bottomList.ItemsSource = Variables.Variables.Layout[masterMenuSelected].BottomMenuItems;
         }
 
@@ -61,7 +61,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             LoadBottomStack();
             LoadEditStack("Main Menu");
             addBottomMenu.IsVisible = true;
-        } 
+        }
         private void BottomListItemTapped(object _, ItemTappedEventArgs e)
         {
             if (e.ItemIndex == -1) return;
