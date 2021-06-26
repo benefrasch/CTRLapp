@@ -177,16 +177,71 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\show_password_icon_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\show_password_icon_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\slider_icon_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\slider_icon_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\switch_button_icon_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\switch_button_icon_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\switch_icon_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\switch_icon_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\text_box_icon_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\text_box_icon_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\arrow_thick_left_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\arrow_thick_left_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\button_icon_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\button_icon_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\joystick_icon_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\joystick_icon_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\matrix_icon_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\matrix_icon_light.png" />
+  </ItemGroup>
+  <ItemGroup>
     <BundleResource Include="Resources\quadrat.png" />
-    <BundleResource Include="Resources\settings_icon.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-      <SubType>Designer</SubType>
-    </BundleResource>
-    <BundleResource Include="Resources\show_password_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings_icon_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings_icon_light.png" />
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadWrongLinkerErrorInfoBarCTRLappiOSHideInfoBar="True" />
+      <UserProperties XamarinHotReloadWrongLinkerErrorInfoBarCTRLappiOSHideInfoBar="True" TriggeredFromHotReload="False" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
