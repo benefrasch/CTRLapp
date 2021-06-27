@@ -1,4 +1,6 @@
-﻿using MQTTnet;
+﻿using CTRLapp.Views.SettingsPages;
+using CTRLapp.Views.SettingsPages.GUI;
+using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
 using MQTTnet.Extensions.ManagedClient;
