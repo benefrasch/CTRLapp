@@ -52,7 +52,7 @@
 
             <Frame BackgroundColor="#80404040" Grid.Row="1" Grid.Column="1" CornerRadius="40">
                 <RelativeLayout  HeightRequest="80">
-                    <ListView x:Name="bottomList" RowHeight="120" ItemTapped="BottomListItemSelected" 
+                    <ListView x:Name="bottomList" RowHeight="100" ItemTapped="BottomListItemSelected" 
                           Rotation="270" SeparatorVisibility="None"  VerticalOptions="Center"
                           RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-40}" 
                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.5, Constant=40}" 
@@ -63,9 +63,9 @@
                                 <ViewCell>
                                     <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="20" />
+                                            <RowDefinition Height="10" />
                                             <RowDefinition Height="80" />
-                                            <RowDefinition Height="20" />
+                                            <RowDefinition Height="10" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="80" />

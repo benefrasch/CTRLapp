@@ -42,8 +42,10 @@ namespace CTRLapp.Views
             bottomMenu = 0; //default to first page
             bottomList.ItemsSource = null;
             if (Variables.Variables.Layout != null && Variables.Variables.Layout[masterMenu].BottomMenuItems != null)
+            {
                 bottomList.ItemsSource = Variables.Variables.Layout[masterMenu].BottomMenuItems;
-            bottomList.SelectedItem = null;
+                bottomList.HeightRequest = Variables.Variables.Layout[masterMenu].BottomMenuItems.Count * bottomList.RowHeight;
+            }
             LoadObjects();
         }
         private void BottomListItemSelected(object _, ItemTappedEventArgs e)
