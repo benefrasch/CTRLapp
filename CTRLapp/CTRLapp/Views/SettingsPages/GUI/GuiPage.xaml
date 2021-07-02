@@ -22,7 +22,9 @@
                     <ImageButton x:Name="ExitButton" BackgroundColor="Transparent" Clicked="ExitButtonClicked" Padding="10" CornerRadius="40"
                              Source="{AppThemeBinding Light=arrow_thick_left_light.png, Dark=arrow_thick_left_dark.png}"/>
 
-                    <ListView x:Name="newObjectListView" Grid.Row="1" IsPullToRefreshEnabled="False" SeparatorVisibility="None" SelectionMode="None" ItemTapped="NewObject" RowHeight="80">
+
+                    <ListView x:Name="newObjectListView" Grid.Row="1" IsPullToRefreshEnabled="False" 
+                              SeparatorVisibility="None" SelectionMode="None" ItemTapped="NewObject" RowHeight="80">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -36,8 +38,10 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="80" />
                                         </Grid.ColumnDefinitions>
-                                        <Image Source="{Binding Icon}" Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                                        <Label Text="{Binding Name}" Grid.Row="2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                        <Image Source="{Binding Icon}" Grid.Row="1" 
+                                               HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                        <Label Text="{Binding Name}" Grid.Row="2" 
+                                               HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>
