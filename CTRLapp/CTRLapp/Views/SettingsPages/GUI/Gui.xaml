@@ -76,12 +76,15 @@
             <Label x:Name="typeLabel" HorizontalTextAlignment="Center" />
             <Entry x:Name="nameEntry" HorizontalOptions="Fill" HeightRequest="50" Placeholder="Menu Name" Text="{Binding Name}"/>
 
-          
-            
-            <StackLayout Orientation="Horizontal" >
-                <Button HorizontalOptions="FillAndExpand" Grid.Column="0" Text="icon image" x:Name="editIcon" Clicked="IconImageSelect"/>
-                <Button HorizontalOptions="FillAndExpand" Grid.Column="1" Text="background image" x:Name="editBackground" Clicked="BackgroundImageSelect"/>
-            </StackLayout>
+
+            <Grid ColumnSpacing="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Text="icon image" x:Name="editIcon" Clicked="IconImageSelect"/>
+                <Button Grid.Column="1" Text="background image" x:Name="editBackground" Clicked="BackgroundImageSelect"/>
+            </Grid>
 
             <Button Text="Edit Interface" x:Name="editGui" Clicked="EditGuiClicked" />
 
