@@ -29,6 +29,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
         private void LoadBottomStack()
         {
             bottomList.ItemsSource = null;
+            bottomList.SelectedItem = null;
             if (Variables.Variables.Layout != null && Variables.Variables.Layout[masterMenuSelected].BottomMenuItems != null)
                 bottomList.ItemsSource = Variables.Variables.Layout[masterMenuSelected].BottomMenuItems;
         }
