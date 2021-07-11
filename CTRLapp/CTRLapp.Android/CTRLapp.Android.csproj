@@ -76,10 +76,10 @@
       <Version>6.2.12</Version>
     </PackageReference>
     <PackageReference Include="MQTTnet">
-      <Version>3.0.15</Version>
+      <Version>3.0.16</Version>
     </PackageReference>
     <PackageReference Include="MQTTnet.Extensions.ManagedClient">
-      <Version>3.0.15</Version>
+      <Version>3.0.16</Version>
     </PackageReference>
     <PackageReference Include="SkiaSharp">
       <Version>2.80.2</Version>
@@ -213,7 +213,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadUnhandledDeviceExceptionCTRLappAndroidHideInfoBar="True" TriggeredFromHotReload="False" />
+      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadUnhandledDeviceExceptionCTRLappAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
