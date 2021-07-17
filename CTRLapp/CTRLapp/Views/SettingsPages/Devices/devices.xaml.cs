@@ -1,4 +1,5 @@
 ﻿
+using Plugin.BluetoothLE;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,6 +11,7 @@ namespace CTRLapp.Views.SettingsPages.Devices
         public Devices()
         {
             InitializeComponent();
+
         }
     }
 }
