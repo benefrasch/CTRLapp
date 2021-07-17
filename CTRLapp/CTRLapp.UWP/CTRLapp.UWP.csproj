@@ -160,6 +160,9 @@
     <PackageReference Include="MQTTnet.Extensions.ManagedClient">
       <Version>3.0.16</Version>
     </PackageReference>
+    <PackageReference Include="Plugin.BluetoothLE">
+      <Version>6.3.0.19</Version>
+    </PackageReference>
     <PackageReference Include="SkiaSharp">
       <Version>2.80.3</Version>
     </PackageReference>
