@@ -81,8 +81,8 @@
     <PackageReference Include="MQTTnet.Extensions.ManagedClient">
       <Version>3.0.16</Version>
     </PackageReference>
-    <PackageReference Include="Plugin.BluetoothLE">
-      <Version>6.3.0.19</Version>
+    <PackageReference Include="Plugin.BLE">
+      <Version>2.1.2</Version>
     </PackageReference>
     <PackageReference Include="SkiaSharp">
       <Version>2.80.3</Version>
@@ -216,7 +216,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadUnhandledDeviceExceptionCTRLappAndroidHideInfoBar="True" TriggeredFromHotReload="False" />
+      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadUnhandledDeviceExceptionCTRLappAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

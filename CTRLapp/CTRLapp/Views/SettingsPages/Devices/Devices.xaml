@@ -7,11 +7,13 @@
              x:Class="CTRLapp.Views.SettingsPages.Devices.Devices">
 
     <StackLayout>
-        <Label Text="No devides to configure, please use serial console while this is not implemented" />
-        <ListView x:Name="masterList" IsPullToRefreshEnabled="False" ItemTapped="MasterListItemTapped" RowHeight="70">
+        <Label Text="No devides to configure, please use serial console while this is not implemented" BackgroundColor="Orange"/>
+        <ListView x:Name="deviceListView" IsPullToRefreshEnabled="True" BackgroundColor="LightBlue"
+                  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                  ItemSelected="DeviceListView_ItemSelected" Refreshing="RefreshDeviceList" RowHeight="40">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding DeviceName}"/>
+                    <TextCell Text="{Binding Name}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
