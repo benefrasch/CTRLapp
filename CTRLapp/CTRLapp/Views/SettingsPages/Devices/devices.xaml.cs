@@ -38,15 +38,17 @@ namespace CTRLapp.Views.SettingsPages.Devices
 
         private async void DeviceListView_ItemSelected(object _, SelectedItemChangedEventArgs e)
         {
-            
+            var selectedDevice = (Plugin.BLE.Abstractions.Contracts.IDevice)e.SelectedItem;
             try
             {
-                await adapter.ConnectToDeviceAsync((Plugin.BLE.Abstractions.Contracts.IDevice)e.SelectedItem);
+                await adapter.ConnectToDeviceAsync(selectedDevice);
+                Debug.WriteLine(selectedDevice.State);
             }
             catch (DeviceConnectionException m)
             {
                 Debug.WriteLine(m.Message);
             }
+           
         }
 
         private async void RefreshDeviceList(object _ = null, System.EventArgs e = null)
