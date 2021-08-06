@@ -106,7 +106,7 @@ namespace CTRLapp
             }
             mqttClient.UseApplicationMessageReceivedHandler(e =>
             {
-                MqttMessageEventArgs messageReceivedEventArgs = new MqttMessageEventArgs
+                MqttMessageEventArgs messageReceivedEventArgs = new()
                 {
                     Topic = e.ApplicationMessage.Topic,
                     Message = System.Text.Encoding.Default.GetString(e.ApplicationMessage.Payload),

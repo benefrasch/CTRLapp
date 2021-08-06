@@ -74,7 +74,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
         private void AddMasterMenuItem(object _, EventArgs e)
         {
             if (Variables.Variables.Layout == null) Variables.Variables.Layout = new List<MasterMenuItem>();
-            MasterMenuItem item = new MasterMenuItem
+            MasterMenuItem item = new()
             {
                 Name = "Menu_" + Variables.Variables.Layout.Count,
                 IconPath = "quadrat.png"
@@ -86,7 +86,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
         private void AddBottomMenuItem(object _, EventArgs e)
         {
             if (Variables.Variables.Layout[masterMenuSelected].BottomMenuItems == null) Variables.Variables.Layout[masterMenuSelected].BottomMenuItems = new List<BottomMenuItem>();
-            BottomMenuItem item = new BottomMenuItem
+            BottomMenuItem item = new()
             {
                 Name = "Menu_" + Variables.Variables.Layout[masterMenuSelected].BottomMenuItems.Count,
                 IconPath = "quadrat.png"

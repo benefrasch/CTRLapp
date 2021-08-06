@@ -7,7 +7,7 @@ namespace CTRLapp.Views
 {
     public class ObjectView : ContentView
     {
-        private static HexToColorConverter colorConverter = new HexToColorConverter();
+        private static readonly HexToColorConverter colorConverter = new();
         public ObjectView(int masterMenu, int bottomMenu, int objIndex)
         {
 
@@ -57,7 +57,7 @@ namespace CTRLapp.Views
         private View BuildLabel(Objects.Object obj)
         {
             int.TryParse(obj.Arguments[3], out int fontsize);
-            Label label = new Label()
+            Label label = new()
             {
                 WidthRequest = obj.Width,
                 TextColor = (Color)colorConverter.Convert(obj.Arguments[0]),
@@ -71,7 +71,7 @@ namespace CTRLapp.Views
         private View BuildValueDisplay(Objects.Object obj)
         {
             int.TryParse(obj.Arguments[5], out int fontsize);
-            Label label = new Label()
+            Label label = new()
             {
                 WidthRequest = obj.Width,
                 TextColor = (Color)colorConverter.Convert(obj.Arguments[0]),
@@ -217,22 +217,22 @@ namespace CTRLapp.Views
         private View BuildJoystick(Objects.Object obj)
         {
             var touchEffect = new TouchTracking.Forms.TouchEffect() { Capture = true };
-            SKCanvasView canvas = new SKCanvasView
+            SKCanvasView canvas = new()
             {
                 HeightRequest = obj.Width,
                 WidthRequest = obj.Width,
                 EnableTouchEvents = false,
                 BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]),
             };
-            SKPoint touch = new SKPoint();
-            Timer timer = new Timer
+            SKPoint touch = new ();
+            Timer timer = new()
             {
                 AutoReset = true,
                 Interval = 100,
             };
             bool pressed = false;
-            Point coordinates = new Point();
-            SKSize canvassize = new SKSize();
+            Point coordinates = new();
+            SKSize canvassize = new ();
 
             canvas.PaintSurface += (_, e) =>
             {
@@ -241,7 +241,7 @@ namespace CTRLapp.Views
 
                 float radius = canvassize.Width / 2;
 
-                SKPaint thumbPaint = new SKPaint
+                SKPaint thumbPaint = new ()
                 {
                     Style = SKPaintStyle.Fill,
                     Color = ((Color)colorConverter.Convert(obj.Arguments[0])).ToSKColor(),
@@ -328,20 +328,20 @@ namespace CTRLapp.Views
         {
             float thumbRadius = 50;
             var touchEffect = new TouchTracking.Forms.TouchEffect() { Capture = true };
-            SKCanvasView canvas = new SKCanvasView
+            SKCanvasView canvas = new()
             {
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
                 EnableTouchEvents = false,
                 BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]),
             };
-            SKPoint touch = new SKPoint();
+            SKPoint touch = new ();
             canvas.PaintSurface += (_, e) =>
             {
                 var surface = e.Surface.Canvas;
                 surface.Clear();
 
-                SKPaint thumbPaint = new SKPaint
+                SKPaint thumbPaint = new()
                 {
                     Style = SKPaintStyle.Fill,
                     Color = ((Color)colorConverter.Convert(obj.Arguments[0])).ToSKColor(),
@@ -372,7 +372,7 @@ namespace CTRLapp.Views
                         if (touch.Y > canvas.CanvasSize.Width) touch.Y = canvas.CanvasSize.Width;
 
                         //map touch point to defined min and max
-                        Point coordinates = new Point()
+                        Point coordinates = new ()
                         {
                             X = (e.Location.X / canvas.Width) * (float.Parse(obj.Arguments[5]) - float.Parse(obj.Arguments[4])) + float.Parse(obj.Arguments[4]),
                             Y = (e.Location.Y / canvas.Width) * (float.Parse(obj.Arguments[7]) - float.Parse(obj.Arguments[6])) + float.Parse(obj.Arguments[6]),

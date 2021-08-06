@@ -12,7 +12,7 @@ namespace CTRLapp.Views
     public partial class MainPage : ContentPage
     {
         public static int masterMenu, bottomMenu;
-        public static List<string> topicList = new List<string>();
+        public static List<string> topicList = new();
 
         public MainPage()
         {

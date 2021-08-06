@@ -173,7 +173,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
 
             //invisible Grid with controls
-            Grid invisibleGrid = new Grid
+            Grid invisibleGrid = new()
             {
                 WidthRequest = obj.Width,
                 HeightRequest = obj.Height,
