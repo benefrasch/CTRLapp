@@ -1,8 +1,11 @@
 ﻿
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Exceptions;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +14,7 @@ namespace CTRLapp.Views.SettingsPages.Devices
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Devices : ContentView
     {
-        public List<Plugin.BLE.Abstractions.Contracts.IDevice> deviceList = new List<Plugin.BLE.Abstractions.Contracts.IDevice>();
+        public List<Plugin.BLE.Abstractions.Contracts.IDevice> deviceList = new();
         private Plugin.BLE.Abstractions.Contracts.IBluetoothLE ble;
         private Plugin.BLE.Abstractions.Contracts.IAdapter adapter;
 
@@ -22,15 +25,12 @@ namespace CTRLapp.Views.SettingsPages.Devices
             ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
 
+            _ = CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
+
             adapter.DeviceDiscovered += (s, a) =>
             {
                 deviceList.Add(a.Device);
-                Debug.WriteLine("Device found" + a.Device.Name);
-            };
-
-            ble.StateChanged += (s, e) =>
-            {
-                Debug.WriteLine($"The bluetooth state changed to {e.NewState}");
+                Debug.WriteLine("Device found  " + a.Device.Name);
             };
 
             deviceListView.BeginRefresh();
@@ -53,12 +53,11 @@ namespace CTRLapp.Views.SettingsPages.Devices
 
         private async void RefreshDeviceList(object _ = null, System.EventArgs e = null)
         {
-            Debug.WriteLine(ble.State);
 
             var systemDevices = adapter.GetSystemConnectedOrPairedDevices();
             deviceList.AddRange((List<Plugin.BLE.Abstractions.Contracts.IDevice>)systemDevices);
 
-            adapter.ScanTimeout = 10000;
+            adapter.ScanTimeout = 5000;
             await adapter.StartScanningForDevicesAsync();
             deviceListView.EndRefresh();
             deviceListView.ItemsSource = deviceList;
