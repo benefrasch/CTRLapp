@@ -26,7 +26,7 @@
                              Clicked="BackClicked" Grid.Column="0" HorizontalOptions="Start"/>
                 <Button x:Name="generalButton" Text="General" Clicked="GeneralClicked" Grid.Column="1" HorizontalOptions="FillAndExpand"/>
                 <Button x:Name="guiButton" Text="GUI" Clicked="GuiClicked" Grid.Column="2" HorizontalOptions="FillAndExpand"/>
-                <Button x:Name="devicesButton" Text="Devices" Clicked="DevicesClicked" Grid.Column="3" HorizontalOptions="FillAndExpand"/>
+                <Button x:Name="devicesButton" Text="Devices" Clicked="DevicesClicked" Grid.Column="3" HorizontalOptions="FillAndExpand" IsVisible="false"/>
             </Grid>
 
             <ContentView x:Name="content"/>
