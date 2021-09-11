@@ -83,7 +83,10 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Text="icon image" x:Name="editIcon" Clicked="IconImageSelect"/>
-                <Button Grid.Column="1" Text="background image" x:Name="editBackground" Clicked="BackgroundImageSelect"/>
+                <StackLayout Grid.Column="1" Orientation="Horizontal" x:Name="backgroundStack">
+                    <Button Text="background image" x:Name="editBackground" Clicked="BackgroundImageSelect" HorizontalOptions="FillAndExpand"/>
+                    <ImageButton Source="{AppThemeBinding Light=trash_can_light.png, Dark=trash_can_dark.png}" Clicked="DeleteBackgroundPressed" HeightRequest="30"/>
+                </StackLayout>
             </Grid>
 
             <Button Text="Edit Interface" x:Name="editGui" Clicked="EditGuiClicked" />

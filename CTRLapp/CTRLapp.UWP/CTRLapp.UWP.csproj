@@ -138,6 +138,8 @@
     <Content Include="Assets\splashscreen\SplashScreen.scale-150.png" />
     <Content Include="Assets\splashscreen\SplashScreen.scale-200.png" />
     <Content Include="Assets\splashscreen\SplashScreen.scale-400.png" />
+    <Content Include="Assets\trash_can_dark.png" />
+    <Content Include="Assets\trash_can_light.png" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>
