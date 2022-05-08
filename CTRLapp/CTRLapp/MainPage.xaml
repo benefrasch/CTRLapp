@@ -20,7 +20,7 @@
             <AbsoluteLayout x:Name="mainLayout" Grid.Column="1" />
 
 
-            <Frame BackgroundColor="#80404040" CornerRadius="40" Grid.RowSpan="2">
+            <Frame BackgroundColor="{AppThemeBinding Light=#55b3d1ff, Dark=#55b3d1ff}" CornerRadius="15" Grid.RowSpan="2">
                 <StackLayout>
                     <ImageButton x:Name="settingsButton" Grid.Row="0" Pressed="SettingsButtonPressed" CornerRadius="40" BackgroundColor="Transparent" HeightRequest="80"
                                  Source="{AppThemeBinding Light=settings_icon_light.png, Dark=settings_icon_dark.png}"/>
@@ -50,7 +50,7 @@
                 </StackLayout>
             </Frame>
 
-            <Frame BackgroundColor="#80404040" Grid.Row="1" Grid.Column="1" CornerRadius="40">
+            <Frame BackgroundColor="{AppThemeBinding Light=#55b3d1ff, Dark=#55b3d1ff}" Grid.Row="1" Grid.Column="1" CornerRadius="15">
                 <RelativeLayout  HeightRequest="80">
                     <ListView x:Name="bottomList" RowHeight="100" ItemTapped="BottomListItemSelected" 
                           Rotation="270" SeparatorVisibility="None"  VerticalOptions="Center"

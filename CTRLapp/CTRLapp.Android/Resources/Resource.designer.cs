@@ -14,7 +14,7 @@ namespace CTRLapp.Droid
 {
 	
 	
-	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "1.0.0.0")]
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "12.2.4.160")]
 	public partial class Resource
 	{
 		
@@ -17743,6 +17743,12 @@ namespace CTRLapp.Droid
 			
 			// aapt resource value: 0x7F0700A6
 			public const int tooltip_frame_light = 2131165350;
+			
+			// aapt resource value: 0x7F0700A7
+			public const int trash_can_dark = 2131165351;
+			
+			// aapt resource value: 0x7F0700A8
+			public const int trash_can_light = 2131165352;
 			
 			static Drawable()
 			{

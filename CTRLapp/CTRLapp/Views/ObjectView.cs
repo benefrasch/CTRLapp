@@ -82,13 +82,13 @@ namespace CTRLapp.Views
             };
 
             //mqtt syncing function
-            MQTT.MqttMessageReceived += (_, e) =>
-            {
-                if (e.Topic != obj.Arguments[3]) return;
-                label.Text = obj.Arguments[2] + e.Message + obj.Arguments[4];
-            };
-            if (MainPage.topicList.IndexOf(obj.Arguments[3]) == -1)
-                MainPage.topicList.Add(obj.Arguments[3]);
+            //MQTT.MqttMessageReceived += (_, e) =>
+            //{
+            //    if (e.Topic != obj.Arguments[3]) return;
+            //    label.Text = obj.Arguments[2] + e.Message + obj.Arguments[4];
+            //};
+            //if (MainPage.topicList.IndexOf(obj.Arguments[3]) == -1)
+            //    MainPage.topicList.Add(obj.Arguments[3]);
             return label;
         } //buggy
         private View BuildButton(Objects.Object obj)
@@ -138,16 +138,16 @@ namespace CTRLapp.Views
             };
 
             //syncing function
-            MQTT.MqttMessageReceived += (_, e) =>
-            {
-                if (e.Topic != obj.Arguments[4]) return;
-                if (e.Message == obj.Arguments[6]) //set background color according to received message (high if message == high value, low if else)
-                    switchButton.BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[2]);
-                else
-                    switchButton.BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]);
-            };
-            if (MainPage.topicList.IndexOf(obj.Arguments[4]) == -1)
-                MainPage.topicList.Add(obj.Arguments[4]);
+            //MQTT.MqttMessageReceived += (_, e) =>
+            //{
+            //    if (e.Topic != obj.Arguments[4]) return;
+            //    if (e.Message == obj.Arguments[6]) //set background color according to received message (high if message == high value, low if else)
+            //        switchButton.BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[2]);
+            //    else
+            //        switchButton.BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]);
+            //};
+            //if (MainPage.topicList.IndexOf(obj.Arguments[4]) == -1)
+            //    MainPage.topicList.Add(obj.Arguments[4]);
             return switchButton;
         }
         private View BuildSwitch(Objects.Object obj)
@@ -202,16 +202,16 @@ namespace CTRLapp.Views
             };
 
             //syncing function
-            MQTT.MqttMessageReceived += (_, e) =>
-            {
-                if (e.Topic != obj.Arguments[3]) return;
-                float.TryParse(e.Message, out float messageFloat);
-                block = true;
-                slider.Value = messageFloat;
-                block = false;
-            };
-            if (MainPage.topicList.IndexOf(obj.Arguments[3]) == -1)
-                MainPage.topicList.Add(obj.Arguments[3]);
+            //MQTT.MqttMessageReceived += (_, e) =>
+            //{
+            //    if (e.Topic != obj.Arguments[3]) return;
+            //    float.TryParse(e.Message, out float messageFloat);
+            //    block = true;
+            //    slider.Value = messageFloat;
+            //    block = false;
+            //};
+            //if (MainPage.topicList.IndexOf(obj.Arguments[3]) == -1)
+            //    MainPage.topicList.Add(obj.Arguments[3]);
             return slider;
         }
         private View BuildJoystick(Objects.Object obj)
@@ -301,24 +301,24 @@ namespace CTRLapp.Views
             canvas.Effects.Add(touchEffect);
 
             //syncing function
-            MQTT.MqttMessageReceived += (_, e) =>
-            {
-                if (timer.Enabled) return;
-                if (e.Topic == obj.Arguments[2])
-                {
-                    float.TryParse(e.Message, out float messageFloat);
-                    coordinates.X = messageFloat;
-                }
-                else if (e.Topic == obj.Arguments[3])
-                {
-                    float.TryParse(e.Message, out float messageFloat);
-                    coordinates.Y = messageFloat;
-                }
-            };
-            if (MainPage.topicList.IndexOf(obj.Arguments[2]) == -1)
-                MainPage.topicList.Add(obj.Arguments[2]);
-            if (MainPage.topicList.IndexOf(obj.Arguments[3]) == -1)
-                MainPage.topicList.Add(obj.Arguments[3]);
+            //MQTT.MqttMessageReceived += (_, e) =>
+            //{
+            //    if (timer.Enabled) return;
+            //    if (e.Topic == obj.Arguments[2])
+            //    {
+            //        float.TryParse(e.Message, out float messageFloat);
+            //        coordinates.X = messageFloat;
+            //    }
+            //    else if (e.Topic == obj.Arguments[3])
+            //    {
+            //        float.TryParse(e.Message, out float messageFloat);
+            //        coordinates.Y = messageFloat;
+            //    }
+            //};
+            //if (MainPage.topicList.IndexOf(obj.Arguments[2]) == -1)
+            //    MainPage.topicList.Add(obj.Arguments[2]);
+            //if (MainPage.topicList.IndexOf(obj.Arguments[3]) == -1)
+            //    MainPage.topicList.Add(obj.Arguments[3]);
 
 
 
@@ -389,25 +389,25 @@ namespace CTRLapp.Views
             canvas.Effects.Add(touchEffect);
 
             //syncing function
-            MQTT.MqttMessageReceived += (_, e) =>
-            {
-                if (e.Topic == obj.Arguments[2])
-                {
-                    float.TryParse(e.Message, out float messageFloat);
-                    touch.X = (messageFloat - float.Parse(obj.Arguments[4])) / (float.Parse(obj.Arguments[5]) - float.Parse(obj.Arguments[4])) * canvas.CanvasSize.Width;
-                    canvas.InvalidateSurface();
-                }
-                else if (e.Topic == obj.Arguments[3])
-                {
-                    float.TryParse(e.Message, out float messageFloat);
-                    touch.Y = (messageFloat - float.Parse(obj.Arguments[6])) / (float.Parse(obj.Arguments[7]) - float.Parse(obj.Arguments[6])) * canvas.CanvasSize.Width;
-                    canvas.InvalidateSurface();
-                }
-            };
-            if (MainPage.topicList.IndexOf(obj.Arguments[2]) == -1)
-                MainPage.topicList.Add(obj.Arguments[2]);
-            if (MainPage.topicList.IndexOf(obj.Arguments[3]) == -1)
-                MainPage.topicList.Add(obj.Arguments[3]);
+            //MQTT.MqttMessageReceived += (_, e) =>
+            //{
+            //    if (e.Topic == obj.Arguments[2])
+            //    {
+            //        float.TryParse(e.Message, out float messageFloat);
+            //        touch.X = (messageFloat - float.Parse(obj.Arguments[4])) / (float.Parse(obj.Arguments[5]) - float.Parse(obj.Arguments[4])) * canvas.CanvasSize.Width;
+            //        canvas.InvalidateSurface();
+            //    }
+            //    else if (e.Topic == obj.Arguments[3])
+            //    {
+            //        float.TryParse(e.Message, out float messageFloat);
+            //        touch.Y = (messageFloat - float.Parse(obj.Arguments[6])) / (float.Parse(obj.Arguments[7]) - float.Parse(obj.Arguments[6])) * canvas.CanvasSize.Width;
+            //        canvas.InvalidateSurface();
+            //    }
+            //};
+            //if (MainPage.topicList.IndexOf(obj.Arguments[2]) == -1)
+            //    MainPage.topicList.Add(obj.Arguments[2]);
+            //if (MainPage.topicList.IndexOf(obj.Arguments[3]) == -1)
+            //    MainPage.topicList.Add(obj.Arguments[3]);
 
 
             return canvas;
