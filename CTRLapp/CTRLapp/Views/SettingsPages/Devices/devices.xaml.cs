@@ -18,6 +18,7 @@ namespace CTRLapp.Views.SettingsPages.Devices
         private Plugin.BLE.Abstractions.Contracts.IBluetoothLE ble;
         private Plugin.BLE.Abstractions.Contracts.IAdapter adapter;
 
+
         public Devices()
         {
             InitializeComponent();
@@ -25,7 +26,7 @@ namespace CTRLapp.Views.SettingsPages.Devices
             ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
 
-            _ = CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
+            _ = CrossPermissions.Current.RequestPermissionAsync<LocationPermission>();
 
             adapter.DeviceDiscovered += (s, a) =>
             {
