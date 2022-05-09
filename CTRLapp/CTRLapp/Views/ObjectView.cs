@@ -297,8 +297,8 @@ namespace CTRLapp.Views
                 if (coordinates.Y < minimumy) coordinates.Y = minimumy;
                 if (coordinates.Y > maximumy) coordinates.Y = maximumy;
 
-                await MQTT.SendMQTT(obj.Arguments[2], coordinates.X.ToString());
-                await MQTT.SendMQTT(obj.Arguments[3], coordinates.Y.ToString());
+                await MQTT.SendMQTT(obj.Arguments[2], ((int)coordinates.X).ToString());
+                await MQTT.SendMQTT(obj.Arguments[3], ((int)coordinates.Y).ToString());
             };
             canvas.Effects.Add(touchEffect);
 
@@ -380,8 +380,8 @@ namespace CTRLapp.Views
                             Y = (e.Location.Y / canvas.Width) * (float.Parse(obj.Arguments[7]) - float.Parse(obj.Arguments[6])) + float.Parse(obj.Arguments[6]),
                         };
 
-                        await MQTT.SendMQTT(obj.Arguments[2], coordinates.X.ToString());
-                        await MQTT.SendMQTT(obj.Arguments[3], coordinates.Y.ToString());
+                        await MQTT.SendMQTT(obj.Arguments[2], ((int)coordinates.X).ToString());
+                        await MQTT.SendMQTT(obj.Arguments[3], ((int)coordinates.Y).ToString());
                         canvas.InvalidateSurface();
 
                         break;
