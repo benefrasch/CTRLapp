@@ -19,12 +19,18 @@
 
             <AbsoluteLayout x:Name="mainLayout" Grid.Column="1" />
 
-
+            <!-- Primary List-->
             <Frame BackgroundColor="{AppThemeBinding Light=#55b3d1ff, Dark=#55b3d1ff}" CornerRadius="15" Grid.RowSpan="2">
                 <StackLayout>
-                    <ImageButton x:Name="settingsButton" Grid.Row="0" Pressed="SettingsButtonPressed" CornerRadius="40" BackgroundColor="Transparent" HeightRequest="80"
+                    <!-- Settings and Status Dot-->
+                    <StackLayout Orientation="Horizontal" Spacing="5">
+                        <ImageButton x:Name="settingsButton" Grid.Row="0" Pressed="SettingsButtonPressed" BackgroundColor="Transparent" HeightRequest="40"
                                  Source="{AppThemeBinding Light=settings_icon_light.png, Dark=settings_icon_dark.png}"/>
+                        <Frame x:Name="statusDot" WidthRequest="30" HeightRequest="30" CornerRadius="20" 
+                               BackgroundColor="Red" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </StackLayout>
 
+                    <!-- List of Menu Items-->
                     <ListView x:Name="masterList" RowHeight="100"
                           ItemTapped="MasterListItemSelected" SeparatorVisibility="None">
                         <ListView.ItemTemplate>
@@ -50,6 +56,7 @@
                 </StackLayout>
             </Frame>
 
+            <!-- Secondary List-->
             <Frame BackgroundColor="{AppThemeBinding Light=#55b3d1ff, Dark=#55b3d1ff}" Grid.Row="1" Grid.Column="1" CornerRadius="15">
                 <RelativeLayout  HeightRequest="80">
                     <ListView x:Name="bottomList" RowHeight="100" ItemTapped="BottomListItemSelected" 

@@ -45,7 +45,7 @@
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
                     <Label Text="Scaling:" Style="{StaticResource descriptionLabel}"/>
                     <Entry Text="{Binding Arguments[6]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview" Keyboard="Numeric"/>
+                           TextChanged="UpdatePreview" Keyboard="Default"/>
                 </StackLayout>
             </StackLayout>
 
@@ -68,7 +68,7 @@
                 <StackLayout Style="{StaticResource descriptionEntryStack}">
                     <Label Text="Scaling:" Style="{StaticResource descriptionLabel}"/>
                     <Entry Text="{Binding Arguments[9]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview" Keyboard="Numeric"/>
+                           TextChanged="UpdatePreview" Keyboard="Default"/>
                 </StackLayout>
             </StackLayout>
 

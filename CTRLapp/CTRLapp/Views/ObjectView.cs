@@ -185,6 +185,8 @@ namespace CTRLapp.Views
         private View BuildSlider(Objects.Object obj)
         {
             bool block = false; //avoid loopback from mqtt delay
+            if(int.Parse(obj.Arguments[4]) >= int.Parse(obj.Arguments[5])) 
+                obj.Arguments[4] = (int.Parse(obj.Arguments[5]) -1).ToString() ;
             var slider = new Slider
             {
                 HeightRequest = obj.Height,
@@ -192,13 +194,13 @@ namespace CTRLapp.Views
                 ThumbColor = (Color)colorConverter.Convert(obj.Arguments[0]),
                 MinimumTrackColor = (Color)colorConverter.Convert(obj.Arguments[1]),
                 MaximumTrackColor = (Color)colorConverter.Convert(obj.Arguments[2]),
-                Minimum = int.Parse(obj.Arguments[4]),
                 Maximum = int.Parse(obj.Arguments[5]),
+                Minimum = int.Parse(obj.Arguments[4]),
             };
             slider.ValueChanged += async (_, e) =>
             {
                 if (!block)
-                    await MQTT.SendMQTT(obj.Arguments[3], e.NewValue.ToString());
+                    await MQTT.SendMQTT(obj.Arguments[3], ((int)e.NewValue).ToString());
             };
 
             //syncing function

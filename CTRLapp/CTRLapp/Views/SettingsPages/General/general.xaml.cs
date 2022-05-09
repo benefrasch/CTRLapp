@@ -61,5 +61,11 @@ namespace CTRLapp.Views.SettingsPages.General
             else
                 Application.Current.UserAppTheme = OSAppTheme.Dark;
         }
+
+        private void OpenJSONConfig(object _, EventArgs e)
+        {
+            Navigation.PushAsync(new JSONconfig());
+
+        }
     }
 }

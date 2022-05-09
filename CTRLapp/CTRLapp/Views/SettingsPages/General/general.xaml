@@ -36,6 +36,8 @@
             
             <Frame HeightRequest="40" BackgroundColor="Transparent"/>
 
+            <Button Text="JSON config" Pressed="OpenJSONConfig"/>
+
         </StackLayout>
 
         <!-- Broker Settings-->

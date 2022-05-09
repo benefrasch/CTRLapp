@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Timers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -23,7 +24,7 @@ namespace CTRLapp.Views
             base.OnAppearing();
             _ = MQTT.ConnectMQTT();
 
-            Debug.WriteLine("onappearing");
+            Debug.WriteLine("main page appearing");
 
             masterMenu = 0; bottomMenu = 0; //reset both menus to 0
             masterList.ItemsSource = null; bottomList.ItemsSource = null;
@@ -33,6 +34,17 @@ namespace CTRLapp.Views
             if (Variables.Variables.Layout != null && Variables.Variables.Layout[masterMenu].BottomMenuItems != null)
                 bottomList.ItemsSource = Variables.Variables.Layout[masterMenu].BottomMenuItems;
             LoadObjects();
+
+            Timer updateTimer = new(500);
+            updateTimer.Elapsed += (s, e) =>
+            {
+                var connected = MQTT.mqttClient.IsConnected;
+                if (connected) statusDot.BackgroundColor = Color.Green;
+                else statusDot.BackgroundColor = Color.Red;
+            };
+            updateTimer.AutoReset = true;
+            updateTimer.Start();
+
         }
 
 
