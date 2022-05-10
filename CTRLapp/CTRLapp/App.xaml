@@ -37,7 +37,7 @@
             </Style>
             <Style TargetType="TabbedPage" ApplyToDerivedTypes="True">
                 <Setter Property="BarBackgroundColor"
-                        Value="{AppThemeBinding Light=LightGray, Dark=#282828}"/>
+                        Value="{AppThemeBinding Light=LightGray, Dark=#202020}"/>
                 <Setter Property="BarTextColor"
                         Value="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}" />
             </Style>
@@ -53,8 +53,6 @@
                         Value="{AppThemeBinding Light=LightGray, Dark=Gray}"/>
                 <Setter Property="IsSpellCheckEnabled"
                         Value="False"/>
-                <Setter Property="BackgroundColor"
-                        Value="{AppThemeBinding Light=LightGray, Dark=#282828}"/>
             </Style>
             <Style TargetType="Button" ApplyToDerivedTypes="True">
                 <Setter Property="BackgroundColor"
@@ -81,6 +79,21 @@
                 <Setter Property="Padding" Value="0"/>
                 <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
                 <Setter Property="Spacing" Value="0"/>
+            </Style>
+
+            <Style x:Key="blueBox" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#cfe1fc, Dark=#2B2B2B}"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Padding" Value="8,16,8,24"/>
+            </Style>
+
+            <Style x:Key="blueBoxNoPadding" TargetType="Frame" BasedOn="{StaticResource blueBox}">
+                <Setter Property="Padding" Value="0"/>
+            </Style>
+
+            <Style x:Key="settingsButton" TargetType="Button">
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="BackgroundColor" Value="#50505050"/>
             </Style>
 
         </ResourceDictionary>

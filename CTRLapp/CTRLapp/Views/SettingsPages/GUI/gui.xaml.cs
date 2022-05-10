@@ -61,7 +61,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
             masterMenuSelected = e.ItemIndex;
             LoadBottomStack();
             LoadEditStack("Main Menu");
-            addBottomMenu.IsVisible = true;
+            addBottomMenu.IsEnabled = true;
         }
         private void BottomListItemTapped(object _, ItemTappedEventArgs e)
         {
@@ -106,7 +106,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
                 LoadMasterStack();
                 editStack.IsVisible = false;
-                addBottomMenu.IsVisible = false;
+                addBottomMenu.IsEnabled = false;
                 bottomList.ItemsSource = null;
             }
             else if (type == "Secondary Menu")

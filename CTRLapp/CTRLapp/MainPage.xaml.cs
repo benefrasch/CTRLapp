@@ -35,12 +35,14 @@ namespace CTRLapp.Views
                 bottomList.ItemsSource = Variables.Variables.Layout[masterMenu].BottomMenuItems;
             LoadObjects();
 
-            Timer updateTimer = new(500);
+
+            //status dot
+            Timer updateTimer = new(200);
             updateTimer.Elapsed += (s, e) =>
             {
                 var connected = MQTT.mqttClient.IsConnected;
                 if (connected) statusDot.BackgroundColor = Color.Green;
-                else statusDot.BackgroundColor = Color.Red;
+                else statusDot.BackgroundColor = Color.DarkRed;
             };
             updateTimer.AutoReset = true;
             updateTimer.Start();

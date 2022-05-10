@@ -14,14 +14,11 @@
         </Grid.ColumnDefinitions>
 
         <!-- Menu Lists-->
-        <Grid Grid.Column="0" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="22"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="40"/>
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" Text="Main Menu" HorizontalTextAlignment="Center" />
-            <Frame Grid.Row="1" BackgroundColor="#20505050" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
+        <Frame Style="{StaticResource blueBox}" Grid.Column="0">
+            <StackLayout>
+
+                <Label Grid.Row="0" Text="Main Menu" HorizontalTextAlignment="Center" />
+
                 <ListView x:Name="masterList" IsPullToRefreshEnabled="False" ItemTapped="MasterListItemTapped" RowHeight="70">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -38,18 +35,18 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-            </Frame>
-            <Button Grid.Row="2" Text="Add new" Pressed="AddMasterMenuItem" VerticalOptions="End" HeightRequest="40" />
-        </Grid>
 
-        <Grid Grid.Column="1" x:Name="bottomStack">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="22"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="40"/>
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" Text="Secondary Menu" HorizontalTextAlignment="Center" />
-            <Frame Grid.Row="1" BackgroundColor="#20505050" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
+                <Button Style="{StaticResource settingsButton}" Grid.Row="2" 
+                        Text="Add new" Pressed="AddMasterMenuItem" VerticalOptions="End" HeightRequest="40" />
+
+            </StackLayout>
+        </Frame>
+
+        <Frame Style="{StaticResource blueBox}" Grid.Column="1">
+            <StackLayout>
+
+                <Label Grid.Row="0" Text="Secondary Menu" HorizontalTextAlignment="Center" />
+
                 <ListView x:Name="bottomList" IsPullToRefreshEnabled="False" ItemTapped="BottomListItemTapped" RowHeight="70">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -66,33 +63,39 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-            </Frame>
-            <Button Grid.Row="2" x:Name="addBottomMenu" IsVisible="false" Text="Add new" Pressed="AddBottomMenuItem" VerticalOptions="End" HeightRequest="40" />
-        </Grid>
+
+                <Button Style="{StaticResource settingsButton}" x:Name="addBottomMenu" IsEnabled="False" Grid.Row="2" 
+                        Text="Add new" Pressed="AddBottomMenuItem" VerticalOptions="End" HeightRequest="40" />
+
+            </StackLayout>
+        </Frame>
+
 
         <!--edit stack-->
-        <StackLayout x:Name="editStack" Grid.Column="2" IsVisible="false" VerticalOptions="Fill" HorizontalOptions="Fill">
+        <Frame Style="{StaticResource blueBox}" Grid.Column="2">
+            <StackLayout x:Name="editStack" IsVisible="false" VerticalOptions="Fill" HorizontalOptions="Fill">
 
-            <Label x:Name="typeLabel" HorizontalTextAlignment="Center" />
-            <Entry x:Name="nameEntry" HorizontalOptions="Fill" HeightRequest="50" Placeholder="Menu Name" Text="{Binding Name}"/>
+                <Label x:Name="typeLabel" HorizontalTextAlignment="Center" />
+                <Entry x:Name="nameEntry" HorizontalOptions="Fill" HeightRequest="50" Placeholder="Menu Name" Text="{Binding Name}"/>
 
+                <Grid ColumnSpacing="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{StaticResource settingsButton}" Grid.Column="0" Text="icon image" x:Name="editIcon" Clicked="IconImageSelect" HeightRequest="40"/>
+                    <StackLayout Grid.Column="1" Orientation="Horizontal" x:Name="backgroundStack">
+                        <Button Style="{StaticResource settingsButton}" Text="background image" x:Name="editBackground" Clicked="BackgroundImageSelect" HorizontalOptions="FillAndExpand" HeightRequest="40"/>
+                        <ImageButton Source="{AppThemeBinding Light=trash_can_light.png, Dark=trash_can_dark.png}" Clicked="DeleteBackgroundPressed" HeightRequest="30"/>
+                    </StackLayout>
+                </Grid>
 
-            <Grid ColumnSpacing="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Text="icon image" x:Name="editIcon" Clicked="IconImageSelect"/>
-                <StackLayout Grid.Column="1" Orientation="Horizontal" x:Name="backgroundStack">
-                    <Button Text="background image" x:Name="editBackground" Clicked="BackgroundImageSelect" HorizontalOptions="FillAndExpand"/>
-                    <ImageButton Source="{AppThemeBinding Light=trash_can_light.png, Dark=trash_can_dark.png}" Clicked="DeleteBackgroundPressed" HeightRequest="30"/>
-                </StackLayout>
-            </Grid>
+                <Button Style="{StaticResource settingsButton}" Text="Edit Interface" x:Name="editGui" Clicked="EditGuiClicked" HeightRequest="40"/>
 
-            <Button Text="Edit Interface" x:Name="editGui" Clicked="EditGuiClicked" />
+                <Button Style="{StaticResource settingsButton}" Text="Delete" x:Name="deleteButton" Pressed="DeleteButtonPressed" BackgroundColor="DarkRed" WidthRequest="120" HeightRequest="40" VerticalOptions="EndAndExpand" HorizontalOptions="Center" />
 
-            <Button Text="Delete" x:Name="deleteButton" Pressed="DeleteButtonPressed" BackgroundColor="DarkRed" WidthRequest="120" HeightRequest="40" VerticalOptions="EndAndExpand" HorizontalOptions="Center" />
-        </StackLayout>
+            </StackLayout>
+        </Frame>
 
     </Grid>
 
