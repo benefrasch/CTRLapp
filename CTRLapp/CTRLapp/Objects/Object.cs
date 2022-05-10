@@ -1,5 +1,8 @@
-﻿namespace CTRLapp.Objects
+﻿using System.Collections.Generic;
+
+namespace CTRLapp.Objects
 {
+
     public class Object
     {
         public string Type { get; set; }
@@ -8,7 +11,6 @@
         public int Width { get; set; }
         public int Height { get; set; }
         public int Rotation { get; set; }
-
-        public string[] Arguments { get; set; }
+        public Dictionary<string, string> Arguments { get; set; }
     }
 }

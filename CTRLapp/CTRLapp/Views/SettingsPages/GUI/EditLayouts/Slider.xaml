@@ -2,7 +2,7 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CTRLapp.Views.SettingsPages.GUI.EditLayouts.Slider"
-             xmlns:local="clr-namespace:CTRLapp" xmlns:Views="clr-namespace:CTRLapp.Views">
+             xmlns:local="clr-namespace:CTRLapp" xmlns:EntryViews="clr-namespace:CTRLapp.Views.SettingsPages.EntryViews">
     <ContentView.Resources>
         <ResourceDictionary>
             <local:HexToColorConverter x:Key="HexToColor" />
@@ -13,42 +13,21 @@
         <StackLayout>
             <Frame Style="{StaticResource blueBox}">
                 <StackLayout>
-                    <StackLayout>
-                        <Label Text="Thumb Color"/>
-                        <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
-                                           SelectedColor="{Binding Path=Arguments[0], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
-                    </StackLayout>
-                    <StackLayout>
-                        <Label Text="Minimum color"/>
-                        <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
-                                           SelectedColor="{Binding Path=Arguments[1], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
-                    </StackLayout>
-                    <StackLayout>
-                        <Label Text="Maximum color"/>
-                        <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
-                                           SelectedColor="{Binding Path=Arguments[2], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
-                    </StackLayout>
+                    <EntryViews:ColorPicker HorizontalOptions="FillAndExpand" ValueChanged="UpdatePreview" LabelText="Thumb Color"
+                                           SelectedColor="{Binding Path=Arguments[ThumbColor], Converter={StaticResource HexToColor}}"/>
+                    <EntryViews:ColorPicker HorizontalOptions="FillAndExpand" ValueChanged="UpdatePreview" LabelText="Minimum track color"
+                                           SelectedColor="{Binding Path=Arguments[MinimumTrackColor], Converter={StaticResource HexToColor}}"/>
+                    <EntryViews:ColorPicker HorizontalOptions="FillAndExpand" ValueChanged="UpdatePreview" LabelText="Maximum track color"
+                                           SelectedColor="{Binding Path=Arguments[MaximumTrackColor], Converter={StaticResource HexToColor}}"/>
                 </StackLayout>
             </Frame>
 
             <Frame Style="{StaticResource blueBox}">
                 <StackLayout>
                     <StackLayout  Orientation="Horizontal">
-                        <StackLayout Style="{StaticResource descriptionEntryStack}">
-                            <Label Text="MQTT Topic:" Style="{StaticResource descriptionLabel}"/>
-                            <Entry Text="{Binding Arguments[3]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview"/>
-                        </StackLayout>
-                        <StackLayout Style="{StaticResource descriptionEntryStack}">
-                            <Label Text="Minimum value:"  Style="{StaticResource descriptionLabel}"/>
-                            <Entry Text="{Binding Arguments[4]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview" Keyboard="Numeric"/>
-                        </StackLayout>
-                        <StackLayout Style="{StaticResource descriptionEntryStack}">
-                            <Label Text="Maximum value:" Style="{StaticResource descriptionLabel}"/>
-                            <Entry Text="{Binding Arguments[5]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview" Keyboard="Numeric"/>
-                        </StackLayout>
+                        <EntryViews:ValueEntry LabelText="MQTT Topic" EntryText="{Binding Arguments[Topic]}" ValueChanged="UpdatePreview"/>
+                        <EntryViews:ValueEntry LabelText="Minimum" EntryText="{Binding Arguments[Minimum]}" ValueChanged="UpdatePreview"/>
+                        <EntryViews:ValueEntry LabelText="Maximum" EntryText="{Binding Arguments[Maximum]}" ValueChanged="UpdatePreview"/>
                     </StackLayout>
                 </StackLayout>
             </Frame>

@@ -12,47 +12,35 @@ namespace CTRLapp.Views.SettingsPages.General
         public General()
         {
             InitializeComponent();
-            LoadSettings();
+            grid.BindingContext = this; 
         }
 
-        private bool load;
-        private void LoadSettings()
+        public string BrokerIp
         {
-            load = true;
-            //---Broker settings
-            brokerIp.Text = Preferences.Get("brokerIp", "");
-            deviceName.Text = Preferences.Get("deviceName", "");
-            brokerUsername.Text = Preferences.Get("brokerUsername", "");
-            brokerPassword.Text = Preferences.Get("brokerPassword", "");
-            //---Master Password
-            settingsPasword.Text = Preferences.Get("SettingsPassword", "");
-            //---DarkMode
-            darkModeSwitch.IsToggled = Application.Current.RequestedTheme == OSAppTheme.Dark;
-            load = false;
+            get { return Preferences.Get("brokerIp", ""); }
+            set { Preferences.Set("brokerIp", value); }
+        }
+        public string DeviceName
+        {
+            get { return Preferences.Get("deviceName", ""); }
+            set { Preferences.Set("deviceName", value); }
+        }
+        public string BrokerUsername
+        {
+            get { return Preferences.Get("brokerUsername", ""); }
+            set { Preferences.Set("brokerUsername", value); }
+        }
+        public string BrokerPassword
+        {
+            get { return Preferences.Get("brokerPassword", ""); }
+            set { Preferences.Set("brokerPassword", value); }
+        }
+        public string SettingsPassword
+        {
+            get { return Preferences.Get("settingsPassword", ""); }
+            set { Preferences.Set("settingsPassword", value); }
         }
 
-        private void SaveSettings(object _, EventArgs e)
-        {
-            if (load) return;
-            Debug.WriteLine("save");
-            //---Broker settings
-            Preferences.Set("brokerIp", brokerIp.Text);
-            Preferences.Set("deviceName", deviceName.Text);
-            Preferences.Set("brokerUsername", brokerUsername.Text);
-            Preferences.Set("brokerPassword", brokerPassword.Text);
-            //---Master Password
-            Preferences.Set("SettingsPassword", settingsPasword.Text);
-        }
-
-        // show passwords
-        private void ShowSettingsPassword(object _, EventArgs e)
-        {
-            settingsPasword.IsPassword = !settingsPasword.IsPassword;
-        }
-        private void ShowBrokerPassword(object _, EventArgs e)
-        {
-            brokerPassword.IsPassword = !brokerPassword.IsPassword;
-        }
 
         private void DarkModeSwitchToggled(object _, ToggledEventArgs e)
         {

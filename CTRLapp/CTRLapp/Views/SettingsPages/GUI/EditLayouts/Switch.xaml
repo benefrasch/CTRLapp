@@ -2,7 +2,7 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CTRLapp.Views.SettingsPages.GUI.EditLayouts.Switch"
-             xmlns:local="clr-namespace:CTRLapp" xmlns:Views="clr-namespace:CTRLapp.Views">
+             xmlns:local="clr-namespace:CTRLapp" xmlns:EntryViews="clr-namespace:CTRLapp.Views.SettingsPages.EntryViews">
     <ContentView.Resources>
         <ResourceDictionary>
             <local:HexToColorConverter x:Key="HexToColor" />
@@ -13,37 +13,19 @@
         <StackLayout>
             <Frame Style="{StaticResource blueBox}">
                 <StackLayout>
-                    <StackLayout>
-                        <Label Text="Thumb Color"/>
-                        <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
-                                           SelectedColor="{Binding Path=Arguments[0], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
-                    </StackLayout>
-                    <StackLayout>
-                        <Label Text="Enabled color"/>
-                        <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
-                                           SelectedColor="{Binding Path=Arguments[1], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
-                    </StackLayout>
+                    <EntryViews:ColorPicker HorizontalOptions="FillAndExpand" ValueChanged="UpdatePreview" LabelText="Thumb color"
+                                           SelectedColor="{Binding Path=Arguments[ThumbColor], Converter={StaticResource HexToColor}}"/>
+                    <EntryViews:ColorPicker HorizontalOptions="FillAndExpand" ValueChanged="UpdatePreview" LabelText="Enabled color"
+                                           SelectedColor="{Binding Path=Arguments[OnColor], Converter={StaticResource HexToColor}}"/>
                 </StackLayout>
             </Frame>
 
             <Frame Style="{StaticResource blueBox}">
                 <StackLayout>
                     <StackLayout  Orientation="Horizontal">
-                        <StackLayout Style="{StaticResource descriptionEntryStack}">
-                            <Label Text="MQTT Topic:" Style="{StaticResource descriptionLabel}"/>
-                            <Entry Text="{Binding Arguments[2]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview"/>
-                        </StackLayout>
-                        <StackLayout Style="{StaticResource descriptionEntryStack}">
-                            <Label Text="Low value:"  Style="{StaticResource descriptionLabel}"/>
-                            <Entry Text="{Binding Arguments[3]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview"/>
-                        </StackLayout>
-                        <StackLayout Style="{StaticResource descriptionEntryStack}">
-                            <Label Text="High value:" Style="{StaticResource descriptionLabel}"/>
-                            <Entry Text="{Binding Arguments[4]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview"/>
-                        </StackLayout>
+                        <EntryViews:ValueEntry LabelText="MQTT Topic" EntryText="{Binding Arguments[Topic]}" ValueChanged="UpdatePreview"/>
+                        <EntryViews:ValueEntry LabelText="Low message" EntryText="{Binding Arguments[LowMessage]}" ValueChanged="UpdatePreview"/>
+                        <EntryViews:ValueEntry LabelText="High message" EntryText="{Binding Arguments[HighMessage]}" ValueChanged="UpdatePreview"/>
                     </StackLayout>
                 </StackLayout>
             </Frame>

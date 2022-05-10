@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              mc:Ignorable="d" 
-             x:Class="CTRLapp.Views.SettingsPages.General.General">
+             x:Class="CTRLapp.Views.SettingsPages.General.General"
+             xmlns:EntryViews="clr-namespace:CTRLapp.Views.SettingsPages.EntryViews">
 
     <Grid x:Name="grid" Padding="10">
         <Grid.ColumnDefinitions>
@@ -13,26 +14,17 @@
             <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
 
-        <!-- Master Password-->
         <ScrollView Grid.Column="0">
             <StackLayout >
-
+                <!--Settings password-->
                 <Frame Style="{StaticResource blueBox}">
-                    <StackLayout Style="{StaticResource descriptionEntryStack}">
+                    <StackLayout>
                         <Label Style="{StaticResource descriptionLabel}" 
                        Text="Settings Password&#10;Without this Password, you won't be able to get into the settings again! You can leave this field blank if you don't want a password." />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="40" />
-                            </Grid.ColumnDefinitions>
-                            <Entry Grid.ColumnSpan="2" IsPassword="True" x:Name="settingsPasword" HorizontalOptions="FillAndExpand" TextChanged="SaveSettings"/>
-                            <ImageButton Grid.Column="1" Pressed="ShowSettingsPassword" HeightRequest="30"
-                                 Source="{AppThemeBinding Light=show_password_icon_light.png, Dark=show_password_icon_dark.png}"/>
-                        </Grid>
+                        <EntryViews:ValueEntry LabelText="Settings password" EntryText="{Binding SettingsPassword}"/>
                     </StackLayout>
                 </Frame>
-
+                <!--Dark mode switch-->
                 <Frame Style="{StaticResource blueBox}">
 
                     <StackLayout Orientation="Horizontal">
@@ -40,46 +32,21 @@
                         <Switch x:Name="darkModeSwitch" Toggled="DarkModeSwitchToggled"/>
                     </StackLayout>
                 </Frame>
-
+                <!--JSON config-->
                 <Frame Style="{StaticResource blueBoxNoPadding}">
                     <Button BackgroundColor="Transparent" Text="JSON config" Pressed="OpenJSONConfig"/>
                 </Frame>
             </StackLayout>
         </ScrollView>
 
-        <!-- Broker Settings-->
         <ScrollView Grid.Column="2">
+        <!-- Broker Settings-->
             <Frame Style="{StaticResource blueBox}" >
                 <StackLayout>
-
-                    <StackLayout Style="{StaticResource descriptionEntryStack}">
-                        <Label Text="broker IP" Style="{StaticResource descriptionLabel}"/>
-                        <Entry x:Name="brokerIp" TextChanged="SaveSettings"/>
-                    </StackLayout>
-
-                    <StackLayout Style="{StaticResource descriptionEntryStack}">
-                        <Label Text="Device Name" Style="{StaticResource descriptionLabel}"/>
-                        <Entry x:Name="deviceName" TextChanged="SaveSettings"/>
-                    </StackLayout>
-
-                    <StackLayout Style="{StaticResource descriptionEntryStack}">
-                        <Label Text="broker username" Style="{StaticResource descriptionLabel}"/>
-                        <Entry x:Name="brokerUsername" TextChanged="SaveSettings"/>
-                    </StackLayout>
-
-                    <StackLayout Style="{StaticResource descriptionEntryStack}">
-                        <Label Text="broker password" Style="{StaticResource descriptionLabel}"/>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="40" />
-                            </Grid.ColumnDefinitions>
-                            <Entry Grid.ColumnSpan="2" x:Name="brokerPassword" IsPassword="True" HorizontalOptions="FillAndExpand" TextChanged="SaveSettings"/>
-                            <ImageButton Grid.Column="1" Pressed="ShowBrokerPassword" HeightRequest="30"
-                                    Source="{AppThemeBinding Light=show_password_icon_light.png, Dark=show_password_icon_dark.png}"/>
-                        </Grid>
-                    </StackLayout>
-
+                    <EntryViews:ValueEntry LabelText="broker IP" EntryText="{Binding BrokerIp}"/>
+                    <EntryViews:ValueEntry LabelText="Device name" EntryText="{Binding DeviceName}"/>
+                    <EntryViews:ValueEntry LabelText="Broker username" EntryText="{Binding BrokerUsername}"/>
+                    <EntryViews:ValueEntry LabelText="Broker password" EntryText="{Binding BrokerPassword}"/>
                 </StackLayout>
             </Frame>
         </ScrollView>

@@ -2,6 +2,7 @@
 using SkiaSharp.Views.Forms;
 using System.Timers;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace CTRLapp.Views
 {
@@ -56,13 +57,13 @@ namespace CTRLapp.Views
 
         private View BuildLabel(Objects.Object obj)
         {
-            int.TryParse(obj.Arguments[3], out int fontsize);
+            int.TryParse(obj.Arguments["FontSize"], out int fontsize);
             Label label = new()
             {
                 WidthRequest = obj.Width,
-                TextColor = (Color)colorConverter.Convert(obj.Arguments[0]),
-                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]),
-                Text = obj.Arguments[2],
+                TextColor = (Color)colorConverter.Convert(obj.Arguments["TextColor"]),
+                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments["BackgroundColor"]),
+                Text = obj.Arguments["Text"],
                 FontSize = fontsize,
                 IsEnabled = false,
             };
@@ -70,14 +71,14 @@ namespace CTRLapp.Views
         }
         private View BuildValueDisplay(Objects.Object obj)
         {
-            int.TryParse(obj.Arguments[5], out int fontsize);
+            int.TryParse(obj.Arguments["FontSize"], out int fontsize);
             Label label = new()
             {
                 WidthRequest = obj.Width,
-                TextColor = (Color)colorConverter.Convert(obj.Arguments[0]),
-                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]),
+                TextColor = (Color)colorConverter.Convert(obj.Arguments["TextColor"]),
+                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments["BackgroundColor"]),
                 FontSize = fontsize,
-                Text = obj.Arguments[2] + obj.Arguments[4],
+                Text = obj.Arguments["BeforeText"] + obj.Arguments["AfterText"],
                 IsEnabled = false,
             };
 
@@ -97,15 +98,15 @@ namespace CTRLapp.Views
             {
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
-                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]),
-                TextColor = (Color)colorConverter.Convert(obj.Arguments[0]),
-                Text = obj.Arguments[2],
+                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments["BackgroundColor"]),
+                TextColor = (Color)colorConverter.Convert(obj.Arguments["TextColor"]),
+                Text = obj.Arguments["Text"],
                 TextTransform = TextTransform.None,
             };
 
             button.Clicked += async (_, e) =>
             {
-                await MQTT.SendMQTT(obj.Arguments[3], obj.Arguments[4]);
+                await MQTT.SendMQTT(obj.Arguments["Topic"], obj.Arguments["Message"]);
             };
             return button;
         }
@@ -116,25 +117,25 @@ namespace CTRLapp.Views
             {
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
-                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]),
-                TextColor = (Color)colorConverter.Convert(obj.Arguments[0]),
-                Text = obj.Arguments[3],
+                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments["BackgroundColor"]),
+                TextColor = (Color)colorConverter.Convert(obj.Arguments["TextColor"]),
+                Text = obj.Arguments["Text"],
                 TextTransform = TextTransform.None,
             };
 
             switchButton.Clicked += async (_, e) =>
             {
-                if (toggled) //when high, send low message and switch to low mode and vise versa
+                toggled = !toggled;
+                if (toggled)
                 {
-                    switchButton.BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]);
-                    await MQTT.SendMQTT(obj.Arguments[4], obj.Arguments[5]);
+                    switchButton.BackgroundColor = (Color)colorConverter.Convert(obj.Arguments["OnColor"]);
+                    await MQTT.SendMQTT(obj.Arguments["Topic"], obj.Arguments["HighMessage"]);
                 }
                 else
                 {
-                    switchButton.BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[2]);
-                    await MQTT.SendMQTT(obj.Arguments[4], obj.Arguments[6]);
+                    switchButton.BackgroundColor = (Color)colorConverter.Convert(obj.Arguments["BackgroundColor"]);
+                    await MQTT.SendMQTT(obj.Arguments["Topic"], obj.Arguments["LowMessage"]);
                 }
-                toggled = !toggled;
             };
 
             //syncing function
@@ -155,16 +156,16 @@ namespace CTRLapp.Views
             bool block = false; //avoid loopback from mqtt delay
             var temp = new Xamarin.Forms.Switch
             {
-                ThumbColor = (Color)colorConverter.Convert(obj.Arguments[0]),
-                OnColor = (Color)colorConverter.Convert(obj.Arguments[1]),
+                ThumbColor = (Color)colorConverter.Convert(obj.Arguments["ThumbColor"]),
+                OnColor = (Color)colorConverter.Convert(obj.Arguments["OnColor"]),
             };
             temp.Toggled += async (_, e) =>
             {
                 if (!block)
                 {
-                    string message = obj.Arguments[3];
-                    if (e.Value) message = obj.Arguments[4];
-                    await MQTT.SendMQTT(obj.Arguments[2], message);
+                    string message = obj.Arguments["LowMessage"];
+                    if (e.Value) message = obj.Arguments["HighMessage"];
+                    await MQTT.SendMQTT(obj.Arguments["Topic"], message);
                 }
             };
 
@@ -185,22 +186,22 @@ namespace CTRLapp.Views
         private View BuildSlider(Objects.Object obj)
         {
             bool block = false; //avoid loopback from mqtt delay
-            if(int.Parse(obj.Arguments[4]) >= int.Parse(obj.Arguments[5])) 
-                obj.Arguments[4] = (int.Parse(obj.Arguments[5]) -1).ToString() ;
+            if (int.Parse(obj.Arguments["Minimum"]) >= int.Parse(obj.Arguments["Maximum"]))
+                obj.Arguments["Minimum"] = (int.Parse(obj.Arguments["Maximum"]) - 1).ToString();
             var slider = new Slider
             {
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
-                ThumbColor = (Color)colorConverter.Convert(obj.Arguments[0]),
-                MinimumTrackColor = (Color)colorConverter.Convert(obj.Arguments[1]),
-                MaximumTrackColor = (Color)colorConverter.Convert(obj.Arguments[2]),
-                Maximum = int.Parse(obj.Arguments[5]),
-                Minimum = int.Parse(obj.Arguments[4]),
+                ThumbColor = (Color)colorConverter.Convert(obj.Arguments["ThumbColor"]),
+                MinimumTrackColor = (Color)colorConverter.Convert(obj.Arguments["MinimumTrackColor"]),
+                MaximumTrackColor = (Color)colorConverter.Convert(obj.Arguments["MaximumTrackColor"]),
+                Maximum = int.Parse(obj.Arguments["Maximum"]),
+                Minimum = int.Parse(obj.Arguments["Minimum"]),
             };
             slider.ValueChanged += async (_, e) =>
             {
                 if (!block)
-                    await MQTT.SendMQTT(obj.Arguments[3], ((int)e.NewValue).ToString());
+                    await MQTT.SendMQTT(obj.Arguments["Topic"], ((int)e.NewValue).ToString());
             };
 
             //syncing function
@@ -224,9 +225,9 @@ namespace CTRLapp.Views
                 HeightRequest = obj.Width,
                 WidthRequest = obj.Width,
                 EnableTouchEvents = false,
-                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]),
+                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments["BackgroundColor"]),
             };
-            SKPoint touch = new ();
+            SKPoint touch = new();
             Timer timer = new()
             {
                 AutoReset = true,
@@ -234,7 +235,7 @@ namespace CTRLapp.Views
             };
             bool pressed = false;
             Point coordinates = new();
-            SKSize canvassize = new ();
+            SKSize canvassize = new();
 
             canvas.PaintSurface += (_, e) =>
             {
@@ -243,10 +244,10 @@ namespace CTRLapp.Views
 
                 float radius = canvassize.Width / 2;
 
-                SKPaint thumbPaint = new ()
+                SKPaint thumbPaint = new()
                 {
                     Style = SKPaintStyle.Fill,
-                    Color = ((Color)colorConverter.Convert(obj.Arguments[0])).ToSKColor(),
+                    Color = ((Color)colorConverter.Convert(obj.Arguments["ThumbColor"])).ToSKColor(),
                     IsAntialias = true,
                 };
                 surface.DrawCircle((float)touch.X, (float)touch.Y, radius / 3, thumbPaint);
@@ -285,20 +286,20 @@ namespace CTRLapp.Views
             };
             timer.Elapsed += async (_, e) =>
             {
-                coordinates.X += (touch.X - (canvassize.Width / 2)) * float.Parse(obj.Arguments[6]) * 0.1;
-                coordinates.Y += (touch.Y - (canvassize.Height / 2)) * float.Parse(obj.Arguments[9]) * 0.1;
+                coordinates.X += (touch.X - (canvassize.Width / 2)) * float.Parse(obj.Arguments["SensitivityX"]) * 0.01;
+                coordinates.Y += (touch.Y - (canvassize.Height / 2)) * float.Parse(obj.Arguments["SensitivityY"]) * 0.01;
 
-                int minimumx = int.Parse(obj.Arguments[4]),
-                    maximumx = int.Parse(obj.Arguments[5]),
-                    minimumy = int.Parse(obj.Arguments[7]),
-                    maximumy = int.Parse(obj.Arguments[8]);
+                int minimumx = int.Parse(obj.Arguments["MinimumX"]),
+                    maximumx = int.Parse(obj.Arguments["MaximumX"]),
+                    minimumy = int.Parse(obj.Arguments["MinimumY"]),
+                    maximumy = int.Parse(obj.Arguments["MaximumY"]);
                 if (coordinates.X < minimumx) coordinates.X = minimumx;
                 if (coordinates.X > maximumx) coordinates.X = maximumx;
                 if (coordinates.Y < minimumy) coordinates.Y = minimumy;
                 if (coordinates.Y > maximumy) coordinates.Y = maximumy;
 
-                await MQTT.SendMQTT(obj.Arguments[2], ((int)coordinates.X).ToString());
-                await MQTT.SendMQTT(obj.Arguments[3], ((int)coordinates.Y).ToString());
+                await MQTT.SendMQTT(obj.Arguments["TopicX"], ((int)coordinates.X).ToString());
+                await MQTT.SendMQTT(obj.Arguments["TopicY"], ((int)coordinates.Y).ToString());
             };
             canvas.Effects.Add(touchEffect);
 
@@ -335,9 +336,9 @@ namespace CTRLapp.Views
                 HeightRequest = obj.Height,
                 WidthRequest = obj.Width,
                 EnableTouchEvents = false,
-                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments[1]),
+                BackgroundColor = (Color)colorConverter.Convert(obj.Arguments["BackgroundColor"]),
             };
-            SKPoint touch = new ();
+            SKPoint touch = new();
             canvas.PaintSurface += (_, e) =>
             {
                 var surface = e.Surface.Canvas;
@@ -346,7 +347,7 @@ namespace CTRLapp.Views
                 SKPaint thumbPaint = new()
                 {
                     Style = SKPaintStyle.Fill,
-                    Color = ((Color)colorConverter.Convert(obj.Arguments[0])).ToSKColor(),
+                    Color = ((Color)colorConverter.Convert(obj.Arguments["ThumbColor"])).ToSKColor(),
                     IsAntialias = true,
                 };
                 surface.DrawCircle((float)touch.X, (float)touch.Y, thumbRadius / 3, thumbPaint);
@@ -364,24 +365,25 @@ namespace CTRLapp.Views
                         break;
                     case TouchTracking.TouchActionType.Moved:
                         if (!isTouchDown) break;
-                        //map touch point to Canvas because different size
-                        touch = new SKPoint((float)(canvas.CanvasSize.Width * e.Location.X / canvas.Width),
-                                            (float)(canvas.CanvasSize.Height * e.Location.Y / canvas.Height));
+                        //clamped touch point
+                        Point clamped = new(
+                            (e.Location.X / canvas.Width).Clamp(0, 1),
+                            (e.Location.Y / canvas.Height).Clamp(0, 1));
 
-                        if (touch.X < 0) touch.X = 0;   // so that the circle doesnt go further than the edge of the canvas
-                        if (touch.X > canvas.CanvasSize.Width) touch.X = canvas.CanvasSize.Width;
-                        if (touch.Y < 0) touch.Y = 0;
-                        if (touch.Y > canvas.CanvasSize.Width) touch.Y = canvas.CanvasSize.Width;
+                        touch = new SKPoint((float)(clamped.X * canvas.CanvasSize.Width),
+                                            (float)(clamped.Y * canvas.CanvasSize.Height));
 
                         //map touch point to defined min and max
-                        Point coordinates = new ()
+                        Point coordinates = new()
                         {
-                            X = (e.Location.X / canvas.Width) * (float.Parse(obj.Arguments[5]) - float.Parse(obj.Arguments[4])) + float.Parse(obj.Arguments[4]),
-                            Y = (e.Location.Y / canvas.Width) * (float.Parse(obj.Arguments[7]) - float.Parse(obj.Arguments[6])) + float.Parse(obj.Arguments[6]),
+                            X = clamped.X * (float.Parse(obj.Arguments["MaximumX"]) - float.Parse(obj.Arguments["MinimumX"]))
+                                + float.Parse(obj.Arguments["MinimumX"]),
+                            Y = clamped.Y * (float.Parse(obj.Arguments["MaximumY"]) - float.Parse(obj.Arguments["MinimumY"]))
+                                + float.Parse(obj.Arguments["MinimumY"]),
                         };
 
-                        await MQTT.SendMQTT(obj.Arguments[2], ((int)coordinates.X).ToString());
-                        await MQTT.SendMQTT(obj.Arguments[3], ((int)coordinates.Y).ToString());
+                        await MQTT.SendMQTT(obj.Arguments["TopicX"], ((int)coordinates.X).ToString());
+                        await MQTT.SendMQTT(obj.Arguments["TopicY"], ((int)coordinates.Y).ToString());
                         canvas.InvalidateSurface();
 
                         break;

@@ -3,22 +3,37 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace CTRLapp.Views
+namespace CTRLapp.Views.SettingsPages.EntryViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ColorPicker : ContentView
     {
         private bool changing = false;
 
-        public event EventHandler<ColorPickedEventArgs> ColorPicked;
+        public event EventHandler<EventArgs> ValueChanged;
 
+
+        //Selected Color Property
+        public Color SelectedColor
+        {
+            get { return (Color)GetValue(SelectedColorProperty); }
+            set
+            {
+                if (changing) return;
+                SetValue(SelectedColorProperty, value);
+                OnPropertyChanged();
+            }
+        }
         public static readonly BindableProperty SelectedColorProperty = BindableProperty.Create(
-                "SelectedColor", typeof(Color), typeof(ColorPicker), defaultBindingMode: BindingMode.TwoWay, propertyChanged: ColorPropertyChanged);
-
-        private static void ColorPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+                propertyName: "SelectedColor",
+                returnType: typeof(Color),
+                declaringType: typeof(ColorPicker),
+                defaultBindingMode: BindingMode.TwoWay,
+                propertyChanged: SelectedColorPropertyChanged);
+        private static void SelectedColorPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             ColorPicker control = (ColorPicker)bindable;
-            control.ColorPicked?.Invoke(null, new ColorPickedEventArgs { newColor = (Color)newValue });
+            control.ValueChanged?.Invoke(control, null);
 
             control.changing = true;
             Color newColor = (Color)newValue;
@@ -44,16 +59,18 @@ namespace CTRLapp.Views
             control.changing = false;
         }
 
-        public Color SelectedColor
+
+        // Label Text Property
+        public string LabelText
         {
-            get { return (Color)GetValue(SelectedColorProperty); }
-            set
-            {
-                if (changing) return;
-                SetValue(SelectedColorProperty, value);
-                OnPropertyChanged();
-            }
+            get { return (string)GetValue(LabelTextProperty); }
+            set { SetValue(LabelTextProperty, value); }
         }
+        public static readonly BindableProperty LabelTextProperty = BindableProperty.Create(
+                propertyName: "LabelText",
+                returnType: typeof(string),
+                declaringType: typeof(ColorPicker),
+                defaultBindingMode: BindingMode.OneTime);
 
 
 
@@ -71,10 +88,5 @@ namespace CTRLapp.Views
         {
             SelectedColor = Color.FromHsla(HueSlider.Value, SaturationSlider.Value, LuminiocitySlider.Value, AlphaSlider.Value);
         }
-    }
-
-    public class ColorPickedEventArgs : EventArgs
-    {
-        public Color newColor;
     }
 }

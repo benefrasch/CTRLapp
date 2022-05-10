@@ -1,9 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CTRLapp.Views.ColorPicker">
+             x:Class="CTRLapp.Views.SettingsPages.EntryViews.ColorPicker"
+             Padding="0,0,0,20">
     <ContentView.Content>
         <StackLayout HeightRequest="200" x:Name="stack">
+            <Label Text="{Binding LabelText}" Style="{StaticResource descriptionLabel}"/>
             <StackLayout Orientation="Horizontal" HeightRequest="35">
                 <Label Style="{StaticResource descriptionLabel}" Text="Hex: " VerticalOptions="Center"/>
                 <Entry x:Name="HexEntry" HeightRequest="35" FontSize="14" WidthRequest="100" TextChanged="HexColorChanged" Keyboard="Default"/>

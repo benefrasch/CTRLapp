@@ -46,7 +46,11 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Width = 100,
                 Height = 30,
                 Type = "Label",
-                Arguments = new string[4] { "color_secondary", Color.Transparent.ToHex(), "Label", "21" }
+                Arguments = new() {
+                    {"TextColor", "color_secondary"},
+                    { "BackgroundColor", Color.Transparent.ToHex() },
+                    {"Text", "Label"},
+                    {"FontSize", "21" } }
             }),
 
             //new Item("ValueDisplay", new Objects.Object
@@ -56,13 +60,21 @@ namespace CTRLapp.Views.SettingsPages.GUI
             //    Type = "ValueDisplay",
             //    Arguments = new string[6] { SecondaryColor.ToHex(), Color.Transparent.ToHex(), "Value display","","", "21" }
             //}), //buggy, so it is deactivated until fixed
+
             new Item("Button", "button_icon_"+theme+".png",
                 new Objects.Object
             {
                 Width = 80,
                 Height = 40,
                 Type = "Button",
-                Arguments = new string[5] { "color_primary", "color_secondary", "Button", "", "" },
+                Arguments = new()
+                {
+                    {"BackgroundColor", "color_secondary" },
+                    {"TextColor", "color_primary" },
+                    {"Text", "Button" },
+                    {"Topic", "" },
+                    {"Message", "" }
+                }
             }),
 
             new Item("SwitchBtn", "switch_button_icon_"+theme+".png",
@@ -71,7 +83,16 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Width = 80,
                 Height = 40,
                 Type = "SwitchButton",
-                Arguments = new string[7] { "color_primary", "color_secondary",Color.Red.ToHex(), "Switch btn", "", "0", "255"},
+                Arguments = new()
+                {
+                    {"BackgroundColor", "color_secondary" },
+                    {"TextColor", "color_primary" },
+                    {"OnColor", Color.Red.ToHex() },
+                    {"Text", "SwitchBtn" },
+                    {"Topic", "" },
+                    {"LowMessage", "0" },
+                    {"HighMessage", "255" }
+                }
             }),
 
             new Item("Switch", "switch_icon_"+theme+".png",
@@ -80,7 +101,13 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Width = 80,
                 Height = 40,
                 Type = "Switch",
-                Arguments = new string[5] { "color_secondary", Color.Red.ToHex(), "", "0", "255" },
+                Arguments = new(){
+                    {"ThumbColor", "color_secondary" },
+                    {"OnColor", Color.Red.ToHex()},
+                    {"Topic", "" },
+                    {"LowMessage", "" },
+                    {"HighMessage", "" }
+                }
             }),
 
             new Item("Slider", "slider_icon_"+theme+".png",
@@ -90,7 +117,16 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Height = 40,
                 Type = "Slider",
                 Rotation = 0,
-                Arguments = new string[6] { "color_secondary", Color.Red.ToHex(), Color.Gray.ToHex(), "", "0", "255" },
+                Arguments = new()
+                {
+                    {"ThumbColor", "color_secondary" },
+                    {"MinimumTrackColor", Color.Red.ToHex()},
+                    {"MaximumTrackColor", Color.Gray.ToHex()},
+                    {"Topic", "" },
+                    {"Minimum", "0" },
+                    {"Maximum", "255" }
+                }
+                //new string[6] { "color_secondary", Color.Red.ToHex(), Color.Gray.ToHex(), "", "0", "255" },
             }),
 
             new Item("Joystick", "joystick_icon_"+theme+".png",
@@ -99,7 +135,19 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Width = 200,
                 Height = 200,
                 Type = "Joystick",
-                Arguments = new string[10] { "color_secondary", "#80404040", "", "", "0", "255", "1", "0", "255", "1" },
+                Arguments = new()
+                {
+                    {"ThumbColor", "color_secondary" },
+                    {"BackgroundColor", "#80404040" },
+                    {"TopicX", "" },
+                    {"TopicY", "" },
+                    {"MinimumX", "0" },
+                    {"MaximumX", "255" },
+                    {"SensitivityX", "1" },
+                    {"MinimumY", "0" },
+                    {"MaximumY", "255" },
+                    {"SensitivityY", "1" }
+                }
             }),
 
             new Item("Matrix", "matrix_icon_"+theme+".png",
@@ -108,7 +156,17 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 Width = 200,
                 Height = 200,
                 Type = "Matrix",
-                Arguments = new string[8] { "color_secondary", "#80404040", "", "", "0", "255","0", "255" },
+                Arguments = new()
+                {
+                    {"ThumbColor", "color_secondary" },
+                    {"BackgroundColor", "#80404040" },
+                    {"TopicX", "" },
+                    {"TopicY", "" },
+                    {"MinimumX", "0" },
+                    {"MaximumX", "255" },
+                    {"MinimumY", "0" },
+                    {"MaximumY", "255" },
+                }
             }),
         };
 

@@ -23,11 +23,20 @@ namespace CTRLapp.Views.SettingsPages.General
 
         }
 
-        protected override void OnDisappearing()
+        private void SaveButtonPressed(object _, EventArgs e)
         {
+            //convert json back to Layout so app can use it
             Variables.Variables.Layout = JsonConvert.DeserializeObject<List<MasterMenuItem>>(jsonEntry.Text);
+            Navigation.PopAsync();
+        }
 
-            base.OnDisappearing();
+        private async void DiscardButtonPressed(object _, EventArgs e)
+        {
+            if (await App.Current.MainPage.DisplayAlert("Discard changes", "Do you really want to discard your changes?", "yes", "no"))
+            {
+                //pop without saving
+                _ = Navigation.PopAsync();
+            }
         }
     }
 }

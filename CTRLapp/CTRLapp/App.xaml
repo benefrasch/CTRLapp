@@ -82,7 +82,7 @@
             </Style>
 
             <Style x:Key="blueBox" TargetType="Frame">
-                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#cfe1fc, Dark=#2B2B2B}"/>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#e0ebfa, Dark=#2B2B2B}"/>
                 <Setter Property="CornerRadius" Value="8"/>
                 <Setter Property="Padding" Value="8,16,8,24"/>
             </Style>
