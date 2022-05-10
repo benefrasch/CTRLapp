@@ -6,11 +6,11 @@
              mc:Ignorable="d" 
              x:Class="CTRLapp.Views.SettingsPages.GUI.Gui">
 
-    <Grid Padding="10" ColumnSpacing="10">
+    <Grid Padding="8" ColumnSpacing="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <!-- Menu Lists-->
@@ -25,7 +25,7 @@
                             <ViewCell>
                                 <Grid Padding="5" ColumnSpacing="5">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition Width="60"/>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
                                     <Image Grid.Column="0" Source="{Binding IconPath}" VerticalOptions="Center" HorizontalOptions="Center"/>
@@ -53,7 +53,7 @@
                             <ViewCell>
                                 <Grid Padding="5" ColumnSpacing="5">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition Width="60"/>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
                                     <Image Grid.Column="0" Source="{Binding IconPath}" VerticalOptions="Center" HorizontalOptions="Center"/>
@@ -72,30 +72,30 @@
 
 
         <!--edit stack-->
-        <Frame Style="{StaticResource blueBox}" Grid.Column="2">
-            <StackLayout x:Name="editStack" IsVisible="false" VerticalOptions="Fill" HorizontalOptions="Fill">
+        <ScrollView Grid.Column="2">
+            <Frame Style="{StaticResource blueBox}" >
+                <StackLayout x:Name="editStack" IsVisible="false" VerticalOptions="Fill" HorizontalOptions="Fill">
 
-                <Label x:Name="typeLabel" HorizontalTextAlignment="Center" />
-                <Entry x:Name="nameEntry" HorizontalOptions="Fill" HeightRequest="50" Placeholder="Menu Name" Text="{Binding Name}"/>
+                    <Label x:Name="typeLabel" HorizontalTextAlignment="Center"/>
+                    <Entry x:Name="nameEntry" HorizontalOptions="Fill" HeightRequest="50" Placeholder="Menu Name" Text="{Binding Name}"/>
 
-                <Grid ColumnSpacing="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Button Style="{StaticResource settingsButton}" Grid.Column="0" Text="icon image" x:Name="editIcon" Clicked="IconImageSelect" HeightRequest="40"/>
-                    <StackLayout Grid.Column="1" Orientation="Horizontal" x:Name="backgroundStack">
-                        <Button Style="{StaticResource settingsButton}" Text="background image" x:Name="editBackground" Clicked="BackgroundImageSelect" HorizontalOptions="FillAndExpand" HeightRequest="40"/>
-                        <ImageButton Source="{AppThemeBinding Light=trash_can_light.png, Dark=trash_can_dark.png}" Clicked="DeleteBackgroundPressed" HeightRequest="30"/>
+                    <StackLayout Orientation="Horizontal">
+                        <ImageButton Source="{AppThemeBinding Light=trash_can_light.png, Dark=trash_can_dark.png}" Clicked="DeleteIconPressed" HeightRequest="30" Padding="2"/>
+                        <Button Style="{StaticResource settingsButton}" Text="icon image" x:Name="editIcon" Clicked="IconImageSelect" HorizontalOptions="FillAndExpand" HeightRequest="40"/>
                     </StackLayout>
-                </Grid>
 
-                <Button Style="{StaticResource settingsButton}" Text="Edit Interface" x:Name="editGui" Clicked="EditGuiClicked" HeightRequest="40"/>
+                    <StackLayout Orientation="Horizontal" x:Name="backgroundStack">
+                        <ImageButton Source="{AppThemeBinding Light=trash_can_light.png, Dark=trash_can_dark.png}" Clicked="DeleteBackgroundPressed" HeightRequest="30" Padding="2"/>
+                        <Button Style="{StaticResource settingsButton}" Text="bgnd image" x:Name="editBackground" Clicked="BackgroundImageSelect" HorizontalOptions="FillAndExpand" HeightRequest="40"/>
+                    </StackLayout>
 
-                <Button Style="{StaticResource settingsButton}" Text="Delete" x:Name="deleteButton" Pressed="DeleteButtonPressed" BackgroundColor="DarkRed" WidthRequest="120" HeightRequest="40" VerticalOptions="EndAndExpand" HorizontalOptions="Center" />
+                    <Button Style="{StaticResource settingsButton}" Text="Edit Interface" x:Name="editGui" Clicked="EditGuiClicked" HeightRequest="40"/>
 
-            </StackLayout>
-        </Frame>
+                    <Button Style="{StaticResource settingsButton}" Text="Delete" x:Name="deleteButton" Pressed="DeleteButtonPressed" BackgroundColor="DarkRed" WidthRequest="120" HeightRequest="40" VerticalOptions="EndAndExpand" HorizontalOptions="Center" />
+
+                </StackLayout>
+            </Frame>
+        </ScrollView>
 
     </Grid>
 

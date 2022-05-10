@@ -11,35 +11,40 @@
 
     <ContentView.Content>
         <StackLayout>
-
-            <StackLayout>
-                <Label Text="Text color" Style="{StaticResource descriptionLabel}"/>
-                <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
+            
+            <Frame Style="{StaticResource blueBox}">
+                <StackLayout>
+                    <StackLayout>
+                        <Label Text="Text color" Style="{StaticResource descriptionLabel}"/>
+                        <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
                                            SelectedColor="{Binding Path=Arguments[0], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
-            </StackLayout>
-            <StackLayout>
-                <Label Text="Background color" Style="{StaticResource descriptionLabel}"/>
-                <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Background color" Style="{StaticResource descriptionLabel}"/>
+                        <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
                                            SelectedColor="{Binding Path=Arguments[1], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
-            </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
 
-            <Frame HeightRequest="2" CornerRadius="1" 
-                           BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}"/>
-
-            <StackLayout Style="{StaticResource descriptionEntryStack}">
-                <Label Text="Text: " Style="{StaticResource descriptionLabel}"/>
-                <Entry Text="{Binding Arguments[2]}" HorizontalOptions="FillAndExpand" 
+            <Frame Style="{StaticResource blueBox}">
+                <StackLayout>
+                    <StackLayout Style="{StaticResource descriptionEntryStack}">
+                        <Label Text="Text: " Style="{StaticResource descriptionLabel}"/>
+                        <Entry Text="{Binding Arguments[2]}" HorizontalOptions="FillAndExpand" 
                        TextChanged="UpdatePreview"/>
 
-            </StackLayout>
+                    </StackLayout>
 
-            <StackLayout Style="{StaticResource descriptionEntryStack}">
-                <Label Text="Font size: " Style="{StaticResource descriptionLabel}"/>
-                <Entry Text="{Binding Arguments[3]}" HorizontalOptions="FillAndExpand" 
+                    <StackLayout Style="{StaticResource descriptionEntryStack}">
+                        <Label Text="Font size: " Style="{StaticResource descriptionLabel}"/>
+                        <Entry Text="{Binding Arguments[3]}" HorizontalOptions="FillAndExpand" 
                        TextChanged="UpdatePreview" Keyboard="Numeric"/>
 
-            </StackLayout>
-
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            
         </StackLayout>
     </ContentView.Content>
 </ContentView>

@@ -11,36 +11,42 @@
 
     <ContentView.Content>
         <StackLayout>
-
-            <StackLayout>
-                <Label Text="Thumb Color"/>
-                <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
+            <Frame Style="{StaticResource blueBox}">
+                <StackLayout>
+                    <StackLayout>
+                        <Label Text="Thumb Color"/>
+                        <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
                                            SelectedColor="{Binding Path=Arguments[0], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
-            </StackLayout>
-            <StackLayout>
-                <Label Text="Enabled color"/>
-                <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Enabled color"/>
+                        <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
                                            SelectedColor="{Binding Path=Arguments[1], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
-            </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
 
-            <StackLayout  Orientation="Horizontal">
-                <StackLayout Style="{StaticResource descriptionEntryStack}">
-                    <Label Text="MQTT Topic:" Style="{StaticResource descriptionLabel}"/>
-                    <Entry Text="{Binding Arguments[2]}" HorizontalOptions="FillAndExpand" 
+            <Frame Style="{StaticResource blueBox}">
+                <StackLayout>
+                    <StackLayout  Orientation="Horizontal">
+                        <StackLayout Style="{StaticResource descriptionEntryStack}">
+                            <Label Text="MQTT Topic:" Style="{StaticResource descriptionLabel}"/>
+                            <Entry Text="{Binding Arguments[2]}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
-                </StackLayout>
-                <StackLayout Style="{StaticResource descriptionEntryStack}">
-                    <Label Text="Low value:"  Style="{StaticResource descriptionLabel}"/>
-                    <Entry Text="{Binding Arguments[3]}" HorizontalOptions="FillAndExpand" 
+                        </StackLayout>
+                        <StackLayout Style="{StaticResource descriptionEntryStack}">
+                            <Label Text="Low value:"  Style="{StaticResource descriptionLabel}"/>
+                            <Entry Text="{Binding Arguments[3]}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
-                </StackLayout>
-                <StackLayout Style="{StaticResource descriptionEntryStack}">
-                    <Label Text="High value:" Style="{StaticResource descriptionLabel}"/>
-                    <Entry Text="{Binding Arguments[4]}" HorizontalOptions="FillAndExpand" 
+                        </StackLayout>
+                        <StackLayout Style="{StaticResource descriptionEntryStack}">
+                            <Label Text="High value:" Style="{StaticResource descriptionLabel}"/>
+                            <Entry Text="{Binding Arguments[4]}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
+                        </StackLayout>
+                    </StackLayout>
                 </StackLayout>
-            </StackLayout>
-
+            </Frame>
         </StackLayout>
     </ContentView.Content>
 </ContentView>

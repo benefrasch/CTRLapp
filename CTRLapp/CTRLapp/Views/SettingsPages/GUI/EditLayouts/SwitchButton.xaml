@@ -11,50 +11,53 @@
 
     <ContentView.Content>
         <StackLayout>
-
-            <StackLayout>
-                <Label Text="TextColor"/>
-                <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
+            <Frame Style="{StaticResource blueBox}">
+                <StackLayout>
+                    <StackLayout>
+                        <Label Text="TextColor"/>
+                        <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
                                            SelectedColor="{Binding Path=Arguments[0], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
-            </StackLayout>
-            <StackLayout>
-                <Label Text="Disabled color"/>
-                <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Disabled color"/>
+                        <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
                                            SelectedColor="{Binding Path=Arguments[1], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
-            </StackLayout>
-            <StackLayout>
-                <Label Text="Enabled color"/>
-                <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Enabled color"/>
+                        <Views:ColorPicker HorizontalOptions="FillAndExpand" ColorPicked="UpdatePreview" 
                                            SelectedColor="{Binding Path=Arguments[2], Mode=TwoWay, Converter={StaticResource HexToColor}}"/>
-            </StackLayout>
-
-            <Frame HeightRequest="2" CornerRadius="1" 
-                           BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}"/>
-
-            <StackLayout Style="{StaticResource descriptionEntryStack}">
-                <Label Text="Text:" Style="{StaticResource descriptionLabel}"/>
-                <Entry Text="{Binding Arguments[3]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview"/>
-            </StackLayout>
-
-            <StackLayout  Orientation="Horizontal">
-                <StackLayout Style="{StaticResource descriptionEntryStack}">
-                    <Label Text="MQTT Topic:" Style="{StaticResource descriptionLabel}"/>
-                    <Entry Text="{Binding Arguments[4]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview"/>
+                    </StackLayout>
                 </StackLayout>
-                <StackLayout Style="{StaticResource descriptionEntryStack}">
-                    <Label Text="Low value:"  Style="{StaticResource descriptionLabel}"/>
-                    <Entry Text="{Binding Arguments[5]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview"/>
-                </StackLayout>
-                <StackLayout Style="{StaticResource descriptionEntryStack}">
-                    <Label Text="High value:" Style="{StaticResource descriptionLabel}"/>
-                    <Entry Text="{Binding Arguments[6]}" HorizontalOptions="FillAndExpand" 
-                           TextChanged="UpdatePreview"/>
-                </StackLayout>
-            </StackLayout>
+            </Frame>
 
+            <Frame Style="{StaticResource blueBox}">
+                <StackLayout>
+                    <StackLayout Style="{StaticResource descriptionEntryStack}">
+                        <Label Text="Text:" Style="{StaticResource descriptionLabel}"/>
+                        <Entry Text="{Binding Arguments[3]}" HorizontalOptions="FillAndExpand" 
+                           TextChanged="UpdatePreview"/>
+                    </StackLayout>
+
+                    <StackLayout  Orientation="Horizontal">
+                        <StackLayout Style="{StaticResource descriptionEntryStack}">
+                            <Label Text="MQTT Topic:" Style="{StaticResource descriptionLabel}"/>
+                            <Entry Text="{Binding Arguments[4]}" HorizontalOptions="FillAndExpand" 
+                           TextChanged="UpdatePreview"/>
+                        </StackLayout>
+                        <StackLayout Style="{StaticResource descriptionEntryStack}">
+                            <Label Text="Low value:"  Style="{StaticResource descriptionLabel}"/>
+                            <Entry Text="{Binding Arguments[5]}" HorizontalOptions="FillAndExpand" 
+                           TextChanged="UpdatePreview"/>
+                        </StackLayout>
+                        <StackLayout Style="{StaticResource descriptionEntryStack}">
+                            <Label Text="High value:" Style="{StaticResource descriptionLabel}"/>
+                            <Entry Text="{Binding Arguments[6]}" HorizontalOptions="FillAndExpand" 
+                           TextChanged="UpdatePreview"/>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
         </StackLayout>
     </ContentView.Content>
 </ContentView>

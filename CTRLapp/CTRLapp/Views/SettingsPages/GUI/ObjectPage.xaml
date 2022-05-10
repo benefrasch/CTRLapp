@@ -11,8 +11,8 @@
             <local:IntToFloatConverter x:Key="IntToFloat"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
-    
+
+
     <ContentPage.Content>
         <Grid x:Name="grid">
             <Grid.ColumnDefinitions>
@@ -24,53 +24,58 @@
             <!-- sliders, entrys, ...-->
             <ScrollView>
                 <StackLayout Grid.Column="0" x:Name="editStack" Padding="10">
-                    <!--postition-->
-                    <StackLayout Orientation="Horizontal" x:Name="positionStack">
-                        <StackLayout Style="{StaticResource descriptionEntryStack}">
-                            <Label Text="X: " Style="{StaticResource descriptionLabel}"/>
-                            <Entry x:Name="entryX" Placeholder="Enter X position" Keyboard="Numeric" 
+
+                    <Frame Style="{StaticResource blueBox}">
+                        <StackLayout>
+                            <!--postition-->
+                            <StackLayout Orientation="Horizontal" x:Name="positionStack">
+                                <StackLayout Style="{StaticResource descriptionEntryStack}">
+                                    <Label Text="X: " Style="{StaticResource descriptionLabel}"/>
+                                    <Entry x:Name="entryX" Placeholder="Enter X position" Keyboard="Numeric" 
                            Text="{Binding X}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
-                        </StackLayout>
-                        <StackLayout Style="{StaticResource descriptionEntryStack}">
-                            <Label Text="Y: " Style="{StaticResource descriptionLabel}" />
-                            <Entry x:Name="entryY" Placeholder="Enter Y position" Keyboard="Numeric" 
+                                </StackLayout>
+                                <StackLayout Style="{StaticResource descriptionEntryStack}">
+                                    <Label Text="Y: " Style="{StaticResource descriptionLabel}" />
+                                    <Entry x:Name="entryY" Placeholder="Enter Y position" Keyboard="Numeric" 
                            Text="{Binding Y}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
-                        </StackLayout>
-                    </StackLayout>
-                    
-                    <!--size-->
-                    <StackLayout  Orientation="Horizontal" x:Name="sizeStack">
-                        <StackLayout Style="{StaticResource descriptionEntryStack}" >
-                            <Label Text="Width: " Style="{StaticResource descriptionLabel}"/>
-                            <Entry x:Name="entryWidth" Placeholder="Enter Width" Keyboard="Numeric" 
+                                </StackLayout>
+                            </StackLayout>
+
+                            <!--size-->
+                            <StackLayout  Orientation="Horizontal" x:Name="sizeStack">
+                                <StackLayout Style="{StaticResource descriptionEntryStack}" >
+                                    <Label Text="Width: " Style="{StaticResource descriptionLabel}"/>
+                                    <Entry x:Name="entryWidth" Placeholder="Enter Width" Keyboard="Numeric" 
                            Text="{Binding Width}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
-                        </StackLayout>
-                        <StackLayout Style="{StaticResource descriptionEntryStack}" x:Name="heightEntry">
-                            <Label Text="Height: " Style="{StaticResource descriptionLabel}"/>
-                            <Entry x:Name="entryHeight" Placeholder="Enter Height" Keyboard="Numeric" 
+                                </StackLayout>
+                                <StackLayout Style="{StaticResource descriptionEntryStack}" x:Name="heightEntry">
+                                    <Label Text="Height: " Style="{StaticResource descriptionLabel}"/>
+                                    <Entry x:Name="entryHeight" Placeholder="Enter Height" Keyboard="Numeric" 
                            Text="{Binding Height}" HorizontalOptions="FillAndExpand" 
                            TextChanged="UpdatePreview"/>
-                        </StackLayout>
-                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
 
-                    <!--rotation-->
-                    <StackLayout Style="{StaticResource descriptionEntryStack}" x:Name="rotationStack">
-                        <Label Text="Rotation: "  Style="{StaticResource descriptionLabel}"/>
-                        <StackLayout Orientation="Horizontal">
-                            <Entry x:Name="entryRotation" Placeholder="Enter Rotation" Keyboard="Numeric" 
+                            <!--rotation-->
+                            <StackLayout Style="{StaticResource descriptionEntryStack}" x:Name="rotationStack">
+                                <Label Text="Rotation: "  Style="{StaticResource descriptionLabel}"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry x:Name="entryRotation" Placeholder="Enter Rotation" Keyboard="Numeric" 
                                 BindingContext="{x:Reference sliderRotation}"
                                 Text="{Binding Value, Mode=TwoWay, Converter={StaticResource IntToFloat}}" WidthRequest="80" 
                                 TextChanged="UpdatePreview"/>
-                            <Slider x:Name="sliderRotation" HorizontalOptions="FillAndExpand" Maximum="360" ValueChanged="UpdatePreview" 
+                                    <Slider x:Name="sliderRotation" HorizontalOptions="FillAndExpand" Maximum="360" ValueChanged="UpdatePreview" 
                                 Value="{Binding Path=Rotation, Mode=TwoWay, Converter={StaticResource FloatToInt}}" />
+                                </StackLayout>
+                            </StackLayout>
                         </StackLayout>
-                    </StackLayout>
+                    </Frame>
 
-                    <Frame HeightRequest="2" CornerRadius="1" 
-                           BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}"/>
+                    <!-- custom edit layout will go here-->
+
                 </StackLayout>
             </ScrollView>
 

@@ -46,7 +46,7 @@ namespace CTRLapp.Views.SettingsPages.GUI
                 backgroundStack.IsVisible = false;
                 editStack.BindingContext = Variables.Variables.Layout[masterMenuSelected];
             }
-            else if (type == "Secondary Menu")
+            else
             {
                 editGui.IsVisible = true;
                 backgroundStack.IsVisible = true;
@@ -146,8 +146,18 @@ namespace CTRLapp.Views.SettingsPages.GUI
 
         private async void DeleteBackgroundPressed(object sender, EventArgs e)
         {
-            if(await App.Current.MainPage.DisplayAlert("Remove background image", "Do you really want to remove the background image for this page?", "yes", "no"))
+            if (await App.Current.MainPage.DisplayAlert("Remove background image", "Do you really want to remove the background image for this page?", "yes", "no"))
                 Variables.Variables.Layout[masterMenuSelected].BottomMenuItems[bottomMenuSelected].BackgroundImageSource = "";
+        }
+        private async void DeleteIconPressed(object sender, EventArgs e)
+        {
+            if (await App.Current.MainPage.DisplayAlert("Remove background image", "Do you really want to remove the icon for this Menu?", "yes", "no"))
+            {
+                if (type == "Main Menu")
+                    Variables.Variables.Layout[masterMenuSelected].IconPath = "";
+                else
+                    Variables.Variables.Layout[masterMenuSelected].BottomMenuItems[bottomMenuSelected].IconPath = "";
+            }
         }
 
         private async void BackgroundImageSelect(object _, EventArgs e)

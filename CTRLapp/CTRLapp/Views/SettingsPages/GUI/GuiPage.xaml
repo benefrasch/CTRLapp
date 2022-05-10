@@ -16,7 +16,7 @@
 
             <AbsoluteLayout x:Name="MainLayout" Grid.Column="1" />
 
-            <Frame Style="{StaticResource blueBox}" Grid.RowSpan="2">
+            <Frame Style="{StaticResource blueBoxNoPadding}" Grid.RowSpan="2">
                 <StackLayout>
 
                     <ImageButton x:Name="ExitButton" BackgroundColor="Transparent" Clicked="ExitButtonClicked" Padding="10" CornerRadius="40"
@@ -50,7 +50,7 @@
                 </StackLayout>
             </Frame>
 
-            <Frame Style="{StaticResource blueBox}" Grid.Row="1" Grid.Column="1">
+            <Frame Style="{StaticResource blueBoxNoPadding}" Grid.Row="1" Grid.Column="1">
                 <StackLayout Orientation="Horizontal">
                     <CheckBox x:Name="snapBox" VerticalOptions="Center"/>
                     <Label Text="snap" FontSize="20" VerticalOptions="Center"/>
