@@ -1,10 +1,8 @@
-﻿using CTRLapp.Objects.Objects;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,15 +13,16 @@ namespace CTRLapp.Views.SettingsPages.GUI
     {
         private readonly int masterMenu, bottomMenu;
 
+        private static string theme;
         private struct Item
         {
-            public Item(string name, string icon, Objects.BaseObject @object)
+            public Item(string name, string icon, Objects.Object @object)
             {
                 Name = name; Icon = icon; NewObject = @object;
             }
             public string Name { get; set; }
             public string Icon { get; set; }
-            public Objects.BaseObject NewObject { get; set; }
+            public Objects.Object NewObject { get; set; }
         }
 
         private readonly List<Item> items;
@@ -36,139 +35,140 @@ namespace CTRLapp.Views.SettingsPages.GUI
             this.masterMenu = masterMenu;
             this.bottomMenu = bottomMenu;
 
-            string theme;
-            if (Application.Current.RequestedTheme == OSAppTheme.Light)
-                theme = "light";
-            else
-                theme = "dark";
-
-
-
+            if (Application.Current.RequestedTheme == OSAppTheme.Light) theme = "light";
+            else theme = "dark";
 
             items = new List<Item>()
+        {
+            new Item("Label", "text_box_icon_"+theme+".png",
+                new Objects.Object
             {
-                new Item("Label", "text_box_icon_"+theme+".png",
-                    new LabelObject
+                Width = 100,
+                Height = 30,
+                Type = "Label",
+                Arguments = new() {
+                    {"TextColor", "color_secondary"},
+                    { "BackgroundColor", Color.Transparent.ToHex() },
+                    {"Text", "Label"},
+                    {"FontSize", "21" } }
+            }),
+
+            //new Item("ValueDisplay", new Objects.Object
+            //{
+            //    Width = 100,
+            //    Height = 30,
+            //    Type = "ValueDisplay",
+            //    Arguments = new string[6] { SecondaryColor.ToHex(), Color.Transparent.ToHex(), "Value display","","", "21" }
+            //}), //buggy, so it is deactivated until fixed
+
+            new Item("Button", "button_icon_"+theme+".png",
+                new Objects.Object
+            {
+                Width = 80,
+                Height = 40,
+                Type = "Button",
+                Arguments = new()
                 {
-                    Width = 100,
-                    Height = 30,
-                    Type = "Label",
-                    TextColor = Variables.Variables.SecondaryColor,
-                    BackgroundColor = Color.Transparent,
-                    Text = "Label",
-                    FontSize = 21
-                }),
+                    {"BackgroundColor", "color_secondary" },
+                    {"TextColor", "color_primary" },
+                    {"Text", "Button" },
+                    {"Topic", "" },
+                    {"Message", "" }
+                }
+            }),
 
-                //new Item("ValueDisplay", new Objects.Object
-                //{
-                //    Width = 100,
-                //    Height = 30,
-                //    Type = "ValueDisplay",
-                //    Arguments = new string[6] { SecondaryColor.ToHex(), Color.Transparent.ToHex(), "Value display","","", "21" }
-                //}), //buggy, so it is deactivated until fixed
-
-                new Item("Button", "button_icon_"+theme+".png",
-                    new ButtonObject
+            new Item("SwitchBtn", "switch_button_icon_"+theme+".png",
+                new Objects.Object
+            {
+                Width = 80,
+                Height = 40,
+                Type = "SwitchButton",
+                Arguments = new()
                 {
-                    Width = 80,
-                    Height = 40,
-                    Type = "Button",
-                    BackgroundColor = Variables.Variables.SecondaryColor,
-                    TextColor = Variables.Variables.PrimaryColor,
-                    Text = "Button",
-                    Topic = "",
-                    Message = ""
-                }),
+                    {"BackgroundColor", "color_secondary" },
+                    {"TextColor", "color_primary" },
+                    {"OnColor", Color.Red.ToHex() },
+                    {"Text", "SwitchBtn" },
+                    {"Topic", "" },
+                    {"LowMessage", "0" },
+                    {"HighMessage", "255" }
+                }
+            }),
 
-                new Item("Button", "button_icon_"+theme+".png",
-                    new ButtonObject
+            new Item("Switch", "switch_icon_"+theme+".png",
+                new Objects.Object
+            {
+                Width = 80,
+                Height = 40,
+                Type = "Switch",
+                Arguments = new(){
+                    {"ThumbColor", "color_secondary" },
+                    {"OnColor", Color.Red.ToHex()},
+                    {"Topic", "" },
+                    {"LowMessage", "" },
+                    {"HighMessage", "" }
+                }
+            }),
+
+            new Item("Slider", "slider_icon_"+theme+".png",
+                new Objects.Object
+            {
+                Width = 230,
+                Height = 40,
+                Type = "Slider",
+                Rotation = 0,
+                Arguments = new()
                 {
-                    Width = 80,
-                    Height = 40,
-                    Type = "Button",
-                    BackgroundColor = Variables.Variables.SecondaryColor,
-                    TextColor = Variables.Variables.PrimaryColor,
-                    Text = "Button",
-                    Topic = "",
-                    Message = ""
+                    {"ThumbColor", "color_secondary" },
+                    {"MinimumTrackColor", Color.Red.ToHex()},
+                    {"MaximumTrackColor", Color.Gray.ToHex()},
+                    {"Topic", "" },
+                    {"Minimum", "0" },
+                    {"Maximum", "255" }
+                }
+                //new string[6] { "color_secondary", Color.Red.ToHex(), Color.Gray.ToHex(), "", "0", "255" },
+            }),
 
-                }),
-
-                new Item("SwitchBtn", "switch_button_icon_"+theme+".png",
-                    new SwitchButtonObject
+            new Item("Joystick", "joystick_icon_"+theme+".png",
+                new Objects.Object
+            {
+                Width = 200,
+                Height = 200,
+                Type = "Joystick",
+                Arguments = new()
                 {
-                    Width = 80,
-                    Height = 40,
-                    Type = "SwitchButton",
-                    BackgroundColor = Variables.Variables.SecondaryColor,
-                    TextColor = Variables.Variables.PrimaryColor,
-                    OnColor = Color.Red,
-                    Text = "SwitchBtn",
-                    LowMessage = "0",
-                    HighMessage = "255"
-                }),
+                    {"ThumbColor", "color_secondary" },
+                    {"BackgroundColor", "#80404040" },
+                    {"TopicX", "" },
+                    {"TopicY", "" },
+                    {"MinimumX", "0" },
+                    {"MaximumX", "255" },
+                    {"SensitivityX", "1" },
+                    {"MinimumY", "0" },
+                    {"MaximumY", "255" },
+                    {"SensitivityY", "1" }
+                }
+            }),
 
-                new Item("Switch", "switch_icon_"+theme+".png",
-                    new SwitchObject
+            new Item("Matrix", "matrix_icon_"+theme+".png",
+                new Objects.Object
+            {
+                Width = 200,
+                Height = 200,
+                Type = "Matrix",
+                Arguments = new()
                 {
-                    Width = 80,
-                    Height = 40,
-                    Type = "Switch",
-                    ThumbColor = Variables.Variables.SecondaryColor,
-                    OnColor = Color.Red,
-                    Topic = "",
-                    LowMessage = "0",
-                    HighMessage = "255"
-                }),
-
-                new Item("Slider", "slider_icon_"+theme+".png",
-                    new SliderObject
-                {
-                    Width = 230,
-                    Height = 40,
-                    Type = "Slider",
-                    ThumbColor = Variables.Variables.SecondaryColor,
-                    MinimumTrackColor = Color.Red,
-                    MaximumTrackColor = Color.Gray,
-                    Topic = "",
-                    Minimum = 0,
-                    Maximum = 255,
-                }),
-
-                new Item("Joystick", "joystick_icon_"+theme+".png",
-                    new JoystickObject
-                {
-                    Width = 200,
-                    Height = 200,
-                    Type = "Joystick",
-                    ThumbColor = Variables.Variables.SecondaryColor,
-                    BackgroundColor = Color.FromHex("#80404040"),
-                    TopicX = "",
-                    MinimumX = 0,
-                    MaximumX = 255,
-                    SensitivityX = 1,
-                    TopicY = "",
-                    MinimumY = 0,
-                    MaximumY = 255,
-                    SensitivityY = 1,
-                }),
-
-                new Item("Matrix", "matrix_icon_"+theme+".png",
-                    new MatrixObject
-                {
-                    Width = 200,
-                    Height = 200,
-                    Type = "Matrix",
-                     ThumbColor = Variables.Variables.SecondaryColor,
-                    BackgroundColor = Color.FromHex("#80404040"),
-                    TopicX = "",
-                    MinimumX = 0,
-                    MaximumX = 255,
-                    TopicY = "",
-                    MinimumY = 0,
-                    MaximumY = 255,
-                }),
-            };
+                    {"ThumbColor", "color_secondary" },
+                    {"BackgroundColor", "#80404040" },
+                    {"TopicX", "" },
+                    {"TopicY", "" },
+                    {"MinimumX", "0" },
+                    {"MaximumX", "255" },
+                    {"MinimumY", "0" },
+                    {"MaximumY", "255" },
+                }
+            }),
+        };
 
             //new object list view items
             newObjectListView.ItemsSource = items;
@@ -198,10 +198,10 @@ namespace CTRLapp.Views.SettingsPages.GUI
         {
 
             if (Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects == null)
-                Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects = new List<Objects.BaseObject>();
+                Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects = new List<Objects.Object>();
             int objIndex = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects.Count;
             Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects.Add
-                (JsonConvert.DeserializeObject<Objects.BaseObject>(JsonConvert.SerializeObject(((Item)e.Item).NewObject)));
+                (JsonConvert.DeserializeObject<Objects.Object>(JsonConvert.SerializeObject(((Item)e.Item).NewObject)));
             LoadObject(objIndex);
         }
 

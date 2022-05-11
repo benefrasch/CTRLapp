@@ -81,9 +81,9 @@ namespace CTRLapp.Views
             }
 
             if (Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects == null) return;
-            List<Objects.BaseObject> objectList = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects;
+            List<Objects.Object> objectList = Variables.Variables.Layout[masterMenu].BottomMenuItems[bottomMenu].Objects;
 
-            foreach ((Objects.BaseObject obj, int index) in objectList.Select((v, i) => (v, i)))
+            foreach ((Objects.Object obj, int index) in objectList.Select((v, i) => (v, i)))
             {
                 mainLayout.Children.Add(new ObjectView(masterMenu, bottomMenu, index)
                 {

@@ -3,7 +3,7 @@
 namespace CTRLapp.Objects
 {
 
-    public class BaseObject
+    public class Object
     {
         public string Type { get; set; }
         public int X { get; set; }
