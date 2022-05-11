@@ -31,6 +31,7 @@
             <Color x:Key="DarkSecondaryColor">WhiteSmoke</Color>
 
 
+
             <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
                 <Setter Property="BackgroundColor" 
                         Value="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" />

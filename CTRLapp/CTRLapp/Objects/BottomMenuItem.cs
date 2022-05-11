@@ -10,7 +10,7 @@ namespace CTRLapp.Objects
 
         public string BackgroundImageSource { get; set; }
 
-        public List<CTRLapp.Objects.Object> Objects { get; set; }
+        public List<CTRLapp.Objects.BaseObject> Objects { get; set; }
     }
 }
 
